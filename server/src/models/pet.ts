@@ -12,7 +12,6 @@ const petSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-
     animalType: {
       type: String,
       required: true,

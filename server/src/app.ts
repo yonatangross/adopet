@@ -7,6 +7,7 @@ const app: Express = express();
 
 const PORT: string | number = process.env.PORT || 4000;
 
+app.use(express.json());
 app.use(cors());
 app.use(petRoutes);
 
@@ -17,9 +18,9 @@ mongoose.set('useFindAndModify', false);
 mongoose
   .connect(uri, options)
   .then(() =>
-    app.listen(PORT, () =>
-      console.log(`Server running on http://localhost:${PORT}`)
-    )
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    })
   )
   .catch((error) => {
     throw error;
