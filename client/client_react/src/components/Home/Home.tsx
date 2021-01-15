@@ -4,10 +4,10 @@ import PetGrid from '../PetGrid/PetGrid';
 
 const Home: React.FC = () => {
   return (
-    <main className="App">
+    <div>
       <h1>My Pets</h1>
       <PetGrid pets={[]} />
-    </main>
+    </div>
   );
 };
 
