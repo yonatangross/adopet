@@ -1,0 +1,25 @@
+{
+  "name": "adopet",
+  "version": "1.0.0",
+  "description": "Adop(e)t",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd server && npm start",
+    "front": "cd client\\front && yarn start",
+    "dash": "cd client\\dashboard && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run front\" \"npm run dash\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yonatangross/adopet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  },
+  "bugs": {
+    "url": "https://github.com/yonatangross/adopet/issues"
+  },
+  "homepage": "https://github.com/yonatangross/adopet#readme"
+}

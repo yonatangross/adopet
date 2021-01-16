@@ -9,3 +9,4 @@ client/client_angular/node_modules
 
 # nodemon.js in server
 server/nodemon.json
+node_modules
