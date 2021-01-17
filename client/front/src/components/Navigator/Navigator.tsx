@@ -10,8 +10,9 @@ import {
 import { Link, Route, Switch } from 'react-router-dom';
 import About from '../About/About';
 import Home from '../Home/Home';
+import Pet from '../Pet/Pet';
 
-const NavBar: React.FC = () => {
+const Navigator: React.FC = () => {
   return (
     <div>
       <div>
@@ -54,15 +55,14 @@ const NavBar: React.FC = () => {
         </Navbar>
       </div>
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
+        <Route exact path="/" component={Home}></Route>
         <Route path="/about">
           <About />
         </Route>
+        <Route path={`/pets/:petId`} exact component={Pet} />
       </Switch>
     </div>
   );
 };
 
-export default NavBar;
+export default Navigator;

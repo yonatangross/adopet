@@ -1,13 +1,11 @@
 import React from 'react';
-import './Pet.css';
+import './PetCard.css';
 import img from '../../assets/images/img_avatar2.png';
-import { RouteComponentProps } from 'react-router-dom';
-import { pets } from '../../data';
-interface Props extends RouteComponentProps<{ petId: string }>, PetProps {}
+interface Props extends PetProps {
+  pet: IPet;
+}
 
-const Pet: React.FC<Props> = ({ match }) => {
-  const pet = pets.find((p) => p._id === match.params.petId);
-
+const PetCard: React.FC<Props> = ({ pet }) => {
   if (!pet) {
     return null;
   }
@@ -26,4 +24,4 @@ const Pet: React.FC<Props> = ({ match }) => {
   );
 };
 
-export default Pet;
+export default PetCard;
