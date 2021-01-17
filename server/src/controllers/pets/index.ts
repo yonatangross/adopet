@@ -2,7 +2,16 @@ import { Response, Request } from 'express';
 import { IPet } from './../../types/pet';
 import Pet from '../../models/pet';
 
-const getPets = async (req: Request, res: Response): Promise<void> => {
+const findOne = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const pet: IPet | null = await Pet.findById(req.params.id);
+    res.status(200).json({ pet });
+  } catch (error) {
+    throw error;
+  }
+};
+
+const findAll = async (req: Request, res: Response): Promise<void> => {
   try {
     const pets: IPet[] = await Pet.find();
     res.status(200).json({ pets });
@@ -11,7 +20,7 @@ const getPets = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const addPet = async (req: Request, res: Response): Promise<void> => {
+const create = async (req: Request, res: Response): Promise<void> => {
   try {
     const body = req.body as Pick<
       IPet,
@@ -34,7 +43,7 @@ const addPet = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const updatePet = async (req: Request, res: Response): Promise<void> => {
+const update = async (req: Request, res: Response): Promise<void> => {
   try {
     const {
       params: { id },
@@ -55,7 +64,7 @@ const updatePet = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const deletePet = async (req: Request, res: Response): Promise<void> => {
+const deleteOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const deletedPet: IPet | null = await Pet.findByIdAndRemove(req.params.id);
     const allPets: IPet[] = await Pet.find();
@@ -69,4 +78,4 @@ const deletePet = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { getPets, addPet, updatePet, deletePet };
+export { findOne, findAll, create, update, deleteOne };
