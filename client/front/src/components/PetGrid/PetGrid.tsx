@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PetCard from '../PetCard/PetCard';
 import './PetGrid.css';
 
-interface PetGridProps  {
+interface PetGridProps {
   pets: IPet[];
 }
 
@@ -13,7 +13,7 @@ const PetGrid: React.FC<PetGridProps> = ({ pets }) => {
       {pets.map((pet: IPet) => {
         return (
           <Link key={pet._id} to={`/pets/${pet._id}`}>
-              <PetCard key={pet._id} pet={pet}/>
+            <PetCard key={pet._id} pet={pet} />
           </Link>
         );
       })}

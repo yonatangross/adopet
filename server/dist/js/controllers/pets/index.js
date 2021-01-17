@@ -12,9 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePet = exports.updatePet = exports.addPet = exports.getPets = void 0;
+exports.deleteOne = exports.update = exports.create = exports.findAll = exports.findOne = void 0;
 const pet_1 = __importDefault(require("../../models/pet"));
-const getPets = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const findOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const pet = yield pet_1.default.findById(req.params.id);
+        res.status(200).json({ pet });
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.findOne = findOne;
+const findAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const pets = yield pet_1.default.find();
         res.status(200).json({ pets });
@@ -23,8 +33,8 @@ const getPets = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         throw error;
     }
 });
-exports.getPets = getPets;
-const addPet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.findAll = findAll;
+const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
         const pet = new pet_1.default({
@@ -41,8 +51,8 @@ const addPet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         throw error;
     }
 });
-exports.addPet = addPet;
-const updatePet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.create = create;
+const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, body, } = req;
         const updatePet = yield pet_1.default.findByIdAndUpdate({ _id: id }, body);
@@ -57,8 +67,8 @@ const updatePet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         throw error;
     }
 });
-exports.updatePet = updatePet;
-const deletePet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.update = update;
+const deleteOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const deletedPet = yield pet_1.default.findByIdAndRemove(req.params.id);
         const allPets = yield pet_1.default.find();
@@ -72,4 +82,4 @@ const deletePet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         throw error;
     }
 });
-exports.deletePet = deletePet;
+exports.deleteOne = deleteOne;

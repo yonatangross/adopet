@@ -3,14 +3,14 @@ import { findOne, findAll, create, update, deleteOne } from '../controllers/pets
 
 const router: Router = Router();
 
-router.get('/pets/:id', findOne)
+router.get('/:id', findOne)
 
-router.get('/pets', findAll);
+router.get('/', findAll);
 
-router.post('/pets/:id', create);
+router.post('/', create);
 
-router.put('/pets/:id', update);
+router.put('/:id', update);
 
-router.delete('/pets/:id', deleteOne);
+router.delete('/:id', deleteOne);
 
 export default router;
