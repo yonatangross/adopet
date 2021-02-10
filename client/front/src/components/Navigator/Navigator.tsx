@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { Link, Route, Switch } from 'react-router-dom';
 import About from '../About/About';
+import Footer from '../Footer/Footer';
 import Home from '../Home/Home';
 import Pet from '../Pet/Pet';
 
@@ -41,6 +42,7 @@ const Navigator: React.FC = () => {
         </Route>
         <Route path={`/pets/:petId`} exact component={Pet} />
       </Switch>
+      <div><Footer/></div>
     </div>
   );
 };
