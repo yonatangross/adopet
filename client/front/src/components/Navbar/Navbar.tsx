@@ -39,7 +39,7 @@ class Navbar extends React.Component<NavbarProps, IState> {
     return (
       <div>
         <header>
-          <MDBNavbar color="indigo" dark expand="md" fixed="top">
+          <MDBNavbar color="black" dark expand="md" fixed="top">
             <MDBNavbarBrand href="/">
               <strong>Adop(e)t</strong>
             </MDBNavbarBrand>
@@ -57,22 +57,12 @@ class Navbar extends React.Component<NavbarProps, IState> {
                 <MDBNavItem>
                   <MDBNavLink to="#">Profile</MDBNavLink>
                 </MDBNavItem>
+                <MDBNavItem>
+                  <MDBNavLink to="/contact">Contact Us</MDBNavLink>
+                </MDBNavItem>
               </MDBNavbarNav>
             </MDBCollapse>
           </MDBNavbar>
-
-          <MDBView
-            className="view-background"
-            src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg"
-          >
-            <MDBMask
-              overlay="black-light"
-              className="flex-center flex-column text-white text-center"
-            >
-              <h2>Adop(e)t</h2>
-              <h5>Come and adopt a pet from us.</h5>
-            </MDBMask>
-          </MDBView>
         </header>
       </div>
     );
