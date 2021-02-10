@@ -5,13 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server": "cd server && npm start",
-    "server-install":"cd server && npm install",
     "front": "cd client\\front && yarn start",
-    "front-install":"cd client\\front && yarn install",
     "dash": "cd client\\dashboard && npm start",
-    "dash-install": "cd client\\dashboard && npm install",
-    "dev": "concurrently \"npm run server\" \"npm run front\" \"npm run dash\"",
-    "dev-install": "\"npm run server-install\" \"npm run front-install\" \"npm run dash-install\""
+    "dev": "concurrently \"npm run server\" \"npm run front\" \"npm run dash\""
   },
   "repository": {
     "type": "git",

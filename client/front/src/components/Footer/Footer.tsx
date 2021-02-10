@@ -1,8 +1,10 @@
-import React, { ReactElement } from "react";
+import React from "react";
+import { Link } from 'react-router-dom';
 
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import About from "../About/About";
 
-const Footer = () => {
+const FooterPage = () => {
   return (
     <MDBFooter color="blue" className="font-small pt-4 mt-4">
       <MDBContainer fluid className="text-center text-md-left">
@@ -18,7 +20,7 @@ const Footer = () => {
             <h5 className="title">Links</h5>
             <ul>
               <li className="list-unstyled">
-                <a href="#!">Link 1</a>
+              <Link to={'/about'} >About</Link>
               </li>
               <li className="list-unstyled">
                 <a href="#!">Link 2</a>
@@ -42,5 +44,5 @@ const Footer = () => {
   );
 }
 
-export default Footer;
+export default FooterPage;
 
