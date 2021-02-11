@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import './Pet.css';
 import img from '../../assets/images/img_avatar2.png';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { getPet } from '../../api/PetAPI';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBMask, MDBIcon, MDBRow, MDBView, MDBContainer, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 
@@ -74,7 +74,9 @@ const Pet: React.FC<Props> = ({ match }) => {
       </MDBTableBody>
     </MDBTable>
     <Fragment>
-      <MDBBtn to="/createAdoptionRequest" gradient="peach">Adopt Me!!!</MDBBtn>
+      <Link to="/AdoptionForm">
+      <MDBBtn gradient="peach">Adopt Me!!!</MDBBtn>
+      </Link>
     </Fragment>
           </MDBCol>
         </MDBRow>

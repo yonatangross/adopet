@@ -11,7 +11,8 @@ import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
 const Navigator: React.FC = () => {
   return (
-    <MDBContainer style={{ maxWidth: "80%" }}>
+    <div>
+         <MDBContainer style={{ maxWidth: "80%"}}>
       <MDBRow>
         <MDBCol ><div>
           <div>
@@ -24,13 +25,16 @@ const Navigator: React.FC = () => {
             </Route>
             <Route path={`/pets/:petId`} exact component={Pet} />
             <Route path="/allPets" exact component={AllPetsIndex} />
+            <Route path="/adoptionForm" exact component={AdoptForm} />
           </Switch>
-          <div>
-            <Footer />
-          </div>
         </div></MDBCol>
       </MDBRow>
     </MDBContainer>
+    <div>
+        <Footer />
+    </div>
+    </div>
+ 
   );
 };
 

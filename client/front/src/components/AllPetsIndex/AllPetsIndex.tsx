@@ -5,8 +5,6 @@ import { MDBRow, MDBCol, MDBIcon, MDBContainer } from "mdbreact";
 import './AllPetsIndex.css';
 
 
-
-
 import PetGrid from '../PetGrid/PetGrid';
 interface Props extends RouteComponentProps {
   match: match<{ petId: string }>;
@@ -25,6 +23,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
         .catch(() => console.log(`err on fetchPets`));
     };
   
+    //function filter(){}
 
     return (
       <div>

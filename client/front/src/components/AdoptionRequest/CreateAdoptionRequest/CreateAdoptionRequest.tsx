@@ -2,7 +2,7 @@ import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
 
 
-const FormPage = () => {
+const AdoptionForm = () => {
 return (
 <MDBContainer>
   <MDBRow>
@@ -30,7 +30,7 @@ return (
     );
 };
 
-export default FormPage;
+export default AdoptionForm;
 
 
 
