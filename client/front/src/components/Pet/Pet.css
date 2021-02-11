@@ -54,4 +54,7 @@
 
 .pet_name div a:hover { color: #0e8ce4; }
 
-
+.pet_row{
+    display: flex;
+    flex-direction: column;
+}
