@@ -28,29 +28,20 @@ export const Home: React.FC<Props> = () => {
 
   return (
     <div>
-          <MDBView
-            className="view-background"
-            src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg"
-          >
-            <MDBMask
-              overlay="black-light"
-              className="flex-center flex-column text-white text-center"
-            >
-              <h2>Adop(e)t</h2>
-              <h5>Come and adopt a pet from us.</h5>
-            </MDBMask>
-          </MDBView>
+      <MDBView className="view-background" src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
+        <MDBMask overlay="black-light" className="flex-center flex-column text-white text-center">
+          <h2>Adop(e)t</h2>
+          <h5>Come and adopt a pet from us.</h5>
+        </MDBMask>
+      </MDBView>
       <PetGrid pets={pets} />
       <section className="my-5">
-        <h2 className="h1-responsive font-weight-bold text-center my-5">
-          Why is it so great?
-        </h2>
+        <h2 className="h1-responsive font-weight-bold text-center my-5"> Why is it so great?</h2>
         <p className="lead grey-text w-responsive text-center mx-auto mb-5">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
           ad minim veniam.
         </p>
-
         <MDBRow>
           <MDBCol lg="5" className="text-center text-lg-left">
             <img
