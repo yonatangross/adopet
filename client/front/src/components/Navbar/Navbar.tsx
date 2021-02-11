@@ -37,9 +37,9 @@ class Navbar extends React.Component<NavbarProps, IState> {
 
   render() {
     return (
-      <div>
+      <div className="navBar">
         <header>
-          <MDBNavbar className="navBar" color="black" dark expand="md" fixed="top">
+          <MDBNavbar color="black" dark expand="md" fixed="top">
             <MDBNavbarBrand href="/">
               <strong>Adop(e)t</strong>
             </MDBNavbarBrand>
