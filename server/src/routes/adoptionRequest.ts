@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { findOne, findAll, create, update, deleteOne } from '../controllers/pets';
+import { findOne, findAll, create, update, deleteOne } from '../controllers/adoptRequests';
 
 const router: Router = Router();
 
@@ -14,5 +14,3 @@ router.put('/:id', update);
 router.delete('/:id', deleteOne);
 
 export default router;
-
-
