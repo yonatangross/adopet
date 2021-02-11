@@ -18,3 +18,12 @@ type ApiDataType = {
   pets: IPet[]; // all pets
   pet?: IPet; // updated pet
 };
+
+type AdoptionDataTypeApi = {
+  petId: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  message?: string;
+};

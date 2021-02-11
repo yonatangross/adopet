@@ -1,12 +1,14 @@
 .allPetsGrid{
-    margin-top: 5%;
+    margin-top: 10%;
 }
 
 
-.petgrid {
+/* .petgrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 10px;
     row-gap: 15px;
-  }
+  } */
+
+  
   

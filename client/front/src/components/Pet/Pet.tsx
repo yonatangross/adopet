@@ -74,7 +74,8 @@ const Pet: React.FC<Props> = ({ match }) => {
       </MDBTableBody>
     </MDBTable>
     <Fragment>
-      <Link to="/AdoptionForm">
+      <Link key={pet._id} to={`/AdoptionForm/${pet._id}`}>
+
       <MDBBtn gradient="peach">Adopt Me!!!</MDBBtn>
       </Link>
     </Fragment>
