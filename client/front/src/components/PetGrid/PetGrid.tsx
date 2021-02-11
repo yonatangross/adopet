@@ -10,8 +10,6 @@ interface PetGridProps {
 const PetGrid: React.FC<PetGridProps> = ({ pets }) => {
   return (
 
-
-    
     <div className="pet_grid">
       {pets.map((pet: IPet) => {
         return (

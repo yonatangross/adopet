@@ -39,7 +39,7 @@ class Navbar extends React.Component<NavbarProps, IState> {
     return (
       <div>
         <header>
-          <MDBNavbar color="black" dark expand="md" fixed="top">
+          <MDBNavbar className="navBar" color="black" dark expand="md" fixed="top">
             <MDBNavbarBrand href="/">
               <strong>Adop(e)t</strong>
             </MDBNavbarBrand>
@@ -59,6 +59,9 @@ class Navbar extends React.Component<NavbarProps, IState> {
                 </MDBNavItem>
                 <MDBNavItem>
                   <MDBNavLink to="/contact">Contact Us</MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                  <MDBNavLink to="/allPets">All Pets</MDBNavLink>
                 </MDBNavItem>
               </MDBNavbarNav>
             </MDBCollapse>

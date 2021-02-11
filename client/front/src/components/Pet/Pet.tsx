@@ -74,7 +74,7 @@ const Pet: React.FC<Props> = ({ match }) => {
       </MDBTableBody>
     </MDBTable>
     <Fragment>
-      <MDBBtn gradient="peach">Adopt Me!!!</MDBBtn>
+      <MDBBtn to="/createAdoptionRequest" gradient="peach">Adopt Me!!!</MDBBtn>
     </Fragment>
           </MDBCol>
         </MDBRow>
