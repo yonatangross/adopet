@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const adoptRequests_1 = require("../controllers/adoptRequests");
+const adoptionRequests_1 = require("../controllers/adoptionRequests");
 const router = express_1.Router();
-router.get('/:id', adoptRequests_1.findOne);
-router.get('/', adoptRequests_1.findAll);
-router.post('/', adoptRequests_1.create);
-router.put('/:id', adoptRequests_1.update);
-router.delete('/:id', adoptRequests_1.deleteOne);
+router.get('/:id', adoptionRequests_1.findOne);
+router.get('/', adoptionRequests_1.findAll);
+router.post('/', adoptionRequests_1.create);
+router.put('/:id', adoptionRequests_1.update);
+router.delete('/:id', adoptionRequests_1.deleteOne);
 exports.default = router;

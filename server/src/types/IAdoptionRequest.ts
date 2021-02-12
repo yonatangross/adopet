@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 
-export interface IAdoptRequest extends Document {
+export interface IAdoptionRequest extends Document {
+    petId: string;
     fullName: string;
     email: string;
     phoneNumber: string;

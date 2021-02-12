@@ -4,8 +4,9 @@ import img from '../../assets/images/img_avatar2.png';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { getPet } from '../../api/PetAPI';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBMask, MDBIcon, MDBRow, MDBView, MDBContainer, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import { addAdoptionRequest } from '../../api/AdoptionRequestAPI';
 
-interface Props extends RouteComponentProps<{ petId: string }>, PetProps {}
+interface Props extends RouteComponentProps<{ petId: string }>, IPetProps {}
 
 const Pet: React.FC<Props> = ({ match }) => {
   const [pet, setPet] = useState<IPet>();
@@ -21,6 +22,8 @@ const Pet: React.FC<Props> = ({ match }) => {
       .then(({ data: { pet } }: IPet | any) => setPet(pet))
       .catch(() => console.log(`err on fetchPet`));
   };
+
+ 
 
   if (!pet) {
     return null;
@@ -74,7 +77,7 @@ const Pet: React.FC<Props> = ({ match }) => {
       </MDBTableBody>
     </MDBTable>
     <Fragment>
-      <Link key={pet._id} to={`/AdoptionForm/${pet._id}`}>
+      <Link key={pet._id} to={`/AdoptionForm/${pet._id}`} >
       <MDBBtn gradient="peach">Adopt Me!!!</MDBBtn>
       </Link>
     </Fragment>
@@ -83,17 +86,6 @@ const Pet: React.FC<Props> = ({ match }) => {
         </MDBCardBody>
     </MDBCard>
     </div>
-    // <div className="pet_item">
-    //   <div className="pet_image ">
-    //     <img src={img} alt="Pet" />
-    //   </div>
-    //   <div className="pet_content">
-    //     <div className="pet_name">{pet.name}</div>
-    //     <div className="pet_name">{pet.age}</div>
-    //     <div className="pet_name">{pet.animalType}</div>
-    //     <div className="pet_name">{pet.breed}</div>
-    //   </div>
-    // </div>
   );
 };
 

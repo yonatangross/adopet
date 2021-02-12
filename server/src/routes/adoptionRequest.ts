@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { findOne, findAll, create, update, deleteOne } from '../controllers/adoptRequests';
+import { findOne, findAll, create, update, deleteOne } from '../controllers/adoptionRequests';
 
 const router: Router = Router();
 

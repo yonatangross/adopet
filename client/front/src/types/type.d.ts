@@ -8,22 +8,36 @@ interface IPet {
   updatedAt?: string;
 }
 
-interface PetProps {
+interface IAdoptionRequest {
+  petId: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  message?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+interface IPetProps {
   pet: IPet;
 }
 
-type ApiDataType = {
+interface IAdoptionRequestProps {
+  adoptionRequest: IAdoptionRequest;
+}
+
+
+type PetApiDataType = {
   message: string; // pet updated
   status: string; //200
   pets: IPet[]; // all pets
   pet?: IPet; // updated pet
 };
 
-type AdoptionDataTypeApi = {
-  petId: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
-  message?: string;
+type AdoptionRequestApiDataType = {
+  message: string; // adoptionRequest created
+  status: string; //200
+  adoptionRequests: IAdoptionRequest[]; // all adoptionRequests
+  adoptionRequest?: IAdoptionRequest; // create adoptionRequest
 };

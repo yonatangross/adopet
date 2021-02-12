@@ -3,11 +3,9 @@ import './PetCard.css';
 import img from '../../assets/images/img_avatar2.png';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBIcon, MDBView } from 'mdbreact';
 
-interface Props extends PetProps {
-  pet: IPet;
-}
 
-const PetCard: React.FC<Props> = ({ pet }) => {
+
+const PetCard: React.FC<IPetProps> = ({ pet }) => {
   if (!pet) {
     return null;
   }

@@ -36,12 +36,11 @@ const findAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.findAll = findAll;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(`matan`);
         console.log(req.body);
         const body = req.body;
         const adoptionRequest = new adoptionRequest_1.default({
             petId: body.petId,
-            name: body.fullName,
+            fullName: body.fullName,
             email: body.email,
             phoneNumber: body.phoneNumber,
             address: body.address,

@@ -1,8 +1,12 @@
-import { IAdoptRequest } from './../types/adoptRequest';
+import { IAdoptionRequest } from '../types/IAdoptionRequest';
 import { model, Schema } from 'mongoose';
 
-const adoptionFormSchema: Schema = new Schema(
+const adoptionRequestSchema: Schema = new Schema(
   {
+    petId: {
+      type: String,
+      required: true,
+    },
     fullName: {
       type: String,
       required: true,
@@ -22,11 +26,11 @@ const adoptionFormSchema: Schema = new Schema(
       required: true,
     },
     message: {
-        type: String,
-        required: false,
-      },
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );
 
-export default model<IAdoptRequest>('AdoptionForm', adoptionFormSchema);
+export default model<IAdoptionRequest>('AdoptionRequest', adoptionRequestSchema);

@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import { IPet } from './../../types/pet';
+import { IPet } from '../../types/IPet';
 import Pet from '../../models/pet';
 
 const findOne = async (req: Request, res: Response): Promise<void> => {
