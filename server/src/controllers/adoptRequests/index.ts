@@ -13,8 +13,8 @@ const findOne = async (req: Request, res: Response): Promise<void> => {
 
   const findAll = async (req: Request, res: Response): Promise<void> => {
     try {
-      const pets: IAdoptRequest[] = await AdoptRequest.find();
-      res.status(200).json({ AdoptRequest });
+      const adoptionRequests: IAdoptRequest[] = await AdoptRequest.find();
+      res.status(200).json({ adoptionRequests });
     } catch (error) {
       throw error;
     }
@@ -25,20 +25,21 @@ const findOne = async (req: Request, res: Response): Promise<void> => {
     try {
       const body = req.body as Pick<
       IAdoptRequest,
-        'name' | 'email' | 'phoneNumber' | 'address' 
+        'fullName' | 'email' | 'phoneNumber' | 'address' | 'message'
       >;
   
       const adoptionRequest: IAdoptRequest = new AdoptRequest({
-        name: body.name,
+        name: body.fullName,
         email: body.email,
         phoneNumber: body.phoneNumber,
         address: body.address,
+        message: body.message
       });
   
       const newAdoptionRequest: IAdoptRequest = await adoptionRequest.save();
       const allAdoptionRequests: IAdoptRequest[] = await AdoptRequest.find();
   
-      res.status(201).json({ message: 'Pet added', pet: newAdoptionRequest, pets: allAdoptionRequests });
+      res.status(201).json({ message: 'adoption request added', adoptionRequest: newAdoptionRequest, adoptionRequests: allAdoptionRequests });
     } catch (error) {
       throw error;
     }
@@ -56,7 +57,7 @@ const findOne = async (req: Request, res: Response): Promise<void> => {
       );
       const allAdoptRequests: IAdoptRequest[] = await AdoptRequest.find();
       res.status(200).json({
-        message: 'AdoptRequest updated',
+        message: 'Adopt request updated',
         allAdoptRequest: updateAdoptRequest,
         allAdoptRequests: allAdoptRequests,
       });
@@ -71,7 +72,7 @@ const findOne = async (req: Request, res: Response): Promise<void> => {
       const deletedAdoptRequest: IAdoptRequest | null = await AdoptRequest.findByIdAndRemove(req.params.id);
       const allAdoptRequests: IAdoptRequest[] = await AdoptRequest.find();
       res.status(200).json({
-        message: 'AdoptRequest deleted',
+        message: 'Adopt request deleted',
         adoptionRequest: deletedAdoptRequest,
         adoptionRequests: allAdoptRequests,
       });

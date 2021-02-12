@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const formSchema = new mongoose_1.Schema({
-    name: {
+const adoptionFormSchema = new mongoose_1.Schema({
+    fullName: {
         type: String,
         required: true,
     },
@@ -15,7 +15,7 @@ const formSchema = new mongoose_1.Schema({
         required: true,
     },
     address: {
-        type: Number,
+        type: String,
         required: true,
     },
     message: {
@@ -23,4 +23,4 @@ const formSchema = new mongoose_1.Schema({
         required: false,
     },
 }, { timestamps: true });
-exports.default = mongoose_1.model('Form', formSchema);
+exports.default = mongoose_1.model('AdoptionForm', adoptionFormSchema);

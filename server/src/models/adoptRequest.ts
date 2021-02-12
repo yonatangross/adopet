@@ -1,9 +1,9 @@
 import { IAdoptRequest } from './../types/adoptRequest';
 import { model, Schema } from 'mongoose';
 
-const formSchema: Schema = new Schema(
+const adoptionFormSchema: Schema = new Schema(
   {
-    name: {
+    fullName: {
       type: String,
       required: true,
     },
@@ -18,7 +18,7 @@ const formSchema: Schema = new Schema(
     },
 
     address: {
-      type: Number,
+      type: String,
       required: true,
     },
     message: {
@@ -29,4 +29,4 @@ const formSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default model<IAdoptRequest>('Form', formSchema);
+export default model<IAdoptRequest>('AdoptionForm', adoptionFormSchema);
