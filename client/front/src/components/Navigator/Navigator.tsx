@@ -16,7 +16,7 @@ import './Navigator.css'
 
 const Navigator: React.FC = () => {
   return (
-    <div className="main_div winter-neva-gradient">
+    <div className="main_div">
          <MDBContainer style={{ maxWidth: "80%"}}>
       <MDBRow>
         <MDBCol ><div>
