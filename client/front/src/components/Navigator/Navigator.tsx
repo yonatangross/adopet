@@ -10,13 +10,13 @@ import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import AdoptionRequestForm from '../AdoptionRequest/CreateAdoptionRequest/CreateAdoptionRequest';
 import Contact from '../Contact/Contact';
 import RequestSentSuccessfully from '../RequestSentSuccessfully/RequestSentSuccessfully';
-
+import './Navigator.css'
 
 
 
 const Navigator: React.FC = () => {
   return (
-    <div>
+    <div className="main_div">
          <MDBContainer style={{ maxWidth: "80%"}}>
       <MDBRow>
         <MDBCol ><div>
@@ -39,9 +39,9 @@ const Navigator: React.FC = () => {
     </MDBContainer>
     <div>
         <Footer />
+      </div>
     </div>
-    </div>
- 
+
   );
 };
 
