@@ -13,3 +13,4 @@ node_modules
 server/dist
 
 client/front/.eslintcache
+server/dist/js/controllers/pets/index.js

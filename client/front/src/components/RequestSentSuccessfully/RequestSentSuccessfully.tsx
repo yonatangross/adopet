@@ -1,8 +1,6 @@
 import React from "react";
 import { MDBJumbotron, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import "./RequestSentSuccessfully.css";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
 
 const RequestSentSuccessfully: React.FC = () => {
   return (
@@ -10,7 +8,7 @@ const RequestSentSuccessfully: React.FC = () => {
       <MDBContainer className="mt-5 text-center">
         <MDBRow>
           <MDBCol>
-            <MDBJumbotron className="Submited">
+            <MDBJumbotron className="Submitted">
               <h2 className="h1 display-3">Thank You</h2>
               <p className="lead">Your application was successfully sent.</p>
               <hr className="my-2" />

@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteOne = exports.update = exports.create = exports.findAll = exports.findOne = void 0;
 const typedi_1 = require("typedi");
-const pet_1 = __importDefault(require("../../models/pet"));
 const petService_1 = __importDefault(require("../../services/petService"));
 const PetServiceInstance = typedi_1.Container.get(petService_1.default);
 const findOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -40,33 +39,22 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.create = create;
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { params: { id }, body, } = req;
-        const updatePet = yield pet_1.default.findByIdAndUpdate({ _id: id }, body);
-        const allPets = yield pet_1.default.find();
+    PetServiceInstance.update(req.params.id, req.body).then((value) => {
         res.status(200).json({
-            message: 'Pet updated',
-            pet: updatePet,
-            pets: allPets,
+            message: value.message,
+            pet: value.pet,
+            pets: value.pets
         });
-    }
-    catch (error) {
-        throw error;
-    }
+    }).catch((err) => { throw err; });
 });
 exports.update = update;
 const deleteOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const deletedPet = yield pet_1.default.findByIdAndRemove(req.params.id);
-        const allPets = yield pet_1.default.find();
+    PetServiceInstance.delete(req.params.id).then((value) => {
         res.status(200).json({
-            message: 'Pet deleted',
-            pet: deletedPet,
-            pets: allPets,
+            message: value.message,
+            pet: value.pet,
+            pets: value.pets
         });
-    }
-    catch (error) {
-        throw error;
-    }
+    }).catch((err) => { throw err; });
 });
 exports.deleteOne = deleteOne;
