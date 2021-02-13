@@ -6,6 +6,8 @@ import {
   MDBBtn,
   MDBIcon,
   MDBInput,
+  MDBCardBody,
+  MDBCard,
 } from 'mdbreact';
 import { Route, RouteComponentProps } from 'react-router-dom';
 import { getPet } from '../../../api/PetAPI';
@@ -14,7 +16,7 @@ import { addAdoptionRequest } from '../../../api/AdoptionRequestAPI';
 
 
 
-interface Props extends RouteComponentProps<{ petId: string }>, IPetProps {}
+interface Props extends RouteComponentProps<{ petId: string }>, IPetProps { }
 
 const AdoptionRequestForm: React.FC<Props> = ({ match }) => {
   const [pet, setPet] = useState<IPet>();
@@ -32,14 +34,14 @@ const AdoptionRequestForm: React.FC<Props> = ({ match }) => {
     formData: IAdoptionRequest | {} | undefined
   ): void => {
     e.preventDefault();
-    addAdoptionRequest(formData,pet?._id)
+    addAdoptionRequest(formData, pet?._id)
       .then(({ status, data }) => {
         if (status !== 201) {
           throw new Error('Error! AdoptionRequest was not saved');
         }
-       /////
-       
-        
+        /////
+
+
       })
       .catch((err) => console.log(err));
   };
@@ -59,74 +61,56 @@ const AdoptionRequestForm: React.FC<Props> = ({ match }) => {
   }
   return (
     <MDBContainer>
-      <MDBRow>
-        <MDBCol md="6">
+      <MDBCard>
+        <MDBCardBody>
           <form onSubmit={(e) => handleSaveAdoptionRequest(e, formData)}>
             <p className="h5 text-center mb-4">Write to us</p>
-            <div className="grey-text">
-              <MDBInput
-                id="fullName"
-                label="Your full name"
-                icon="user"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-                onChange={handleForm}
-              />
-              <MDBInput
-                id="email"
-                label="Your email"
-                icon="envelope"
-                group
-                type="email"
-                validate
-                error="wrong"
-                success="right"
-                onChange={handleForm}
-              />
-              <MDBInput
-                value={pet._id}
-                icon="tag"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-                onChange={handleForm}
-              />
-              <MDBInput
-                id="phoneNumber"
-                label="Phone Number"
-                icon="phone"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-                onChange={handleForm}
-              />
-              <MDBInput
-                id="address"
-                label="Address"
-                icon="home"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
-                onChange={handleForm}
-              />
-              <MDBInput
-                id="message"
-                type="textarea"
-                rows="2"
-                label="Your message"
-                icon="pencil-alt"
-                onChange={handleForm}
-              />
-            </div>
+            <MDBRow>
+              <MDBCol md="6">
+                <div className="grey-text">
+                  <MDBInput id="fullName" label="Full Name" icon="user" group type="text" validate error="wrong" success="right" onChange={handleForm} />
+                  <MDBInput id="email" label="Email" icon="envelope" group type="email" validate error="wrong" success="right" onChange={handleForm} />
+                  <MDBInput id="phoneNumber" label="Phone Number" icon="phone" group type="text" validate error="wrong" success="right" onChange={handleForm} />
+                  <MDBInput id="city" label="City" icon="home" group type="text" validate error="wrong" success="right" onChange={handleForm} />
+                  <MDBInput id="address" label="Address" icon="home" group type="text" validate error="wrong" success="right" onChange={handleForm} />
+                  <MDBInput id="age" label="Age" icon="sort-numeric-down" group type="number" validate error="wrong" success="right" onChange={handleForm} />
+                </div>
+              </MDBCol>
+              <MDBCol md="6">
+                <div className="grey-text">
+                  <select className="browser-default custom-select">
+                    <option>Where the dog will live?</option>
+                    <option value="1">In Apartemnt</option>
+                    <option value="2">In Apartemnt with a garden</option>
+                    <option value="3">In my garden</option>
+                    <option value="4">Will move around freely</option>
+                  </select>
+                  <select className="browser-default custom-select">
+                    <option>Do you have another pets?</option>
+                    <option value="1">I dont have any pet</option>
+                    <option value="2">Dog / dogs</option>
+                    <option value="3">Cat/ cats</option>
+                    <option value="4">Dogs and cats</option>
+                    <option value="5">An animal that is neither a cat nor a dog</option>
+                    <option value="6">A dog or cat and also another animal</option>
+                  </select>
+                  <select className="browser-default custom-select">
+                    <option>Past dog breeding experience</option>
+                    <option value="1">I have never raised a dog</option>
+                    <option value="2">I raised a dog but had to hand it over</option>
+                    <option value="3">I raised a dog who died in good health / he is still in my possession</option>
+                  </select>
+                  <select className="browser-default custom-select">
+                    <option>Who lives in the house?</option>
+                    <option value="1">I live alone</option>
+                    <option value="2">I live with my children</option>
+                    <option value="3">Partners</option>
+                    <option value="3">Partners with children</option>
+                  </select>
+                  <MDBInput id="comment" label="Additional notes" icon="comment" group type="textarea" validate error="wrong" success="right" onChange={handleForm} />
+                </div>
+              </MDBCol>
+            </MDBRow>
             <div className="text-center">
               <MDBBtn type="submit" outline color="secondary">
                 Send
@@ -134,8 +118,8 @@ const AdoptionRequestForm: React.FC<Props> = ({ match }) => {
               </MDBBtn>
             </div>
           </form>
-        </MDBCol>
-      </MDBRow>
+        </MDBCardBody>
+      </MDBCard>
     </MDBContainer>
   );
 };
