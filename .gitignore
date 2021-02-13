@@ -12,3 +12,4 @@ server/nodemon.json
 node_modules
 server/dist
 
+client/front/.eslintcache

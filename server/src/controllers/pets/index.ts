@@ -30,38 +30,23 @@ const create = async (req: Request, res: Response): Promise<void> => {
 };
 
 const update = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const {
-      params: { id },
-      body,
-    } = req;
-    const updatePet: IPet | null = await Pet.findByIdAndUpdate(
-      { _id: id },
-      body
-    );
-    const allPets: IPet[] = await Pet.find();
+  PetServiceInstance.update(req.params.id, req.body).then((value: { message: string, pet: IPet | null, pets: IPet[] }) => {
     res.status(200).json({
-      message: 'Pet updated',
-      pet: updatePet,
-      pets: allPets,
-    });
-  } catch (error) {
-    throw error;
-  }
+      message: value.message,
+      pet: value.pet,
+      pets: value.pets
+    })
+  }).catch((err: Error) => { throw err; })
 };
 
 const deleteOne = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const deletedPet: IPet | null = await Pet.findByIdAndRemove(req.params.id);
-    const allPets: IPet[] = await Pet.find();
+  PetServiceInstance.delete(req.params.id).then((value: { message: string, pet: IPet | null, pets: IPet[] }) => {
     res.status(200).json({
-      message: 'Pet deleted',
-      pet: deletedPet,
-      pets: allPets,
-    });
-  } catch (error) {
-    throw error;
-  }
+      message: value.message,
+      pet: value.pet,
+      pets: value.pets
+    })
+  }).catch((err: Error) => { throw err; })
 };
 
 export { findOne, findAll, create, update, deleteOne };

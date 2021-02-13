@@ -31,4 +31,27 @@ export default class PetService {
         const allPets: IPet[] = await Pet.find();
         return { newPet: newPet, allPets: allPets };
     }
+
+    public async update(petId: string, req: any) {
+        const updatePet: IPet | null = await Pet.findByIdAndUpdate(
+            { _id: petId },
+            req.body
+        );
+        const allPets: IPet[] = await Pet.find();
+        return {
+            message: 'Pet updated',
+            pet: updatePet,
+            pets: allPets,
+        };
+    }
+
+    public async delete(petId: string) {
+        const deletedPet: IPet | null = await Pet.findByIdAndRemove(petId);
+        const allPets: IPet[] = await Pet.find();
+        return {
+            message: `Pet ${petId} deleted`,
+            pet: deletedPet,
+            pets: allPets,
+        };
+    }
 }
