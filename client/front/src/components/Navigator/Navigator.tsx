@@ -9,6 +9,7 @@ import { AllPetsIndex } from '../AllPetsIndex/AllPetsIndex';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import AdoptionRequestForm from '../AdoptionRequest/CreateAdoptionRequest/CreateAdoptionRequest';
 import Contact from '../Contact/Contact';
+import RequestSentSuccessfully from '../RequestSentSuccessfully/RequestSentSuccessfully';
 import './Navigator.css'
 
 
@@ -16,26 +17,27 @@ import './Navigator.css'
 const Navigator: React.FC = () => {
   return (
     <div className="main_div winter-neva-gradient">
-      <MDBContainer style={{ maxWidth: "80%"}}>
-        <MDBRow>
-          <MDBCol ><div>
-            <div>
-              <Navbar />
-            </div>
-            <Switch>
-              <Route exact path="/" component={Home}></Route>
-              <Route path="/about">
-                <About />
-              </Route>
-              <Route path={`/pets/:petId`} exact component={Pet} />
-              <Route path="/allPets" exact component={AllPetsIndex} />
-              <Route path={`/adoptionForm/:petId`} exact component={AdoptionRequestForm} />
-              <Route path={`/contact`} exact component={Contact} />
-            </Switch>
-          </div></MDBCol>
-        </MDBRow>
-      </MDBContainer>
-      <div>
+         <MDBContainer style={{ maxWidth: "80%"}}>
+      <MDBRow>
+        <MDBCol ><div>
+          <div>
+            <Navbar />
+          </div>
+          <Switch>
+            <Route exact path="/" component={Home}></Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path={`/pets/:petId`} exact component={Pet} />
+            <Route path="/allPets" exact component={AllPetsIndex} />
+            <Route path={`/adoptionForm/:petId`} exact component={AdoptionRequestForm} />
+            <Route path={`/contact`} exact component={Contact} />
+            <Route path={`/requestSent`} exact component={RequestSentSuccessfully} />
+          </Switch>
+        </div></MDBCol>
+      </MDBRow>
+    </MDBContainer>
+    <div>
         <Footer />
       </div>
     </div>
