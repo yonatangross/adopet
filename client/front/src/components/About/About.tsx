@@ -31,13 +31,10 @@ const About = () => {
               </p>
               <ul className="list-unstyled mb-0">
                 <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="facebook-f" className="blue-text" />
+                  <MDBIcon fab icon="linkedin" className="blue-text" />
                 </a>
                 <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="twitter" className="blue-text" />
-                </a>
-                <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="instagram" className="blue-text" />
+                  <MDBIcon fab icon="facebook" className="blue-text" />
                 </a>
               </ul>
             </MDBCol>
@@ -58,10 +55,10 @@ const About = () => {
               </p>
               <ul className="list-unstyled mb-0">
                 <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="facebook-f" className="blue-text" />
+                  <MDBIcon fab icon="linkedin" className="blue-text" />
                 </a>
                 <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="instagram" className="blue-text" />
+                  <MDBIcon fab icon="facebook" className="blue-text" />
                 </a>
               </ul>
             </MDBCol>
@@ -82,13 +79,10 @@ const About = () => {
               </p>
               <ul className="list-unstyled mb-0">
                 <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="facebook-f" className="blue-text" />
+                  <MDBIcon fab icon="linkedin" className="blue-text" />
                 </a>
                 <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="instagram" className="blue-text" />
-                </a>
-                <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="dribbble" className="blue-text" />
+                  <MDBIcon fab icon="facebook" className="blue-text" />
                 </a>
               </ul>
             </MDBCol>
@@ -110,10 +104,10 @@ const About = () => {
               </p>
               <ul className="list-unstyled mb-0">
                 <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="facebook-f" className="blue-text" />
+                  <MDBIcon fab icon="linkedin" className="blue-text" />
                 </a>
                 <a href="#!" className="p-2 fa-lg">
-                  <MDBIcon fab icon="github" className="blue-text" />
+                  <MDBIcon fab icon="facebook" className="blue-text" />
                 </a>
               </ul>
             </MDBCol>
