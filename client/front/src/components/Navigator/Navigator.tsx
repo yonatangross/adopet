@@ -8,6 +8,10 @@ import Pet from '../Pet/Pet';
 import { AllPetsIndex } from '../AllPetsIndex/AllPetsIndex';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import AdoptionRequestForm from '../AdoptionRequest/CreateAdoptionRequest/CreateAdoptionRequest';
+import Contact from '../Contact/Contact';
+import RequestSentSuccessfully from '../RequestSentSuccessfully/RequestSentSuccessfully';
+
+
 
 
 const Navigator: React.FC = () => {
@@ -27,6 +31,8 @@ const Navigator: React.FC = () => {
             <Route path={`/pets/:petId`} exact component={Pet} />
             <Route path="/allPets" exact component={AllPetsIndex} />
             <Route path={`/adoptionForm/:petId`} exact component={AdoptionRequestForm} />
+            <Route path={`/contact`} exact component={Contact} />
+            <Route path={`/requestSent`} exact component={RequestSentSuccessfully} />
           </Switch>
         </div></MDBCol>
       </MDBRow>

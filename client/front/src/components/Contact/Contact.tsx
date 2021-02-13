@@ -1,10 +1,11 @@
 import React, { ReactElement } from "react";
-import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput } from "mdbreact";
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput, MDBContainer } from "mdbreact";
+import './Contact.css';
 
 const Contact: React.FC = (): ReactElement => {
   return (
-    <section className="my-5">
-      <h2 className="h1-responsive font-weight-bold text-center my-5">
+    <section className="contact margetop">
+      <h2 className="h1-responsive font-weight-bold text-center ">
         Contact us
       </h2>
       <p className="text-center w-responsive mx-auto pb-5">
@@ -15,11 +16,13 @@ const Contact: React.FC = (): ReactElement => {
       <MDBRow>
         <MDBCol lg="5" className="lg-0 mb-4">
           <MDBCard>
+            <div className="header pt-3 grey lighten-2">
+              <MDBRow className="d-flex justify-content-start">
+                <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Write to us:</h3>
+              </MDBRow>
+            </div>
             <MDBCardBody>
               <div className="form-header blue accent-1">
-                <h3 className="mt-2">
-                  <MDBIcon icon="envelope" /> Write to us:
-                </h3>
               </div>
               <p className="dark-grey-text">
                 We'll write rarely, but only the best content.
@@ -54,7 +57,7 @@ const Contact: React.FC = (): ReactElement => {
               <div className="md-form">
                 <MDBInput
                   icon="pencil-alt"
-                  label="Icon Prefix"
+                  label="Your Message"
                   iconClass="grey-text"
                   type="textarea"
                   id="form-text"
@@ -73,38 +76,42 @@ const Contact: React.FC = (): ReactElement => {
             style={{ height: "400px" }}
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d76765.98321148289!2d-73.96694563267306!3d40.751663750099084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1525939514494"
-              title="This is a unique title"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBS8EZj9KdhPM5G07vW1ABQ132YpLiXmVc&q=Elie Wiesel St 2, Rishon LeTsiyon"
+              title="Adop(e)t office"
               width="100%"
               height="100%"
-              frameBorder="0"
-              style={{ border: 0 }}
+              frameBorder="1"
+              style={{ border: 1 }}
             />
           </div>
           <br />
-          <MDBRow className="text-center">
-            <MDBCol md="4">
-              <MDBBtn tag="a" floating color="blue" className="accent-1">
-                <MDBIcon icon="map-marker-alt" />
-              </MDBBtn>
-              <p>New York, 94126</p>
-              <p className="mb-md-0">United States</p>
-            </MDBCol>
-            <MDBCol md="4">
-              <MDBBtn tag="a" floating color="blue" className="accent-1">
-                <MDBIcon icon="phone" />
-              </MDBBtn>
-              <p>+ 01 234 567 89</p>
-              <p className="mb-md-0">Mon - Fri, 8:00-22:00</p>
-            </MDBCol>
-            <MDBCol md="4">
-              <MDBBtn tag="a" floating color="blue" className="accent-1">
-                <MDBIcon icon="envelope" />
-              </MDBBtn>
-              <p>info@gmail.com</p>
-              <p className="mb-md-0">sale@gmail.com</p>
-            </MDBCol>
-          </MDBRow>
+          <MDBCard>
+            <MDBCardBody>
+              <MDBRow className="text-center">
+                <MDBCol md="4">
+                  <MDBBtn tag="a" floating color="blue" className="accent-1">
+                    <MDBIcon icon="map-marker-alt" />
+                  </MDBBtn>
+                  <p>Elie Wiesel St 2, Rishon LeTsiyon</p>
+                  <p className="mb-md-0">Israel</p>
+                </MDBCol>
+                <MDBCol md="4">
+                  <MDBBtn tag="a" floating color="blue" className="accent-1">
+                    <MDBIcon icon="phone" />
+                  </MDBBtn>
+                  <p>+ 01 234 567 89</p>
+                  <p className="mb-md-0">Mon - Fri, 8:00-22:00</p>
+                </MDBCol>
+                <MDBCol md="4">
+                  <MDBBtn tag="a" floating color="blue" className="accent-1">
+                    <MDBIcon icon="envelope" />
+                  </MDBBtn>
+                  <p className="mb-md-0">adopetwebsite@gmail.com</p>
+                </MDBCol>
+              </MDBRow>
+            </MDBCardBody>
+          </MDBCard>
+
         </MDBCol>
       </MDBRow>
     </section>
