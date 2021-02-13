@@ -19,7 +19,7 @@ export default function SearchInput(props: ISearchProps) {
 
   return (
     <>
-      <label htmlFor="search" className="mt-3">Search animals here!</label>
+      <label htmlFor="search" >Search animals here!</label>
       <input
         id="search"
         className="form-control full-width"

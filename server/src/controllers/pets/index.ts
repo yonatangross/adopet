@@ -1,46 +1,32 @@
+import { Container } from 'typedi';
 import { Response, Request } from 'express';
 import { IPet } from '../../types/IPet';
 import Pet from '../../models/pet';
 
+import PetService from '../../services/petService';
+
+const PetServiceInstance = Container.get(PetService);
+
 const findOne = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const pet: IPet | null = await Pet.findById(req.params.id);
+  PetServiceInstance.getById(req.params.id).then((pet: IPet | null) => {
     res.status(200).json({ pet });
-  } catch (error) {
-    throw error;
-  }
+  }).catch((err: Error) => {
+    throw err;
+  });
 };
 
 const findAll = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const pets: IPet[] = await Pet.find();
+  PetServiceInstance.getAll().then((pets: IPet[]) => {
     res.status(200).json({ pets });
-  } catch (error) {
-    throw error;
-  }
+  }).catch((err: Error) => {
+    throw err;
+  });
 };
 
 const create = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const body = req.body as Pick<
-      IPet,
-      'name' | 'breed' | 'animalType' | 'age'
-    >;
-
-    const pet: IPet = new Pet({
-      name: body.name,
-      breed: body.breed,
-      animalType: body.animalType,
-      age: body.age,
-    });
-
-    const newPet: IPet = await pet.save();
-    const allPets: IPet[] = await Pet.find();
-
-    res.status(201).json({ message: 'Pet added', pet: newPet, pets: allPets });
-  } catch (error) {
-    throw error;
-  }
+  PetServiceInstance.create(req.body).then((value: { newPet: IPet, allPets: IPet[] }) => {
+    res.status(201).json({ message: 'Pet added', pet: value.newPet, pets: value.allPets })
+  }).catch((err: Error) => { throw err; })
 };
 
 const update = async (req: Request, res: Response): Promise<void> => {

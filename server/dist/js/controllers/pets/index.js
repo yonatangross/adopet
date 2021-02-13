@@ -13,43 +13,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteOne = exports.update = exports.create = exports.findAll = exports.findOne = void 0;
+const typedi_1 = require("typedi");
 const pet_1 = __importDefault(require("../../models/pet"));
+const petService_1 = __importDefault(require("../../services/petService"));
+const PetServiceInstance = typedi_1.Container.get(petService_1.default);
 const findOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const pet = yield pet_1.default.findById(req.params.id);
+    PetServiceInstance.getById(req.params.id).then((pet) => {
         res.status(200).json({ pet });
-    }
-    catch (error) {
-        throw error;
-    }
+    }).catch((err) => {
+        throw err;
+    });
 });
 exports.findOne = findOne;
 const findAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const pets = yield pet_1.default.find();
+    PetServiceInstance.getAll().then((pets) => {
         res.status(200).json({ pets });
-    }
-    catch (error) {
-        throw error;
-    }
+    }).catch((err) => {
+        throw err;
+    });
 });
 exports.findAll = findAll;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const body = req.body;
-        const pet = new pet_1.default({
-            name: body.name,
-            breed: body.breed,
-            animalType: body.animalType,
-            age: body.age,
-        });
-        const newPet = yield pet.save();
-        const allPets = yield pet_1.default.find();
-        res.status(201).json({ message: 'Pet added', pet: newPet, pets: allPets });
-    }
-    catch (error) {
-        throw error;
-    }
+    PetServiceInstance.create(req.body).then((value) => {
+        res.status(201).json({ message: 'Pet added', pet: value.newPet, pets: value.allPets });
+    }).catch((err) => { throw err; });
 });
 exports.create = create;
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
