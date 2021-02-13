@@ -75,7 +75,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
         }}
       />
       <h3>Results:</h3>
-      {resultPets.length > 0 && <PetGrid pets={resultPets} />}
+      {resultPets.length > 0 && <PetGrid pets={resultPets} count={9999} />}
       {resultPets.length === 0 && <p>No results found!</p>}
     </div>
   );
