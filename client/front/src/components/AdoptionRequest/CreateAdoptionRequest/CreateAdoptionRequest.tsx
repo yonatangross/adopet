@@ -7,9 +7,11 @@ import {
   MDBIcon,
   MDBInput,
 } from 'mdbreact';
-import { RouteComponentProps } from 'react-router-dom';
+import { Route, RouteComponentProps } from 'react-router-dom';
 import { getPet } from '../../../api/PetAPI';
 import { addAdoptionRequest } from '../../../api/AdoptionRequestAPI';
+
+
 
 
 interface Props extends RouteComponentProps<{ petId: string }>, IPetProps {}
@@ -35,6 +37,9 @@ const AdoptionRequestForm: React.FC<Props> = ({ match }) => {
         if (status !== 201) {
           throw new Error('Error! AdoptionRequest was not saved');
         }
+       /////
+       
+        
       })
       .catch((err) => console.log(err));
   };

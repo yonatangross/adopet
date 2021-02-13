@@ -3,7 +3,7 @@ import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput } from 
 
 const Contact: React.FC = (): ReactElement => {
   return (
-    <section className="my-5">
+    <section className="contact my-5">
       <h2 className="h1-responsive font-weight-bold text-center my-5">
         Contact us
       </h2>
