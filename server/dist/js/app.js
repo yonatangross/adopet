@@ -15,7 +15,6 @@ app.use(express_1.default.json());
 app.use(cors_1.default());
 app.use('/pets', pet_1.default);
 app.use('/adoptionRequests', adoptionRequest_1.default);
-console.log(`matan`);
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@adopetcluster.ldypt.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 mongoose_1.default.set('useFindAndModify', false);
