@@ -5,4 +5,5 @@ export interface IPet extends Document {
   breed: string;
   animalType: string;
   age: number;
+  isAdopted: boolean;
 }

@@ -1,8 +1,20 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput, MDBContainer } from "mdbreact";
 import './Contact.css';
+import RequestSentSuccessfully from "../RequestSentSuccessfully/RequestSentSuccessfully";
+import { Redirect } from "react-router-dom";
 
 const Contact: React.FC = (): ReactElement => {
+
+  const [formSent, setFormSent] = useState(false);
+
+  function handleSubmit(){
+    setFormSent(true);
+  }
+
+  if(formSent){
+    return <Redirect to="/requestSent" />;
+  }
   return (
     <section className="contact margetop">
       <h2 className="h1-responsive font-weight-bold text-center ">
@@ -64,7 +76,7 @@ const Contact: React.FC = (): ReactElement => {
                 />
               </div>
               <div className="text-center">
-                <MDBBtn color="light-blue">Submit</MDBBtn>
+                <MDBBtn onClick={() => handleSubmit()} color="light-blue">Submit</MDBBtn>
               </div>
             </MDBCardBody>
           </MDBCard>
@@ -111,10 +123,10 @@ const Contact: React.FC = (): ReactElement => {
               </MDBRow>
             </MDBCardBody>
           </MDBCard>
-
         </MDBCol>
       </MDBRow>
     </section>
+  
   );
 };
 

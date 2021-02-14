@@ -4,6 +4,7 @@ interface IPet {
   breed: string;
   animalType: string;
   age: number;
+  isAdopted: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

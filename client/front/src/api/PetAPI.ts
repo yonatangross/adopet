@@ -39,6 +39,7 @@ export const addPet = async (
             breed: formData.breed,
             animalType: formData.animalType,
             age: formData.age,
+            isAdopted: false,
         };
         console.log(`pet: ${Object.keys(pet)}\n ${Object.values(pet)}`);
 

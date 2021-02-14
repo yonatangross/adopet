@@ -18,5 +18,9 @@ const petSchema = new mongoose_1.Schema({
         type: Number,
         required: true,
     },
+    isAdopted: {
+        type: Boolean,
+        required: true
+    }
 }, { timestamps: true });
 exports.default = mongoose_1.model('Pet', petSchema);

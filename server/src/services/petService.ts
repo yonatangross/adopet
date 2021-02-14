@@ -17,7 +17,7 @@ export default class PetService {
     public async create(req: any) {
         const body = req.body as Pick<
             IPet,
-            'name' | 'breed' | 'animalType' | 'age'
+            'name' | 'breed' | 'animalType' | 'age' | 'isAdopted'
         >;
 
         const pet: IPet = new Pet({
@@ -25,6 +25,7 @@ export default class PetService {
             breed: body.breed,
             animalType: body.animalType,
             age: body.age,
+            isAdopted: body.isAdopted,
         });
 
         const newPet: IPet = await pet.save();

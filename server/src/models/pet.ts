@@ -21,7 +21,12 @@ const petSchema: Schema = new Schema(
       type: Number,
       required: true,
     },
+    isAdopted:{
+      type: Boolean,
+      required: true
+    }
   },
+
   { timestamps: true }
 );
 
