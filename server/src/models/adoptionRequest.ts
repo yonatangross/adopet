@@ -11,7 +11,6 @@ const adoptionRequestSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-
     email: {
       type: String,
       required: true,
