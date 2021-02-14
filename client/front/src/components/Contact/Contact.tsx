@@ -13,7 +13,7 @@ const Contact: React.FC = (): ReactElement => {
   }
 
   if(formSent){
-    return <Redirect to="/requestSent" />;
+    return <Redirect to="/contactRequestSent" />;
   }
   return (
     <section className="contact margetop">
