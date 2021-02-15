@@ -1,5 +1,10 @@
 import React from "react";
 import { MDBCard, MDBCardBody, MDBRow, MDBCol, MDBIcon } from "mdbreact";
+import WonderWoman from '../../images/WonderWoman.jpg'
+import Flash from '../../images/Flash.jpg'
+import SuperMan from '../../images/SuperMan.jpg'
+import Monkey from '../../images/Monkey.jpg'
+
 
 const About = () => {
   return (
@@ -18,13 +23,13 @@ const About = () => {
             <MDBCol lg="3" md="6" className="mb-lg-0 mb-5">
               <MDBCol xl="5" md="4" className="mb-3 text-center">
                 <img
-                  src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg"
+                  src={WonderWoman}
                   className="img-fluid z-depth-1 rounded-circle"
                   alt=""
                 />
               </MDBCol>
               <h5 className="font-weight-bold mt-4 mb-3">Diana Lanciano</h5>
-              <p className="text-uppercase blue-text">Developer</p>
+              <p className="text-uppercase blue-text">ANDROID TECH LEAD & FLIGHT SIMULATOR EXPERT</p>
               <p className="grey-text">
                 Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
                 consectetur, adipisci sed quia non numquam modi tempora eius.
@@ -42,13 +47,13 @@ const About = () => {
             <MDBCol lg="3" md="6" className="mb-lg-0 mb-5">
               <MDBCol xl="5" md="4" className="mb-3 text-center">
                 <img
-                  src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg"
+                  src={Flash}
                   className="img-fluid z-depth-1 rounded-circle"
                   alt=""
                 />
               </MDBCol>
               <h5 className="font-weight-bold mt-4 mb-3">Yonatan Gross</h5>
-              <p className="text-uppercase blue-text">Developer</p>
+              <p className="text-uppercase blue-text">CEO & FOUNDER & LEAD DEVELOPER</p>
               <p className="grey-text">
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 ipsa accusantium doloremque rem laudantium totam aperiam.
@@ -66,13 +71,13 @@ const About = () => {
             <MDBCol lg="3" md="6" className="mb-lg-0 mb-5">
               <MDBCol xl="5" md="4" className="mb-3 text-center">
                 <img
-                  src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg"
+                  src={SuperMan}
                   className="img-fluid z-depth-1 rounded-circle"
                   alt=""
                 />
               </MDBCol>
               <h5 className="font-weight-bold mt-4 mb-3">Matan Hasin</h5>
-              <p className="text-uppercase blue-text">Developer</p>
+              <p className="text-uppercase blue-text">OWNER & CEO & FOUNDER</p>
               <p className="grey-text">
                 Excepteur sint occaecat cupidatat non proident, sunt in culpa
                 qui officia deserunt mollit anim est fugiat nulla id eu laborum.
@@ -90,13 +95,13 @@ const About = () => {
             <MDBCol lg="3" md="6" className="mb-lg-0 mb-5">
               <MDBCol xl="5" md="4" className="mb-3 text-center">
                 <img
-                  src="https://mdbootstrap.com/img/Photos/Avatars/img(31).jpg"
+                  src={Monkey}
                   className="img-fluid z-depth-1 rounded-circle"
                   alt=""
                 />
               </MDBCol>
               <h5 className="font-weight-bold mt-4 mb-3">Aviv Miranda</h5>
-              <p className="text-uppercase blue-text">Developer</p>
+              <p className="text-uppercase blue-text">QA TEAM LEAD & CLEANER</p>
               <p className="grey-text">
                 Perspiciatis repellendus ad odit consequuntur, eveniet earum
                 nisi qui consectetur totam officia voluptates perferendis
