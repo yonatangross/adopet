@@ -21,6 +21,10 @@ const petSchema = new mongoose_1.Schema({
     isAdopted: {
         type: Boolean,
         required: true
+    },
+    primaryPicture: {
+        type: String,
+        required: true
     }
 }, { timestamps: true });
 const Pet = mongoose_1.model("Pet", petSchema);

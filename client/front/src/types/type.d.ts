@@ -7,16 +7,7 @@ interface IPet {
   isAdopted: boolean;
   createdAt?: string;
   updatedAt?: string;
-}
-
-interface IPetBase {
-  name: string;
-  breed: string;
-  animalType: string;
-  age: number;
-  isAdopted: boolean;
-  createdAt?: string;
-  updatedAt?: string;
+  primaryPicture?: string;
 }
 interface IAdoptionRequest {
   petId: string;

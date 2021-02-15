@@ -21,7 +21,12 @@ export default function Sorters<T>(props: ISortersProps<T>) {
         defaultValue={['name', 'true']}
       >
         {Object.keys(object).map((key) => {
-          if (!key || key === '_id' || key === '__v') {
+          if (
+            !key ||
+            key === '_id' ||
+            key === '__v' ||
+            key === 'primaryPicture'
+          ) {
             return <></>;
           }
           return (

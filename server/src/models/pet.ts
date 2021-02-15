@@ -16,13 +16,16 @@ const petSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-
     age: {
       type: Number,
       required: true,
     },
     isAdopted: {
       type: Boolean,
+      required: true
+    },
+    primaryPicture: {
+      type: String,
       required: true
     }
   },
