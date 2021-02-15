@@ -4,7 +4,7 @@ const mongoose_1 = require("mongoose");
 const adoptionRequestSchema = new mongoose_1.Schema({
     pet: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'Pet',
+        ref: "Pet",
         required: true,
     },
     fullName: {
