@@ -24,7 +24,7 @@ export const Home: React.FC<Props> = () => {
   }, []);
 
   const fetchPets = (): void => {
-    getPets()
+    getPets('')
       .then(({ data: { pets } }: IPet[] | any) => setPets(pets))
       .catch(() => console.log(`err on fetchPets`));
   };

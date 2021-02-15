@@ -4,9 +4,9 @@ require('dotenv').config();
 
 const baseUrl: string | undefined = 'http://localhost:4000';
 
-export const getPets = async (): Promise<AxiosResponse<PetApiDataType>> => {
+export const getPets = async (query: any): Promise<AxiosResponse<PetApiDataType>> => {
     try {
-        const pets: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/pets`);
+        const pets: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/pets`, { params: { searchInput: query } });
         console.log(`pets: ${JSON.stringify(pets)}`);
 
         return pets;
