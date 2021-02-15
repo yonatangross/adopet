@@ -6,6 +6,13 @@
     margin-bottom: 10px;
 }
 
+.sort_table{
+    margin-top:10%;
+}
+
+.Filter_Row_Table{
+    margin-right: 4%;
+}
 /* .petgrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

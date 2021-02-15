@@ -55,9 +55,6 @@ class Navbar extends React.Component<NavbarProps, IState> {
                   <MDBNavLink to="/about">About</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
-                  <MDBNavLink to="#">Profile</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
                   <MDBNavLink to="/contact">Contact Us</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
