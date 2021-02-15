@@ -62,6 +62,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
                           });
                         }}
                       />
+
                     </MDBCol>
                   </MDBRow>
                 </form>
