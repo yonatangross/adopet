@@ -33,13 +33,12 @@ export const AllPetsIndex: React.FC<Props> = () => {
 
   return (
     <div className="allPetsGrid">
-      <h2 className="h1-responsive font-weight-bold text-center my-5">
+      {/* <h2 className="h1-responsive font-weight-bold text-center my-5">
         Our Pets
-      </h2>
+      </h2> */}
       <SearchInput onChangeSearchQuery={(query) => setQuery(query)} />
       <MDBRow>
         <MDBCol md="3">
-          <MDBRow>
             <div className="Filter_Row_Table">
               <MDBCard>
                 <div className="header pt-3 grey lighten-2">
@@ -122,9 +121,6 @@ export const AllPetsIndex: React.FC<Props> = () => {
                 </MDBCardBody>
               </MDBCard>
             </div>
-          </MDBRow>
-
-          <MDBRow>
             <div className="sort_table">
               <MDBCard>
                 <div className="header pt-3 grey lighten-2">
@@ -207,7 +203,6 @@ export const AllPetsIndex: React.FC<Props> = () => {
                 </MDBCardBody>
               </MDBCard>
             </div>
-          </MDBRow>
         </MDBCol>
         <MDBCol md="9">
           <div className="petgrid">
