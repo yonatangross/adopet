@@ -1,4 +1,4 @@
-import { IAdoption } from './../types/IAdoption';
+import { IAdoptionInfo } from '../types/IAdoptionInfo';
 import { model, Schema } from 'mongoose';
 
 const adoptionSchema: Schema = new Schema(
@@ -21,4 +21,4 @@ const adoptionSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default model<IAdoption>('Adoption', adoptionSchema);
+export default model<IAdoptionInfo>('AdoptionInfo', adoptionSchema);

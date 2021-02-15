@@ -9,7 +9,7 @@ import adoptionRequest from '../../models/adoptionRequest';
 const AdoptionRequestServiceInstance = Container.get(AdoptionRequestService);
 const PetServiceInstance = Container.get(PetService);
 
-const findOne = async (req: Request, res: Response): Promise<void> => {
+const getById = async (req: Request, res: Response): Promise<void> => {
   await AdoptionRequestServiceInstance.getById(req.params.id).then((adoptionRequest: IAdoptionRequest | null) => {
     res.status(200).json({ adoptionRequest });
   }).catch((err: Error) => {
@@ -17,7 +17,7 @@ const findOne = async (req: Request, res: Response): Promise<void> => {
   });
 };
 
-const findAll = async (req: Request, res: Response): Promise<void> => {
+const getAll = async (req: Request, res: Response): Promise<void> => {
   await AdoptionRequestServiceInstance.getAll().then((adoptionRequests: IAdoptionRequest[]) => {
     res.status(200).json({ adoptionRequests });
   }).catch((err: Error) => {
@@ -36,8 +36,8 @@ const create = async (req: Request, res: Response): Promise<void> => {
   }).catch((err: Error) => { throw err; });
 };
 
-const update = async (req: Request, res: Response): Promise<void> => {
-  await AdoptionRequestServiceInstance.update(req.params.id, req.body).then((value: { message: string, adoptionRequest: IAdoptionRequest | null }) => {
+const updateById = async (req: Request, res: Response): Promise<void> => {
+  await AdoptionRequestServiceInstance.updateById(req.params.id, req.body).then((value: { message: string, adoptionRequest: IAdoptionRequest | null }) => {
     res.status(200).json({
       message: `adoption Request updated ${adoptionRequest}`,
       adoptionRequest: value.adoptionRequest,
@@ -46,8 +46,8 @@ const update = async (req: Request, res: Response): Promise<void> => {
 };
 
 
-const deleteOne = async (req: Request, res: Response): Promise<void> => {
-  await AdoptionRequestServiceInstance.delete(req.params.id).then((value: { message: string, adoptionRequest: IAdoptionRequest | null }) => {
+const deleteById = async (req: Request, res: Response): Promise<void> => {
+  await AdoptionRequestServiceInstance.deleteById(req.params.id).then((value: { message: string, adoptionRequest: IAdoptionRequest | null }) => {
     res.status(200).json({
       message: `Adoption request deleted`,
       adoptionRequest: value.adoptionRequest,
@@ -55,5 +55,5 @@ const deleteOne = async (req: Request, res: Response): Promise<void> => {
   }).catch((err: Error) => { throw err; })
 };
 
-export { findOne, findAll, create, update, deleteOne };
+export { getById, getAll, create, updateById, deleteById };
 

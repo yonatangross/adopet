@@ -36,7 +36,7 @@ export default class AdoptionRequestService {
     }
 
 
-    public async update(adoptionRequestId: string, req: any) {
+    public async updateById(adoptionRequestId: string, req: any) {
         const adoptionRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndUpdate(
             { _id: adoptionRequestId },
             req.body
@@ -47,10 +47,10 @@ export default class AdoptionRequestService {
         };
     }
 
-    public async delete(petId: string) {
-        const deletedAdoptionRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndRemove(petId);
+    public async deleteById(adoptionRequestId: string) {
+        const deletedAdoptionRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndRemove(adoptionRequestId);
         return {
-            message: `Adoption request of ${petId} deleted`,
+            message: `Adoption request of ${adoptionRequestId} deleted`,
             adoptionRequest: deletedAdoptionRequest,
         };
     }

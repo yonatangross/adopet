@@ -1,6 +1,7 @@
 import { Service } from 'typedi'
 import { IPet } from './../types/IPet';
 import Pet from '../models/pet';
+import { genericSearch } from './Search/genericSearch';
 
 @Service()
 export default class PetService {
@@ -9,9 +10,21 @@ export default class PetService {
         return pet;
     }
 
-    public async getAll() {
+    public async getAll(query: any) {
+        //todo: create interface for query used properties
+        const page = <number>(query.page || 1);
+        console.log(`page received: ${page}`);
+
+        const searchInput = <string>(query.searchInput || '');
+        console.log('SearchInput: ' + searchInput);
+        /*
+        1. get page, searchInput, filtersArray and sortingMethod
+         */
+
         const pets: IPet[] = await Pet.find();
-        return pets;
+        let filteredPets: IPet[] = pets.filter((pet) => genericSearch<IPet>(pet, ['name', 'animalType'], searchInput));
+
+        return filteredPets;
     }
 
     public async create(req: any) {

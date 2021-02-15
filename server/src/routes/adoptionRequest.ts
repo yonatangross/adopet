@@ -1,16 +1,16 @@
 import { Router } from 'express';
-import { findOne, findAll, create, update, deleteOne } from '../controllers/adoptionRequests';
+import { getById, getAll, create, updateById, deleteById } from '../controllers/adoptionRequests';
 
 const router: Router = Router();
 
-router.get('/:id', findOne)
+router.get('/:id', getById)
 
-router.get('/', findAll);
+router.get('/', getAll);
 
 router.post('/', create);
 
-router.put('/:id', update);
+router.put('/:id', updateById);
 
-router.delete('/:id', deleteOne);
+router.delete('/:id', deleteById);
 
 export default router;

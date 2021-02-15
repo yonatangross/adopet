@@ -15,3 +15,7 @@ server/dist
 client/front/.eslintcache
 server/dist/js/controllers/pets/index.js
 server/dist/js/models/adoptionRequest.js
+server/dist/js/controllers/adoptionRequests/index.js
+server/dist/js/controllers/pets/index.js
+server/dist/js/routes/pet.js
+server/dist/js/routes/adoptionRequest.js

@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-export interface IAdoption extends Document {
+export interface IAdoptionInfo extends Document {
     petId: string;
     adoptionId: string;
     adoptionDate: Date;

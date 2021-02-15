@@ -5,7 +5,7 @@ import PetService from '../../services/petService';
 
 const PetServiceInstance = Container.get(PetService);
 
-const findOne = async (req: Request, res: Response): Promise<void> => {
+const getById = async (req: Request, res: Response): Promise<void> => {
   await PetServiceInstance.getById(req.params.id).then((pet: IPet | null) => {
     res.status(200).json({ pet });
   }).catch((err: Error) => {
@@ -13,8 +13,8 @@ const findOne = async (req: Request, res: Response): Promise<void> => {
   });
 };
 
-const findAll = async (req: Request, res: Response): Promise<void> => {
-  await PetServiceInstance.getAll().then((pets: IPet[]) => {
+const getAll = async (req: Request, res: Response): Promise<void> => {
+  await PetServiceInstance.getAll(req.query).then((pets: IPet[]) => {
     res.status(200).json({ pets });
   }).catch((err: Error) => {
     throw err;
@@ -27,7 +27,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
   }).catch((err: Error) => { throw err; })
 };
 
-const update = async (req: Request, res: Response): Promise<void> => {
+const updateById = async (req: Request, res: Response): Promise<void> => {
   await PetServiceInstance.update(req.params.id, req.body).then((value: { message: string, pet: IPet | null }) => {
     res.status(200).json({
       message: value.message,
@@ -36,7 +36,7 @@ const update = async (req: Request, res: Response): Promise<void> => {
   }).catch((err: Error) => { throw err; })
 };
 
-const deleteOne = async (req: Request, res: Response): Promise<void> => {
+const deleteById = async (req: Request, res: Response): Promise<void> => {
   await PetServiceInstance.delete(req.params.id).then((value: { message: string, pet: IPet | null }) => {
     res.status(200).json({
       message: value.message,
@@ -45,4 +45,4 @@ const deleteOne = async (req: Request, res: Response): Promise<void> => {
   }).catch((err: Error) => { throw err; })
 };
 
-export { findOne, findAll, create, update, deleteOne };
+export { getById , getAll, create, updateById , deleteById  };
