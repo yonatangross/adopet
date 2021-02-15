@@ -59,10 +59,10 @@ export const AllPetsIndex: React.FC<Props> = () => {
                     <MDBCol md="8">
                       <select className="browser-default custom-select">
                         <option>Choose your option</option>
-                        <option value="1">Matan</option>
-                        <option value="2">Aviv and Matan</option>
-                        <option value="3">Diana and Matan</option>
-                        <option value="3">NO MATAN</option>
+                        <option value="1">Age</option>
+                        <option value="2">Gender</option>
+                        <option value="3">Date</option>
+                        <option value="3">Adopted</option>
                       </select>
                     </MDBCol>
                   </MDBRow>
