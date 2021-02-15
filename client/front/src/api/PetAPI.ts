@@ -1,14 +1,13 @@
 import axios, { AxiosResponse } from 'axios';
+import ISorter from '../interfaces/ISorter';
 
 require('dotenv').config();
 
 const baseUrl: string | undefined = 'http://localhost:4000';
 
-export const getPets = async (query: any): Promise<AxiosResponse<PetApiDataType>> => {
+export const getPets = async (searchInput: string, activeSorter: ISorter<IPet> | null): Promise<AxiosResponse<PetApiDataType>> => {
     try {
-        const pets: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/pets`, { params: { searchInput: query } });
-        console.log(`pets: ${JSON.stringify(pets)}`);
-
+        const pets: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/pets`, { params: { searchInput: searchInput, sorter: activeSorter } });
         return pets;
     } catch (error) {
         throw new Error(error);

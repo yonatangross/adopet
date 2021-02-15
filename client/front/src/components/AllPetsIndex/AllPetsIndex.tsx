@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { match, RouteComponentProps } from 'react-router-dom';
 import { getPets } from '../../api/PetAPI';
-import {
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-  MDBContainer,
-  MDBCard,
-  MDBCardBody,
-} from 'mdbreact';
+import { MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdbreact';
 import './AllPetsIndex.css';
 
 import PetGrid from '../PetGrid/PetGrid';
 import SearchInput from '../SearchInput/SearchInput';
+import ISorter from '../../interfaces/ISorter';
+import Sorters from '../Sorters/Sorters';
 interface Props extends RouteComponentProps {
   match: match<{ petId: string }>;
 }
 
+
 export const AllPetsIndex: React.FC<Props> = () => {
-  const [query, setQuery] = useState<string>('');
+  const [searchInput, setSearchInput] = useState<string>('');
   const [pets, setPets] = useState<IPet[]>([
     { _id: '', age: 0, animalType: '', breed: '', name: '', isAdopted: false },
   ]);
+  const [activeSorter, setActiveSorter] = useState<ISorter<IPet>>({
+    property: 'age',
+    isDescending: false,
+  });
 
   useEffect(() => {
-    console.log(`searching pet with query: ${query}`);
-
-    getPets(query)
+    getPets(searchInput, activeSorter)
       .then(({ data: { pets } }: IPet[] | any) => setPets(pets))
       .catch(() => console.log(`err on fetchPets`));
-  }, [query]);
+  }, [searchInput, activeSorter]);
 
   return (
     <div className="allPetsGrid">
@@ -38,16 +36,14 @@ export const AllPetsIndex: React.FC<Props> = () => {
       </h2> */}
       <MDBRow className="main-container">
         <MDBCol md="8">
-          <SearchInput onChangeSearchQuery={(query) => setQuery(query)} />
+          <SearchInput onChangeSearchQuery={(query) => setSearchInput(query)} />
         </MDBCol>
         <MDBCol md="4">
-        <div className="sort_table">
+          <div className="sort_table">
             <MDBCard>
               <div className="header pt-3 grey lighten-2">
                 <MDBRow className="d-flex justify-content-start">
-                  <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
-                    Sort:
-                    </h3>
+                  <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Sort:</h3>
                 </MDBRow>
               </div>
               <MDBCardBody>
@@ -57,13 +53,15 @@ export const AllPetsIndex: React.FC<Props> = () => {
                       <span>Sort by:</span>
                     </MDBCol>
                     <MDBCol md="8">
-                      <select className="browser-default custom-select">
-                        <option>Choose your option</option>
-                        <option value="1">Matan</option>
-                        <option value="2">Aviv and Matan</option>
-                        <option value="3">Diana and Matan</option>
-                        <option value="3">NO MATAN</option>
-                      </select>
+                      <Sorters<IPet>
+                        object={pets[0] }
+                        onChangeSorter={(property, isDescending) => {
+                          setActiveSorter({
+                            property,
+                            isDescending,
+                          });
+                        }}
+                      />
                     </MDBCol>
                   </MDBRow>
                 </form>
@@ -80,7 +78,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
                 <MDBRow className="d-flex justify-content-start">
                   <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
                     Filter:
-                    </h3>
+                  </h3>
                 </MDBRow>
               </div>
               <MDBCardBody>

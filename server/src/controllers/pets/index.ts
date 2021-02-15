@@ -45,4 +45,4 @@ const deleteById = async (req: Request, res: Response): Promise<void> => {
   }).catch((err: Error) => { throw err; })
 };
 
-export { getById , getAll, create, updateById , deleteById  };
+export { getById, getAll, create, updateById, deleteById };

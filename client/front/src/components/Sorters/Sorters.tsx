@@ -1,48 +1,43 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface ISortersProps<T> {
   object: T;
-  onChangeSorter: (
-    sortProperty: keyof T,
-    isDescending: boolean
-  ) => void;
+  onChangeSorter: (sortProperty: keyof T, isDescending: boolean) => void;
 }
 
 export default function Sorters<T>(props: ISortersProps<T>) {
   const { object, onChangeSorter } = props;
   return (
     <>
-      <label htmlFor="sorters" className="mt-3">Sorters! Try us too! (We also work!)</label>
       <select
         id="sorters"
         className="custom-select"
         onChange={(event) =>
           onChangeSorter(
-            event.target.value.split(",")[0] as any,
-            event.target.value.split(",")[1] === "true"
+            event.target.value.split(',')[0] as any,
+            event.target.value.split(',')[1] === 'true'
           )
         }
-        defaultValue={["name", "true"]}
+        defaultValue={['name', 'true']}
       >
         {Object.keys(object).map((key) => {
-          if (!key) {
-            return <></>
+          if (!key || key === '_id' || key === '__v') {
+            return <></>;
           }
           return (
-            <>
-              <option
-                key={`${key}-true`}
-                value={[key, "true"]}
-              >
-                sort by '{key}' descending
-              </option>
-              <option
-                key={`${key}-false`}
-                value={[key, "false"]}
-              >
-                sort by '{key}' ascending
-              </option>
-            </>
+            <option key={`${key}-true`} value={[key, 'true']}>
+              sort by '{key}' descending
+            </option>
+          );
+        })}
+        {Object.keys(object).map((key) => {
+          if (!key || key === '_id' || key === '__v') {
+            return <></>;
+          }
+          return (
+            <option key={`${key}-false`} value={[key, 'false']}>
+              sort by '{key}' ascending
+            </option>
           );
         })}
       </select>
