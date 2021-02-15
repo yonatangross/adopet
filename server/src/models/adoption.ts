@@ -1,23 +1,24 @@
-import { IAdoptionRequest } from '../types/IAdoptionRequest';
+import { IAdoption } from './../types/IAdoption';
 import { model, Schema } from 'mongoose';
-import { timeStamp } from 'console';
 
 const adoptionSchema: Schema = new Schema(
   {
     pet: {
-      petInfo: {type: Schema.Types.ObjectId,ref:"petSchema"},
+      type: Schema.Types.ObjectId,
+      ref: 'Pet',
       required: true,
     },
     adoptionRequest: {
-      adoptionRequestInfo: {type: Schema.Types.ObjectId,ref:"adoptionRequestSchema"},
+      type: Schema.Types.ObjectId,
+      ref: 'AdoptionRequest',
       required: true,
     },
-    adoptionDate:{
-      time : { type : Date, default: Date.now },
-      required:true
+    adoptionDate: {
+      time: { type: Date, default: Date.now },
+      required: true
     }
   },
   { timestamps: true }
 );
 
-export default model<IAdoptionRequest>('AdoptionRequest', adoptionSchema);
+export default model<IAdoption>('Adoption', adoptionSchema);

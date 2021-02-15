@@ -1,5 +1,5 @@
 import { IPet } from '../types/IPet';
-import { model, Schema } from 'mongoose';
+import { Model, model, Schema } from 'mongoose';
 
 const petSchema: Schema = new Schema(
   {
@@ -21,7 +21,7 @@ const petSchema: Schema = new Schema(
       type: Number,
       required: true,
     },
-    isAdopted:{
+    isAdopted: {
       type: Boolean,
       required: true
     }
@@ -30,4 +30,6 @@ const petSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default model<IPet>('Pet', petSchema);
+const Pet: Model<IPet> = model<IPet>("Pet", petSchema);
+
+export default Pet;

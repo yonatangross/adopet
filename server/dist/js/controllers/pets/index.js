@@ -17,7 +17,7 @@ const typedi_1 = require("typedi");
 const petService_1 = __importDefault(require("../../services/petService"));
 const PetServiceInstance = typedi_1.Container.get(petService_1.default);
 const findOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    PetServiceInstance.getById(req.params.id).then((pet) => {
+    yield PetServiceInstance.getById(req.params.id).then((pet) => {
         res.status(200).json({ pet });
     }).catch((err) => {
         throw err;
@@ -25,7 +25,7 @@ const findOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.findOne = findOne;
 const findAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    PetServiceInstance.getAll().then((pets) => {
+    yield PetServiceInstance.getAll().then((pets) => {
         res.status(200).json({ pets });
     }).catch((err) => {
         throw err;
@@ -33,27 +33,25 @@ const findAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.findAll = findAll;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    PetServiceInstance.create(req.body).then((value) => {
-        res.status(201).json({ message: 'Pet added', pet: value.newPet, pets: value.allPets });
+    yield PetServiceInstance.create(req.body).then((value) => {
+        res.status(201).json({ message: 'Pet added', pet: value.pet });
     }).catch((err) => { throw err; });
 });
 exports.create = create;
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    PetServiceInstance.update(req.params.id, req.body).then((value) => {
+    yield PetServiceInstance.update(req.params.id, req.body).then((value) => {
         res.status(200).json({
             message: value.message,
             pet: value.pet,
-            pets: value.pets
         });
     }).catch((err) => { throw err; });
 });
 exports.update = update;
 const deleteOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    PetServiceInstance.delete(req.params.id).then((value) => {
+    yield PetServiceInstance.delete(req.params.id).then((value) => {
         res.status(200).json({
             message: value.message,
             pet: value.pet,
-            pets: value.pets
         });
     }).catch((err) => { throw err; });
 });

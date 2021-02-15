@@ -23,4 +23,5 @@ const petSchema = new mongoose_1.Schema({
         required: true
     }
 }, { timestamps: true });
-exports.default = mongoose_1.model('Pet', petSchema);
+const Pet = mongoose_1.model("Pet", petSchema);
+exports.default = Pet;

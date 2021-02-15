@@ -1,87 +1,58 @@
+import { IPet } from './../../types/IPet';
 import { Response, Request } from 'express';
 import { IAdoptionRequest } from '../../types/IAdoptionRequest';
-import AdoptionRequest from '../../models/adoptionRequest';
+import AdoptionRequestService from '../../services/adoptionRequestService';
+import Container from 'typedi';
+import PetService from '../../services/petService';
+import adoptionRequest from '../../models/adoptionRequest';
+
+const AdoptionRequestServiceInstance = Container.get(AdoptionRequestService);
+const PetServiceInstance = Container.get(PetService);
 
 const findOne = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const adoptRequest: IAdoptionRequest | null = await AdoptionRequest.findById(req.params.id);
-    res.status(200).json({ adoptRequest });
-  } catch (error) {
-    throw error;
-  }
+  await AdoptionRequestServiceInstance.getById(req.params.id).then((adoptionRequest: IAdoptionRequest | null) => {
+    res.status(200).json({ adoptionRequest });
+  }).catch((err: Error) => {
+    throw err;
+  });
 };
 
 const findAll = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const adoptionRequests: IAdoptionRequest[] = await AdoptionRequest.find();
+  await AdoptionRequestServiceInstance.getAll().then((adoptionRequests: IAdoptionRequest[]) => {
     res.status(200).json({ adoptionRequests });
-  } catch (error) {
-    throw error;
-  }
+  }).catch((err: Error) => {
+    throw err;
+  });
 };
 
 
 const create = async (req: Request, res: Response): Promise<void> => {
-  try {
-
-    console.log(req.body);
-
-    const body = req.body as Pick<
-      IAdoptionRequest, 'petId' | 'fullName' | 'email' | 'phoneNumber' | 'address' | 'message'
-    >;
-
-    const adoptionRequest: IAdoptionRequest = new AdoptionRequest({
-      petId: body.petId,
-      fullName: body.fullName,
-      email: body.email,
-      phoneNumber: body.phoneNumber,
-      address: body.address,
-      message: body.message
-    });
-
-    const newAdoptionRequest: IAdoptionRequest = await adoptionRequest.save();
-    const allAdoptionRequests: IAdoptionRequest[] = await AdoptionRequest.find();
-
-    res.status(201).json({ message: 'adoption request added', adoptionRequest: newAdoptionRequest, adoptionRequests: allAdoptionRequests });
-  } catch (error) {
-    throw error;
-  }
+  await PetServiceInstance.getById(req.body.petId).then(async (pet: IPet | null) => {
+    if (pet != null) {
+      await AdoptionRequestServiceInstance.create(req.body, pet).then((value: { adoptionRequest: IAdoptionRequest }) => {
+        res.status(201).json({ message: 'Adoption request added', adoptionRequest: value.adoptionRequest });
+      }).catch((err: Error) => { throw err; })
+    }
+  }).catch((err: Error) => { throw err; });
 };
 
 const update = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const {
-      params: { id },
-      body,
-    } = req;
-    const updateAdoptRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndUpdate(
-      { _id: id },
-      body
-    );
-    const allAdoptRequests: IAdoptionRequest[] = await AdoptionRequest.find();
+  await AdoptionRequestServiceInstance.update(req.params.id, req.body).then((value: { message: string, adoptionRequest: IAdoptionRequest | null }) => {
     res.status(200).json({
-      message: 'Adopt request updated',
-      allAdoptRequest: updateAdoptRequest,
-      allAdoptRequests: allAdoptRequests,
-    });
-  } catch (error) {
-    throw error;
-  }
+      message: `adoption Request updated ${adoptionRequest}`,
+      adoptionRequest: value.adoptionRequest,
+    })
+  }).catch((err: Error) => { throw err; })
 };
 
 
 const deleteOne = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const deletedAdoptRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndRemove(req.params.id);
-    const allAdoptRequests: IAdoptionRequest[] = await AdoptionRequest.find();
+  await AdoptionRequestServiceInstance.delete(req.params.id).then((value: { message: string, adoptionRequest: IAdoptionRequest | null }) => {
     res.status(200).json({
-      message: 'Adopt request deleted',
-      adoptionRequest: deletedAdoptRequest,
-      adoptionRequests: allAdoptRequests,
-    });
-  } catch (error) {
-    throw error;
-  }
+      message: `Adoption request deleted`,
+      adoptionRequest: value.adoptionRequest,
+    })
+  }).catch((err: Error) => { throw err; })
 };
 
 export { findOne, findAll, create, update, deleteOne };

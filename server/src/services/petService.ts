@@ -10,7 +10,7 @@ export default class PetService {
     }
 
     public async getAll() {
-        const pets: IPet[] | null = await Pet.find();
+        const pets: IPet[] = await Pet.find();
         return pets;
     }
 
@@ -20,7 +20,7 @@ export default class PetService {
             'name' | 'breed' | 'animalType' | 'age' | 'isAdopted'
         >;
 
-        const pet: IPet = new Pet({
+        const pet = new Pet({
             name: body.name,
             breed: body.breed,
             animalType: body.animalType,
@@ -28,31 +28,26 @@ export default class PetService {
             isAdopted: body.isAdopted,
         });
 
-        const newPet: IPet = await pet.save();
-        const allPets: IPet[] = await Pet.find();
-        return { newPet: newPet, allPets: allPets };
+        const createdPet: IPet = await pet.save();
+        return { pet: createdPet };
     }
 
     public async update(petId: string, req: any) {
-        const updatePet: IPet | null = await Pet.findByIdAndUpdate(
+        const updatedPet: IPet | null = await Pet.findByIdAndUpdate(
             { _id: petId },
             req.body
         );
-        const allPets: IPet[] = await Pet.find();
         return {
             message: 'Pet updated',
-            pet: updatePet,
-            pets: allPets,
+            pet: updatedPet,
         };
     }
 
     public async delete(petId: string) {
         const deletedPet: IPet | null = await Pet.findByIdAndRemove(petId);
-        const allPets: IPet[] = await Pet.find();
         return {
             message: `Pet ${petId} deleted`,
             pet: deletedPet,
-            pets: allPets,
         };
     }
 }

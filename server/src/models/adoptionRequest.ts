@@ -1,12 +1,13 @@
 import { IAdoptionRequest } from '../types/IAdoptionRequest';
-import { model, Schema } from 'mongoose';
+import { Model, model, Schema } from 'mongoose';
 
 const adoptionRequestSchema: Schema = new Schema(
   {
-    petId: {
-      type: String,
+    pet: {
+      type: Schema.Types.ObjectId,
+      ref: "Pet",
       required: true,
-  },
+    },
     fullName: {
       type: String,
       required: true,
@@ -19,7 +20,6 @@ const adoptionRequestSchema: Schema = new Schema(
       type: String,
       required: true,
     },
-
     address: {
       type: String,
       required: true,
@@ -32,4 +32,5 @@ const adoptionRequestSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default model<IAdoptionRequest>('AdoptionRequest', adoptionRequestSchema);
+const AdoptionRequest: Model<IAdoptionRequest> = model<IAdoptionRequest>("AdoptionRequest", adoptionRequestSchema);
+export default AdoptionRequest;

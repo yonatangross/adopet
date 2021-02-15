@@ -13,76 +13,53 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteOne = exports.update = exports.create = exports.findAll = exports.findOne = void 0;
+const adoptionRequestService_1 = __importDefault(require("../../services/adoptionRequestService"));
+const typedi_1 = __importDefault(require("typedi"));
+const petService_1 = __importDefault(require("../../services/petService"));
 const adoptionRequest_1 = __importDefault(require("../../models/adoptionRequest"));
+const AdoptionRequestServiceInstance = typedi_1.default.get(adoptionRequestService_1.default);
+const PetServiceInstance = typedi_1.default.get(petService_1.default);
 const findOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const adoptRequest = yield adoptionRequest_1.default.findById(req.params.id);
-        res.status(200).json({ adoptRequest });
-    }
-    catch (error) {
-        throw error;
-    }
+    yield AdoptionRequestServiceInstance.getById(req.params.id).then((adoptionRequest) => {
+        res.status(200).json({ adoptionRequest });
+    }).catch((err) => {
+        throw err;
+    });
 });
 exports.findOne = findOne;
 const findAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const adoptionRequests = yield adoptionRequest_1.default.find();
+    yield AdoptionRequestServiceInstance.getAll().then((adoptionRequests) => {
         res.status(200).json({ adoptionRequests });
-    }
-    catch (error) {
-        throw error;
-    }
+    }).catch((err) => {
+        throw err;
+    });
 });
 exports.findAll = findAll;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        console.log(req.body);
-        const body = req.body;
-        const adoptionRequest = new adoptionRequest_1.default({
-            petId: body.petId,
-            fullName: body.fullName,
-            email: body.email,
-            phoneNumber: body.phoneNumber,
-            address: body.address,
-            message: body.message
-        });
-        const newAdoptionRequest = yield adoptionRequest.save();
-        const allAdoptionRequests = yield adoptionRequest_1.default.find();
-        res.status(201).json({ message: 'adoption request added', adoptionRequest: newAdoptionRequest, adoptionRequests: allAdoptionRequests });
-    }
-    catch (error) {
-        throw error;
-    }
+    yield PetServiceInstance.getById(req.body.petId).then((pet) => __awaiter(void 0, void 0, void 0, function* () {
+        if (pet != null) {
+            yield AdoptionRequestServiceInstance.create(req.body, pet).then((value) => {
+                res.status(201).json({ message: 'Adoption request added', adoptionRequest: value.adoptionRequest });
+            }).catch((err) => { throw err; });
+        }
+    })).catch((err) => { throw err; });
 });
 exports.create = create;
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { params: { id }, body, } = req;
-        const updateAdoptRequest = yield adoptionRequest_1.default.findByIdAndUpdate({ _id: id }, body);
-        const allAdoptRequests = yield adoptionRequest_1.default.find();
+    yield AdoptionRequestServiceInstance.update(req.params.id, req.body).then((value) => {
         res.status(200).json({
-            message: 'Adopt request updated',
-            allAdoptRequest: updateAdoptRequest,
-            allAdoptRequests: allAdoptRequests,
+            message: `adoption Request updated ${adoptionRequest_1.default}`,
+            adoptionRequest: value.adoptionRequest,
         });
-    }
-    catch (error) {
-        throw error;
-    }
+    }).catch((err) => { throw err; });
 });
 exports.update = update;
 const deleteOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const deletedAdoptRequest = yield adoptionRequest_1.default.findByIdAndRemove(req.params.id);
-        const allAdoptRequests = yield adoptionRequest_1.default.find();
+    yield AdoptionRequestServiceInstance.delete(req.params.id).then((value) => {
         res.status(200).json({
-            message: 'Adopt request deleted',
-            adoptionRequest: deletedAdoptRequest,
-            adoptionRequests: allAdoptRequests,
+            message: `Adoption request deleted`,
+            adoptionRequest: value.adoptionRequest,
         });
-    }
-    catch (error) {
-        throw error;
-    }
+    }).catch((err) => { throw err; });
 });
 exports.deleteOne = deleteOne;

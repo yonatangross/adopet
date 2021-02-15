@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const adoptionRequestSchema = new mongoose_1.Schema({
-    petId: {
-        type: String,
+    pet: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Pet',
         required: true,
     },
     fullName: {
@@ -27,4 +28,5 @@ const adoptionRequestSchema = new mongoose_1.Schema({
         required: false,
     },
 }, { timestamps: true });
-exports.default = mongoose_1.model('AdoptionRequest', adoptionRequestSchema);
+const AdoptionRequest = mongoose_1.model("AdoptionRequest", adoptionRequestSchema);
+exports.default = AdoptionRequest;

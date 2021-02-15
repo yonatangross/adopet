@@ -1,12 +1,11 @@
+import { IPet } from './IPet';
 import { Document } from 'mongoose';
 
 export interface IAdoptionRequest extends Document {
-    petId: string;
+    pet: IPet['_id'];
     fullName: string;
     email: string;
     phoneNumber: string;
     address: string;
     message?: string;
 }
-
-
