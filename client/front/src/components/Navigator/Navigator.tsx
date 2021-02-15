@@ -11,6 +11,7 @@ import AdoptionRequestForm from '../AdoptionRequest/CreateAdoptionRequest/Create
 import Contact from '../Contact/Contact';
 import RequestSentSuccessfully from '../RequestSentSuccessfully/RequestSentSuccessfully';
 import './Navigator.css'
+import ThankYouForContact from '../ThankYouForContact/ThankYouForContact';
 
 
 
@@ -33,6 +34,7 @@ const Navigator: React.FC = () => {
             <Route path={`/adoptionForm/:petId`} exact component={AdoptionRequestForm} />
             <Route path={`/contact`} exact component={Contact} />
             <Route path={`/requestSent`} exact component={RequestSentSuccessfully} />
+            <Route path={`/contactRequestSent`} exact component={ThankYouForContact} />
           </Switch>
         </div></MDBCol>
       </MDBRow>
