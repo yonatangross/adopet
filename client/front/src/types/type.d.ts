@@ -24,6 +24,10 @@ interface IPetProps {
   pet: IPet;
 }
 
+interface IIsAdoptedProps{
+  isAdopted:boolean;
+}
+
 
 
 interface IAdoptionRequestProps {
