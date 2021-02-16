@@ -1,6 +1,7 @@
 interface IPet {
   _id: string;
   name: string;
+  gender: string;
   breed: string;
   animalType: string;
   age: number;

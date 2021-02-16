@@ -8,6 +8,11 @@ const petSchema: Schema = new Schema(
       required: true,
     },
 
+    gender:{
+      type: String,
+      required:true,
+    },
+    
     breed: {
       type: String,
       required: true,

@@ -35,11 +35,12 @@ export default class PetService {
     public async create(req: any) {
         const body = req.body as Pick<
             IPet,
-            'name' | 'breed' | 'animalType' | 'age' | 'isAdopted' | 'primaryPicture'
+            'name' | 'gender' | 'breed' | 'animalType' | 'age' | 'isAdopted' | 'primaryPicture'
         >;
 
         const pet = new Pet({
             name: body.name,
+            gender: body.gender,
             breed: body.breed,
             animalType: body.animalType,
             age: body.age,

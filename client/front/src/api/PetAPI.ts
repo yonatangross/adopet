@@ -35,6 +35,7 @@ export const addPet = async (
 
         const pet: Omit<IPet, '_id'> = {
             name: formData.name,
+            gender: formData.gender,
             breed: formData.breed,
             animalType: formData.animalType,
             age: formData.age,

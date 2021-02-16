@@ -32,6 +32,7 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
           </MDBView>
           <MDBCardBody>
             <MDBCardTitle>{pet.name}</MDBCardTitle>
+            <MDBCardTitle>Gender: {pet.gender}</MDBCardTitle>
             <MDBCardText>Age: {pet.age}</MDBCardText>
             <MDBCardText>Type: {pet.animalType}</MDBCardText>
             <MDBCardText>Breed: {pet.breed}</MDBCardText>

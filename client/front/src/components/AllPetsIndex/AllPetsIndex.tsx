@@ -16,7 +16,7 @@ interface Props extends RouteComponentProps {
 export const AllPetsIndex: React.FC<Props> = () => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [pets, setPets] = useState<IPet[]>([
-    { _id: '', age: 0, animalType: '', breed: '', name: '', isAdopted: false },
+    { _id: '' ,gender: '', age: 0, animalType: '', breed: '', name: '', isAdopted: false },
   ]);
   const [activeSorter, setActiveSorter] = useState<ISorter<IPet>>({
     property: 'age',
