@@ -25,7 +25,7 @@ interface IPetProps {
   pet: IPet;
 }
 
-interface IIsAdoptedProps{
+interface IsAdoptedProps{
   isAdopted:boolean;
 }
 
