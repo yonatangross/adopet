@@ -18,7 +18,6 @@ export default async (): Promise<void> => {
 
     let petSchemaExist: boolean = false;
 
-
     if (await PetSchema.collection.countDocuments() != 0) {
         petSchemaExist = true;
     }

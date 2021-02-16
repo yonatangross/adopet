@@ -36,7 +36,6 @@ export default class dataSeeder {
                 }
             });
         }).catch((err: Error) => {
-            console.log('errorirri');
             throw err;
         })
 
