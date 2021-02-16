@@ -60,7 +60,7 @@ export default class dataSeeder {
     };
     private async createPet(animalType: string): Promise<IPet> {
         let pet = undefined;
-        const petName = await axios.get(`https://randomuser.me/api/?inc=name&noinfo&nat=us,uk`).then((res) => {
+        const petName = await axios.get(`https://randomuser.me/api/?inc=name&noinfo&nat=us`).then((res) => {
             return res.data.results[0].name.first;
         }).catch((err: Error) => {
             console.log(`error fetching fake name`);
