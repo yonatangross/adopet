@@ -15,6 +15,7 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
       <MDBCard wide cascade>
       <MDBView cascade>
       <img id="adopted" src={adoptedSticker}/>
+      
       <MDBCardImage
               hover
               overlay='white-slight'

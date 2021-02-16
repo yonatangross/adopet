@@ -66,6 +66,8 @@ export const updatePet = async (
     }
 };
 
+
+
 export const deletePet = async (
     _id: string
 ): Promise<AxiosResponse<PetApiDataType>> => {

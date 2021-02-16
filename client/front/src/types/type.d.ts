@@ -24,6 +24,8 @@ interface IPetProps {
   pet: IPet;
 }
 
+
+
 interface IAdoptionRequestProps {
   adoptionRequest: IAdoptionRequest;
 }

@@ -15,6 +15,8 @@ export const getAdoptionRequests = async (): Promise<AxiosResponse<AdoptionReque
     }
 };
 
+
+
 export const getAdoptionRequest = async (
     adoptionRequestId: string
 ): Promise<AxiosResponse<AdoptionRequestApiDataType>> => {
