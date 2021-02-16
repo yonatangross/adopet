@@ -1,4 +1,3 @@
-
 import mongoose from 'mongoose';
 import PetSchema from '../models/pet'
 import dbSeed from './dbSeed'

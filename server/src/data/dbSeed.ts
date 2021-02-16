@@ -1,7 +1,6 @@
 import { IPet } from './../types/IPet';
 import Pet from '../models/pet';
 import axios from 'axios'
-import { mainModule } from 'process';
 
 interface ICatBreed {
     name: string;

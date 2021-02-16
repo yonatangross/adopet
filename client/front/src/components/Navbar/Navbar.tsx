@@ -7,8 +7,6 @@ import {
   MDBCollapse,
   MDBNavItem,
   MDBNavLink,
-  MDBMask,
-  MDBView,
 } from 'mdbreact';
 import './Navbar.css';
 

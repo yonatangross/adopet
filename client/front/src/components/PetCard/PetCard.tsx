@@ -16,6 +16,7 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
   if (!pet) {
     return null;
   }
+  console.log(pet);
   return (
     <div>
       <MDBCol style={{ maxWidth: '22rem' }}>
@@ -32,7 +33,7 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
           </MDBView>
           <MDBCardBody>
             <MDBCardTitle>{pet.name}</MDBCardTitle>
-            <MDBCardTitle>Gender: {pet.gender}</MDBCardTitle>
+            <MDBCardText>Gender: {pet.gender}</MDBCardText>
             <MDBCardText>Age: {pet.age}</MDBCardText>
             <MDBCardText>Type: {pet.animalType}</MDBCardText>
             <MDBCardText>Breed: {pet.breed}</MDBCardText>
