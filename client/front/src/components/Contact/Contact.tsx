@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from "react";
-import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput, MDBContainer } from "mdbreact";
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput } from "mdbreact";
 import './Contact.css';
-import RequestSentSuccessfully from "../RequestSentSuccessfully/RequestSentSuccessfully";
 import { Redirect } from "react-router-dom";
 
 const Contact: React.FC = (): ReactElement => {
