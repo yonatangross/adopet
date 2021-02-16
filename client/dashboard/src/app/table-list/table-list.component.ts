@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { getPets } from 'api/PetAPI';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-table-list',
@@ -7,12 +11,16 @@ import { getPets } from 'api/PetAPI';
   styleUrls: ['./table-list.component.css']
 })
 export class TableListComponent implements OnInit {
-
-  constructor() { }
+  
+  constructor(private http: HttpClientModule) { 
+   
+  }
 
   ngOnInit() {
   }
 
-  //petsArray = getPets();
-
+  
 }
+
+
+
