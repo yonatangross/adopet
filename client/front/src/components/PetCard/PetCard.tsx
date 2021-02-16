@@ -1,9 +1,7 @@
 import React from 'react';
 import './PetCard.css';
-import img from '../../assets/images/img_avatar2.png';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBIcon, MDBView } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBIcon, MDBView } from 'mdbreact';
 import adoptedSticker from '../../images/adoptedSticker.png'
-
 
 const PetCard: React.FC<IPetProps> = ({ pet }) => {
   if (!pet) {
@@ -20,8 +18,8 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
       <MDBCardImage
               hover
               overlay='white-slight'
-              className='card-img-top'
-              src='https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg'
+              className='card-img-top pet-image'
+              src={pet.primaryPicture}
               alt='Card cap'
             />
                       </MDBView>
@@ -44,15 +42,6 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
           </div>
       </MDBCard>
     </MDBCol>
-      {/* <div className="pet_image ">
-        <img src={img} alt="Pet" />
-      </div>
-      <div className="pet_content">
-        <div className="pet_name">{pet.name}</div>
-        <div className="pet_name">{pet.age}</div>
-        <div className="pet_name">{pet.animalType}</div>
-        <div className="pet_name">{pet.breed}</div>
-      </div> */}
     </div>
   );
 };
