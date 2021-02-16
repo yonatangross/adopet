@@ -1,8 +1,7 @@
 import React from 'react';
 import './PetCard.css';
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBIcon, MDBView } from 'mdbreact';
-
-
+import adoptedSticker from '../../images/adoptedSticker.png'
 
 const PetCard: React.FC<IPetProps> = ({ pet }) => {
   if (!pet) {
@@ -11,9 +10,12 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
   return (
     
     <div>
+      
     <MDBCol style={{ maxWidth: "22rem" }}>
       <MDBCard wide cascade>
       <MDBView cascade>
+      <img id="adopted" src={adoptedSticker}/>
+      
       <MDBCardImage
               hover
               overlay='white-slight'

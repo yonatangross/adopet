@@ -47,6 +47,23 @@
   transition: all 200ms ease;
 }
 
-.pet_name div a:hover {
-  color: #0e8ce4;
+.pet_name div a:hover { color: #0e8ce4; }
+
+
+/*************************/
+
+
+
+#adopted{
+
+    width: 150px;
+    position: absolute;
+    top: 0;
+    padding: 5px 5px 5px 15px;
+    z-index: 1;
+    background-color: transparent;
+    right: 0;
+    top: 0;
+    
 }
+  

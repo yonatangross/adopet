@@ -1,13 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 import ISorter from '../interfaces/ISorter';
 
-require('dotenv').config();
 
-const baseUrl: string | undefined = 'http://localhost:4000';
+const baseUrl: string | undefined = 'http://localhost:4200';
 
-export const getPets = async (searchInput: string, activeSorter: ISorter<IPet> | null): Promise<AxiosResponse<PetApiDataType>> => {
+export const getPets = async (): Promise<AxiosResponse<PetApiDataType>> => {
     try {
-        const pets: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/pets`, { params: { searchInput: searchInput, sorter: activeSorter } });
+        const pets: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/pets`);
         return pets;
     } catch (error) {
         throw new Error(error);
@@ -40,7 +39,7 @@ export const addPet = async (
             age: formData.age,
             isAdopted: false,
         };
-        console.log(`pet: ${Object.keys(pet)}\n ${Object.values(pet)}`);
+        //console.log(`pet: ${Object.keys(pet)}\n ${Object.values(pet)}`);
 
         const savePet: AxiosResponse<PetApiDataType> = await axios.post(
             `${baseUrl}/pets/${pet}`,
@@ -65,8 +64,6 @@ export const updatePet = async (
         throw new Error(error);
     }
 };
-
-
 
 export const deletePet = async (
     _id: string

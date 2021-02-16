@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 
-require('dotenv').config();
 
 const baseUrl: string | undefined = 'http://localhost:4000';
 
@@ -14,8 +13,6 @@ export const getAdoptionRequests = async (): Promise<AxiosResponse<AdoptionReque
         throw new Error(error);
     }
 };
-
-
 
 export const getAdoptionRequest = async (
     adoptionRequestId: string
@@ -45,7 +42,7 @@ export const addAdoptionRequest = async (
             address: formData.address,
             message: formData.message,
         };
-        console.log(`adoptionRequest: ${Object.keys(adoptionRequest)}\n ${Object.values(adoptionRequest)}`);
+        //console.log(`adoptionRequest: ${Object.keys(adoptionRequest)}\n ${Object.values(adoptionRequest)}`);
 
         const saveAdoptionRequest: AxiosResponse<AdoptionRequestApiDataType> = await axios.post(
             `${baseUrl}/adoptionRequests`,

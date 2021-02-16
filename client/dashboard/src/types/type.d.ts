@@ -18,13 +18,11 @@ interface IAdoptionRequest {
   message?: string;
   createdAt?: string;
   updatedAt?: string;
-};
+}
 
 interface IPetProps {
   pet: IPet;
 }
-
-
 
 interface IAdoptionRequestProps {
   adoptionRequest: IAdoptionRequest;
