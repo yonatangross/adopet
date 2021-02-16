@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { getPets } from 'api/PetAPI';
 
 @Component({
   selector: 'app-table-list',
@@ -11,5 +12,7 @@ export class TableListComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  //petsArray = getPets();
 
 }
