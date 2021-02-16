@@ -50,7 +50,11 @@ const Pet: React.FC<Props> = ({ match }) => {
           <MDBRow>
             <MDBCol lg="5">
               <MDBView className="rounded z-depth-2 mb-lg-0 mb-4" hover waves>
-                <img className="img-fluid" src={pet.primaryPicture} alt="" />
+                <img
+                  className="img-fluid pet-image"
+                  src={pet.primaryPicture}
+                  alt=""
+                />
                 <a href="#!">
                   <MDBMask overlay="white-slight" />
                 </a>
