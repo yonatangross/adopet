@@ -20,3 +20,4 @@ server/dist/js/controllers/pets/index.js
 server/dist/js/routes/pet.js
 server/dist/js/routes/adoptionRequest.js
 client/front/.eslintcache
+
