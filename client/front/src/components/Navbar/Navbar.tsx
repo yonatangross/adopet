@@ -9,8 +9,9 @@ import {
   MDBNavLink,
 } from 'mdbreact';
 import './Navbar.css';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-interface NavbarProps {}
+interface NavbarProps extends RouteComponentProps {}
 
 interface IState {
   collapse?: boolean;
@@ -46,7 +47,7 @@ class Navbar extends React.Component<NavbarProps, IState> {
             )}
             <MDBCollapse isOpen={this.state.collapse} navbar>
               <MDBNavbarNav left>
-                <MDBNavItem active>
+                <MDBNavItem >
                   <MDBNavLink to="/">Home</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
@@ -67,4 +68,4 @@ class Navbar extends React.Component<NavbarProps, IState> {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
