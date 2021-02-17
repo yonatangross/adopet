@@ -1,6 +1,8 @@
+import { IAdoptionRequest } from './../types/IAdoptionRequest';
 import { IPet } from './../types/IPet';
 import Pet from '../models/pet';
 import axios from 'axios'
+import AdoptionRequest from '../models/adoptionRequest';
 
 interface ICatBreed {
     name: string;
@@ -23,10 +25,10 @@ export default class dataSeeder {
         this.DOG_BREEDS = await axios.get('https://dog.ceo/api/breeds/list/all').then((res) => { return Object.keys(res.data.message); }).catch((err: Error) => { throw err; })
         let catApiConfig = {
             headers: {
-                "x-api-key": "8ec145c3-4e67-49e0-ba6e-6effc9ac5b98"
+                "x-api-key": process.env.CAT_API_KEY,
             },
         }
-        await axios.get('https://api.thecatapi.com/v1/breeds/?limit=15', catApiConfig).then((res) => {
+        await axios.get('https://api.thecatapi.com/v1/breeds/?limit=25', catApiConfig).then((res) => {
             res.data.map((element: any) => {
                 let catBreed: ICatBreed = { name: element.name, imageUrl: element.image.url }
 
@@ -35,6 +37,8 @@ export default class dataSeeder {
                 }
             });
         }).catch((err: Error) => {
+            console.log(`Error while retrieving cat breeds, ${err}`);
+            
             throw err;
         })
 
@@ -43,7 +47,14 @@ export default class dataSeeder {
     private async initialize() {
         if (this.DOG_BREEDS.length == 0 || this.CAT_BREEDS.length == 0)
             await this.getPetBreeds();
-        await this.SeedPetsAsync();
+
+        if (await Pet.collection.countDocuments() == 0) {
+            await this.SeedPetsAsync();
+        }
+
+        if (await Pet.collection.countDocuments() == this.SEED_INIT_NUMBER) {
+            this.SeedAdoptionRequestsAsync();
+        }
     };
 
     private async SeedPetsAsync() {
@@ -105,8 +116,52 @@ export default class dataSeeder {
         }
     }
 
-    private async createAdoptionRequest(pet :IPet){
-        
+    private async SeedAdoptionRequestsAsync() {
+
+        const petsCollection: IPet[] = await Pet.find();
+        for (let petIndex = 0; petIndex < petsCollection.length; petIndex++) {
+            const createAdoptionRequestFlag = this.getRandomInt(2);
+            if (createAdoptionRequestFlag == 1) {
+                try {
+                    const adoptionRequest: IAdoptionRequest = await this.createAdoptionRequest(petsCollection[petIndex]);
+                    await adoptionRequest.save();
+                }
+                catch (err: any) {
+                    console.log(`error creating adoption request for ${petsCollection[petIndex].name} the ${petsCollection[petIndex].animalType}`);
+                }
+            }
+        }
+    };
+
+    private async createAdoptionRequest(pet: IPet): Promise<IAdoptionRequest> {
+
+        const { fullName, email, phoneNumber, address } = await axios.get(`https://randomuser.me/api/`)
+            .then((res) => {
+                return ({
+                    fullName:
+                        res.data.results[0].name.first + ' ' + res.data.results[0].name.last,
+                    email: res.data.results[0].email,
+                    phoneNumber: res.data.results[0].phone,
+                    address: res.data.results[0].location.street.number
+                        + ' ' + res.data.results[0].location.street.name
+                        + ', ' + res.data.results[0].location.city
+                        + ', ' + res.data.results[0].location.country
+                });
+            }).catch((err: Error) => {
+                console.log(`error fetching adoption requester name of pet ${pet}`);
+                throw err;
+            });
+        const adoptionRequest: IAdoptionRequest = new AdoptionRequest({
+            pet: pet,
+            fullName: fullName,
+            email: email,
+            phoneNumber: phoneNumber,
+            address: address,
+            message: `I wish to adopt ${pet.name} the ${pet.animalType}! waiting for your review :)`,
+        })
+
+
+        return adoptionRequest;
     }
 
     private getRandomInt(max: number): number {
