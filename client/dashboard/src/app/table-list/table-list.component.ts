@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { getPets } from 'api/PetAPI';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 
 
 
@@ -12,7 +9,7 @@ import { Injectable } from '@angular/core';
 })
 export class TableListComponent implements OnInit {
   
-  constructor(private http: HttpClientModule) { 
+  constructor() { 
    
   }
 
