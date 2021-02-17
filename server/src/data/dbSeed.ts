@@ -13,6 +13,9 @@ interface ICatBreed {
 export default class dataSeeder {
     readonly SEED_INIT_NUMBER: number = 100;
     readonly MAX_PET_AGE: number = 15;
+    readonly MIN_IMAGE_HEIGHT: number = 200;
+    readonly MIN_IMAGE_WIDTH: number = 320;
+
     private DOG_BREEDS: string[] = [];
     private CAT_BREEDS: ICatBreed[] = [];
     constructor() {
@@ -95,7 +98,7 @@ export default class dataSeeder {
                 var dimensions = sizeOf(imageUrlRequest.data.message);
                 console.log(`dimensions:`);
                 console.log(dimensions);
-            } while (dimensions.width! >= 320 && dimensions.height! >= 200);
+            } while (dimensions.width! >= this.MIN_IMAGE_WIDTH && dimensions.height! >= this.MIN_IMAGE_HEIGHT);
 
 
             const dogPic = imageUrlRequest.data.message;
