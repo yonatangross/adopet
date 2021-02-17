@@ -11,12 +11,13 @@ import {
   MDBIcon,
   MDBView,
 } from 'mdbreact';
+import moment from 'moment';
 
 const PetCard: React.FC<IPetProps> = ({ pet }) => {
   if (!pet) {
     return null;
   }
-  console.log(pet);
+  let petUpdatedTime = moment(pet.updatedAt).format('MMM Do YY HH:mm');
   return (
     <div>
       <MDBCol style={{ maxWidth: '22rem' }}>
@@ -41,7 +42,7 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
           <div className="rounded-bottom mdb-color lighten-3 text-center pt-3 blue-gradient">
             <ul className="list-unstyled list-inline font-small">
               <li className="list-inline-item pr-2 white-text">
-                <MDBIcon far icon="clock" /> 05/10/2015
+                <MDBIcon far icon="clock" /> {petUpdatedTime}
               </li>
             </ul>
           </div>
