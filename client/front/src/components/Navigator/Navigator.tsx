@@ -22,7 +22,7 @@ const Navigator: React.FC = () => {
       <MDBRow>
         <MDBCol ><div>
           <div>
-            <Navbar />
+            <Navbar  />
           </div>
           <Switch>
             <Route exact path="/" component={Home}></Route>

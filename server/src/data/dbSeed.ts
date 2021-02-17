@@ -19,10 +19,6 @@ export default class dataSeeder {
         this.initialize();
     };
 
-
-
-
-
     private async initialize() {
         if (this.DOG_BREEDS.length == 0 || this.CAT_BREEDS.length == 0)
             await this.getPetBreeds();
@@ -37,27 +33,27 @@ export default class dataSeeder {
     };
 
     private async getPetBreeds() {
-        this.DOG_BREEDS = await axios.get('https://dog.ceo/api/breeds/list/all').then((res) => { return Object.keys(res.data.message); }).catch((err: Error) => { throw err; })
         let catApiConfig = {
             headers: {
                 "x-api-key": process.env.CAT_API_KEY,
             },
         }
-        await axios.get('https://api.thecatapi.com/v1/breeds/?limit=25', catApiConfig).then((res) => {
-            res.data.map((element: any) => {
+        let catBreedsRequest = axios.get('https://api.thecatapi.com/v1/breeds/?limit=25', catApiConfig)
+        let dogBreedsRequest = axios.get('https://dog.ceo/api/breeds/list/all');
+
+        await axios.all([catBreedsRequest, dogBreedsRequest]).then(axios.spread((...responses) => {
+            responses[0].data.map((element: any) => {
                 let catBreed: ICatBreed = { name: element.name, imageUrl: element.image.url }
 
                 if (catBreed != undefined) {
                     this.CAT_BREEDS.push(catBreed);
                 }
             });
-        }).catch((err: Error) => {
-            console.log(`Error while retrieving cat breeds, ${err}`);
-
-            throw err;
+            this.DOG_BREEDS = Object.keys(responses[1].data.message);
+        })).catch(errors => {
+            console.log(errors);
         })
-
-    }
+    };
 
     private async SeedPetsAsync() {
         for (let petIndex = 0; petIndex < this.SEED_INIT_NUMBER; petIndex++) {
