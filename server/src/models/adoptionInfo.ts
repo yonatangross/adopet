@@ -1,7 +1,7 @@
 import { IAdoptionInfo } from '../types/IAdoptionInfo';
 import { model, Schema } from 'mongoose';
 
-const adoptionSchema: Schema = new Schema(
+const adoptionInfoSchema: Schema = new Schema(
   {
     pet: {
       type: Schema.Types.ObjectId,
@@ -21,4 +21,4 @@ const adoptionSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default model<IAdoptionInfo>('AdoptionInfo', adoptionSchema);
+export default model<IAdoptionInfo>('AdoptionInfo', adoptionInfoSchema);
