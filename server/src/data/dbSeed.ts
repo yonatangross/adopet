@@ -39,6 +39,7 @@ export default class dataSeeder {
         })
 
     }
+
     private async initialize() {
         if (this.DOG_BREEDS.length == 0 || this.CAT_BREEDS.length == 0)
             await this.getPetBreeds();
@@ -52,9 +53,13 @@ export default class dataSeeder {
             if (randomPetTypeValue == 1) {
                 petType = 'dog'
             } else petType = 'cat'
-
-            const pet: IPet = await this.createPet(petType);
-            await pet.save();
+            try {
+                const pet: IPet = await this.createPet(petType);
+                await pet.save();
+            }
+            catch (err: any) {
+                console.log(`error creating pet ${petIndex + 1}`);
+            }
         }
     };
     private async createPet(animalType: string): Promise<IPet> {
@@ -68,13 +73,13 @@ export default class dataSeeder {
         if (animalType === 'dog') {
             const dogBreed = this.DOG_BREEDS[this.getRandomInt(this.DOG_BREEDS.length)];
             const petPic = await axios.get(`https://dog.ceo/api/breed/${dogBreed}/images/random`).then((res) => { return res.data.message }).catch((err: Error) => {
-                console.log(`error fetching dog image`);
+                console.log(`error fetching dog image of ${dogBreed}`);
                 throw err;
             });
             pet = new Pet({
                 name: petName,
                 gender: this.randomGender(),
-                breed: dogBreed,
+                breed: dogBreed.charAt(0).toUpperCase() + dogBreed.slice(1),
                 animalType: 'Dog',
                 age: this.getRandomInt(this.MAX_PET_AGE),
                 isAdopted: false,
@@ -83,13 +88,12 @@ export default class dataSeeder {
             return pet;
         }
         else {
-
             const randomCatType = this.getRandomInt(this.CAT_BREEDS.length);
             const catBreed: ICatBreed = { name: this.CAT_BREEDS[randomCatType].name, imageUrl: this.CAT_BREEDS[randomCatType].imageUrl }
 
             pet = new Pet({
                 name: petName,
-                gender:this.randomGender(),
+                gender: this.randomGender(),
                 breed: catBreed.name,
                 animalType: 'Cat',
                 age: this.getRandomInt(this.MAX_PET_AGE),
@@ -101,6 +105,9 @@ export default class dataSeeder {
         }
     }
 
+    private async createAdoptionRequest(pet :IPet){
+        
+    }
 
     private getRandomInt(max: number): number {
         return Math.floor(Math.random() * Math.floor(max));
