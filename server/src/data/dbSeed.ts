@@ -1,9 +1,10 @@
 import { IAdoptionRequest } from './../types/IAdoptionRequest';
 import { IPet } from './../types/IPet';
-import Pet from '../models/pet';
-import axios from 'axios'
 import AdoptionRequest from '../models/adoptionRequest';
 
+import Pet from '../models/pet';
+import axios from 'axios'
+import sizeOf from 'image-size';
 interface ICatBreed {
     name: string;
     imageUrl: string;
@@ -88,10 +89,16 @@ export default class dataSeeder {
         if (animalType === 'Dog') {
             const randomDogBreed = this.getRandomInt(this.DOG_BREEDS.length)
             const dogBreed = this.DOG_BREEDS[randomDogBreed];
-            const dogPic = await axios.get(`https://dog.ceo/api/breed/${dogBreed}/images/random`).then((res) => { return res.data.message }).catch((err: Error) => {
-                console.log(`error fetching dog image of ${dogBreed}, ${err}`);
-                throw err;
-            });
+
+            do {
+                var imageUrlRequest = await axios.get(`https://dog.ceo/api/breed/${dogBreed}/images/random`);
+                var dimensions = sizeOf(imageUrlRequest.data.message);
+                console.log(`dimensions:`);
+                console.log(dimensions);
+            } while (dimensions.width! >= 320 && dimensions.height! >= 200);
+
+
+            const dogPic = imageUrlRequest.data.message;
             pet = new Pet({
                 name: petName,
                 gender: this.randomGender(),
