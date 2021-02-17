@@ -21,6 +21,21 @@ export default class dataSeeder {
 
 
 
+
+
+    private async initialize() {
+        if (this.DOG_BREEDS.length == 0 || this.CAT_BREEDS.length == 0)
+            await this.getPetBreeds();
+
+        if (await Pet.collection.countDocuments() == 0) {
+            await this.SeedPetsAsync();
+        }
+
+        if (await Pet.collection.countDocuments() == this.SEED_INIT_NUMBER) {
+            this.SeedAdoptionRequestsAsync();
+        }
+    };
+
     private async getPetBreeds() {
         this.DOG_BREEDS = await axios.get('https://dog.ceo/api/breeds/list/all').then((res) => { return Object.keys(res.data.message); }).catch((err: Error) => { throw err; })
         let catApiConfig = {
@@ -38,53 +53,47 @@ export default class dataSeeder {
             });
         }).catch((err: Error) => {
             console.log(`Error while retrieving cat breeds, ${err}`);
-            
+
             throw err;
         })
 
     }
 
-    private async initialize() {
-        if (this.DOG_BREEDS.length == 0 || this.CAT_BREEDS.length == 0)
-            await this.getPetBreeds();
-
-        if (await Pet.collection.countDocuments() == 0) {
-            await this.SeedPetsAsync();
-        }
-
-        if (await Pet.collection.countDocuments() == this.SEED_INIT_NUMBER) {
-            this.SeedAdoptionRequestsAsync();
-        }
-    };
-
     private async SeedPetsAsync() {
         for (let petIndex = 0; petIndex < this.SEED_INIT_NUMBER; petIndex++) {
             const randomPetTypeValue = this.getRandomInt(2);
-            let petType = '';
+            let animalType = '';
             if (randomPetTypeValue == 1) {
-                petType = 'dog'
-            } else petType = 'cat'
+                animalType = 'Dog';
+            } else animalType = 'Cat';
             try {
-                const pet: IPet = await this.createPet(petType);
-                await pet.save();
+                const pet: IPet = await this.createPet(animalType);
+                try {
+                    await pet.save();
+                }
+                catch (err: any) {
+                    console.log(`error creating ${animalType}[${petIndex + 1}] ${err}`);
+                }
             }
             catch (err: any) {
-                console.log(`error creating pet ${petIndex + 1}`);
+                console.log(`error saving pet to db ${animalType}[${petIndex + 1}],${err}`);
             }
         }
     };
     private async createPet(animalType: string): Promise<IPet> {
-        let pet = undefined;
+        let pet: IPet;
+
         const petName = await axios.get(`https://randomuser.me/api/?inc=name&noinfo&nat=us`).then((res) => {
             return res.data.results[0].name.first;
         }).catch((err: Error) => {
-            console.log(`error fetching fake name`);
+            console.log(`error fetching fake name ${err}`);
             throw err;
         });
-        if (animalType === 'dog') {
-            const dogBreed = this.DOG_BREEDS[this.getRandomInt(this.DOG_BREEDS.length)];
-            const petPic = await axios.get(`https://dog.ceo/api/breed/${dogBreed}/images/random`).then((res) => { return res.data.message }).catch((err: Error) => {
-                console.log(`error fetching dog image of ${dogBreed}`);
+        if (animalType === 'Dog') {
+            const randomDogBreed = this.getRandomInt(this.DOG_BREEDS.length)
+            const dogBreed = this.DOG_BREEDS[randomDogBreed];
+            const dogPic = await axios.get(`https://dog.ceo/api/breed/${dogBreed}/images/random`).then((res) => { return res.data.message }).catch((err: Error) => {
+                console.log(`error fetching dog image of ${dogBreed}, ${err}`);
                 throw err;
             });
             pet = new Pet({
@@ -92,32 +101,30 @@ export default class dataSeeder {
                 gender: this.randomGender(),
                 breed: dogBreed.charAt(0).toUpperCase() + dogBreed.slice(1),
                 animalType: 'Dog',
-                age: this.getRandomInt(this.MAX_PET_AGE),
+                age: this.getRandomPetAge(this.MAX_PET_AGE),
                 isAdopted: false,
-                primaryPicture: petPic,
+                primaryPicture: dogPic,
             });
-            return pet;
         }
         else {
-            const randomCatType = this.getRandomInt(this.CAT_BREEDS.length);
-            const catBreed: ICatBreed = { name: this.CAT_BREEDS[randomCatType].name, imageUrl: this.CAT_BREEDS[randomCatType].imageUrl }
 
+            const randomCatTypeIndex = this.getRandomInt(this.CAT_BREEDS.length);
+            const catBreed: ICatBreed = { name: this.CAT_BREEDS[randomCatTypeIndex].name, imageUrl: this.CAT_BREEDS[randomCatTypeIndex].imageUrl }
             pet = new Pet({
                 name: petName,
                 gender: this.randomGender(),
                 breed: catBreed.name,
                 animalType: 'Cat',
-                age: this.getRandomInt(this.MAX_PET_AGE),
+                age: this.getRandomPetAge(this.MAX_PET_AGE),
                 isAdopted: false,
                 primaryPicture: catBreed.imageUrl
             });
-
-            return pet;
         }
+        return pet;
+
     }
 
     private async SeedAdoptionRequestsAsync() {
-
         const petsCollection: IPet[] = await Pet.find();
         for (let petIndex = 0; petIndex < petsCollection.length; petIndex++) {
             const createAdoptionRequestFlag = this.getRandomInt(2);
@@ -134,7 +141,6 @@ export default class dataSeeder {
     };
 
     private async createAdoptionRequest(pet: IPet): Promise<IAdoptionRequest> {
-
         const { fullName, email, phoneNumber, address } = await axios.get(`https://randomuser.me/api/`)
             .then((res) => {
                 return ({
@@ -159,13 +165,20 @@ export default class dataSeeder {
             address: address,
             message: `I wish to adopt ${pet.name} the ${pet.animalType}! waiting for your review :)`,
         })
-
-
         return adoptionRequest;
     }
 
     private getRandomInt(max: number): number {
-        return Math.floor(Math.random() * Math.floor(max));
+        return Math.floor(Math.random() * max);
+    };
+
+    private getRandomPetAge(max: number): number {
+        let precision: number = 10;
+        let randomAge: number;
+        randomAge = Math.floor(Math.random() * (max * precision) + 1 * precision) / (1 * precision);
+
+
+        return randomAge;
     };
 
     private randomGender(): string {
