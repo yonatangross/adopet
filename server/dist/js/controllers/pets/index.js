@@ -25,8 +25,12 @@ const getById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getById = getById;
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('request:');
+    console.log(req);
     yield PetServiceInstance.getAll(req.query).then((pets) => {
         res.status(200).json({ pets });
+        console.log('response:');
+        console.log(res);
     }).catch((err) => {
         throw err;
     });

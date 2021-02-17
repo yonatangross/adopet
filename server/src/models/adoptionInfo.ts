@@ -14,7 +14,7 @@ const adoptionInfoSchema: Schema = new Schema(
       required: true,
     },
     adoptionDate: {
-      time: { type: Date, default: Date.now },
+      type: Date,
       required: true
     }
   },

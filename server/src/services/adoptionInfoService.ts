@@ -1,9 +1,8 @@
-import { IAdoptionInfo } from "./../types/IAdoptionInfo";
 import { Service } from "typedi";
 import AdoptionInfo from "../models/adoptionInfo";
 import { IAdoptionRequest } from "../types/IAdoptionRequest";
 import { IPet } from "../types/IPet";
-
+import { IAdoptionInfo } from "./../types/IAdoptionInfo";
 @Service()
 export default class AdoptionInfoService {
   public async getById(id: string) {
