@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import AdoptionRequest from '../models/adoptionRequest';
 import PetSchema from '../models/pet'
 import dbSeed from './dbSeed'
 
@@ -23,6 +24,12 @@ export default async (): Promise<void> => {
 
     if (!petSchemaExist) {
         new dbSeed();
+        petSchemaExist=true;
+    }
+    if(await AdoptionRequest.collection.countDocuments()>50){
+        const adoptionRequests = await AdoptionRequest.aggregate([{ $group: { _id: "$pet", adoptionRequests: { $push: "$_id" } } }])
+        console.log(`adoptionRequests:`);
+        console.log(adoptionRequests);
     }
 };
 
