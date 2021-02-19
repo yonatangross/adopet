@@ -33,9 +33,9 @@ export default class dataSeeder {
     }
 
     if ((await Pet.collection.countDocuments()) == this.SEED_INIT_NUMBER) {
-      this.SeedAdoptionRequestsAsync();
+      await this.SeedAdoptionRequestsAsync();
     }
-    if ((await Pet.collection.countDocuments()) == this.SEED_INIT_NUMBER && (await AdoptionRequest.collection.countDocuments()) > 0) {
+    if (await AdoptionRequest.collection.countDocuments() > 0) {
       this.SeedAdoptionsInfoAsync();
     }
   }
