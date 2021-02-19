@@ -1,7 +1,7 @@
 import { IUser } from '../types/IUser';
 import { Model, model, Schema } from 'mongoose';
 
-const userSchema: Schema = new Schema(
+const refreshToken: Schema = new Schema(
   {
     email: { type: String, unique: true, required: true },
     firstName: { type: String, required: true },
@@ -13,7 +13,7 @@ const userSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-userSchema.set('toJSON', {
+refreshToken.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: function (doc: any, ret: any) {
@@ -23,6 +23,6 @@ userSchema.set('toJSON', {
   },
 });
 
-const User: Model<IUser> = model<IUser>('Account', userSchema);
+const User: Model<IUser> = model<IUser>('Account', refreshToken);
 
 export default User;

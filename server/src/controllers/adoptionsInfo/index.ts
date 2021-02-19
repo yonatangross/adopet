@@ -1,12 +1,12 @@
-import { IPet } from "../../types/IPet";
-import { Response, Request } from "express";
-import { IAdoptionInfo } from "../../types/IAdoptionInfo";
-import AdoptionRequestService from "../../services/adoptionRequestService";
-import Container from "typedi";
-import AdoptionInfoService from "../../services/adoptionInfoService";
-import adoptionInfo from "../../models/adoptionInfo";
-import PetService from "../../services/petService";
-import { IAdoptionRequest } from "../../types/IAdoptionRequest";
+import { IAdoptionInfo } from './../../types/IAdoptionInfo';
+import { IPet } from '../../types/IPet';
+import { Response, Request } from 'express';
+import AdoptionRequestService from '../../services/adoptionRequestService';
+import Container from 'typedi';
+import AdoptionInfoService from '../../services/adoptionInfoService';
+import adoptionInfo from '../../models/adoptionInfo';
+import PetService from '../../services/petService';
+import { IAdoptionRequest } from '../../types/IAdoptionRequest';
 
 const AdoptionRequestServiceInstance = Container.get(AdoptionRequestService);
 const PetServiceInstance = Container.get(PetService);
@@ -25,7 +25,7 @@ const getById = async (req: Request, res: Response): Promise<void> => {
 const getAll = async (req: Request, res: Response): Promise<void> => {
   await AdoptionInfoServiceInstance.getAll()
     .then((adoptionsInfo: IAdoptionInfo[]) => {
-      res.status(200).json({ adoptionRequests: adoptionsInfo });
+      res.status(200).json({ adoptionsInfo: adoptionsInfo });
     })
     .catch((err: Error) => {
       throw err;
@@ -34,9 +34,7 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
 
 const create = async (req: Request, res: Response): Promise<void> => {
   const petPromise = await PetServiceInstance.getById(req.body.petId);
-  const adoptionRequestPromise = await AdoptionRequestServiceInstance.getById(
-    req.body.adoptionRequestId
-  );
+  const adoptionRequestPromise = await AdoptionRequestServiceInstance.getById(req.body.adoptionRequestId);
 
   Promise.all([petPromise, adoptionRequestPromise])
     .then(async (results: any[]) => {
@@ -45,7 +43,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
       await AdoptionInfoServiceInstance.create(req.body, pet, adoptionRequest)
         .then((value: { adoptionInfo: IAdoptionInfo }) => {
           res.status(201).json({
-            message: "created adoption info ",
+            message: 'Created adoption info',
             adoptionInfo: value.adoptionInfo,
           });
         })
@@ -57,7 +55,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
       errors.forEach((error) => {
         console.log(`error while creating adoptionInfo ${error}`);
       });
-    })
+    });
 };
 
 const updateById = async (req: Request, res: Response): Promise<void> => {

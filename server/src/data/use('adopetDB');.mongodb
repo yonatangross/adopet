@@ -1,0 +1,12 @@
+use('adopetDB');
+
+    db.adoptionrequests.aggregate([{ $group: { _id: "$pet", adoptionRequests: { $push: "$_id" } } },{/**
+     * size: The number of documents to sample.
+     */
+    $sample: {
+      size: 1
+    }}])
+
+    use('adopetDB');
+
+    db.adoptionrequests.aggregate([]);

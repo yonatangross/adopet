@@ -1,10 +1,9 @@
 import { IAdoptionRequest } from './../types/IAdoptionRequest';
 import { IPet } from './../types/IPet';
 import AdoptionRequest from '../models/adoptionRequest';
-
 import Pet from '../models/pet';
 import axios from 'axios';
-import sizeOf from 'image-size';
+
 interface ICatBreed {
   name: string;
   imageUrl: string;
