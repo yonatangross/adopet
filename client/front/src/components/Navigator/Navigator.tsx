@@ -24,6 +24,7 @@ const Navigator: React.FC = () => {
           <div>
             <Navbar  />
           </div>
+          <div>
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route path="/about">
@@ -36,6 +37,7 @@ const Navigator: React.FC = () => {
             <Route path={`/requestSent`} exact component={RequestSentSuccessfully} />
             <Route path={`/contactRequestSent`} exact component={ThankYouForContact} />
           </Switch>
+          </div>
         </div></MDBCol>
       </MDBRow>
     </MDBContainer>
