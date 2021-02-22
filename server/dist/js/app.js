@@ -16,6 +16,7 @@ const logger_1 = require("./middleware/logger");
 const error_1 = __importDefault(require("./middleware/error"));
 const validateEnv_1 = __importDefault(require("./utils/validateEnv"));
 const user_1 = __importDefault(require("./controllers/users/user"));
+const authentication_1 = __importDefault(require("./controllers/authentication/authentication"));
 require('dotenv').config();
 class App {
     constructor(controllers) {
@@ -37,10 +38,9 @@ class App {
     }
     initializeMiddlewares() {
         this.app.use(logger_1.loggerMiddleware);
-        this.app.use(body_parser_1.default.urlencoded({ extended: false }));
         this.app.use(body_parser_1.default.json());
+        this.app.use(body_parser_1.default.urlencoded({ extended: true }));
         this.app.use(cookie_parser_1.default());
-        this.app.use(express_1.default.json());
         this.app.use(cors_1.default({
             origin: (_origin, callback) => {
                 return callback(null, true);
@@ -53,7 +53,7 @@ class App {
     }
     initializeControllers(controllers) {
         controllers.forEach((controller) => {
-            this.app.use(`/${controller.path}`, controller.router);
+            this.app.use(controller.path, controller.router);
         });
         this.app.use('/pets', pets_1.default);
         this.app.use('/adoptionRequests', adoptionRequests_1.default);
@@ -67,6 +67,6 @@ class App {
     }
 }
 validateEnv_1.default();
-const app = new App([new user_1.default()]);
+const app = new App([new user_1.default(), new authentication_1.default()]);
 app.listen();
 //# sourceMappingURL=app.js.map

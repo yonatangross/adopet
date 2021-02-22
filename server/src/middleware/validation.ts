@@ -4,6 +4,7 @@ import { RequestHandler } from 'express';
 import HttpException from '../exceptions/HttpException';
 
 function validationMiddleware<T>(type: any, skipMissingProperties = false): RequestHandler {
+  console.log(`in validation`);
   return (req, res, next) => {
     validate(plainToClass(type, req.body), { skipMissingProperties }).then((errors: ValidationError[]) => {
       if (errors.length > 0) {

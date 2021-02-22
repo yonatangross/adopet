@@ -11,31 +11,36 @@ import CreateUserDto from '../../models/Dtos/createUserDto';
 import userModel from '../../models/user';
 import AuthenticationService from '../../services/authenticationService';
 import LogInDto from '../../models/Dtos/logInDto';
-import config from '../../config';
+import Container from 'typedi';
 
 class AuthenticationController implements IController {
   public path = '/auth';
   public router = Router();
   public authenticationService = new AuthenticationService();
   private user = userModel;
+  private AuthenticationServiceInstance: AuthenticationService;
 
   constructor() {
     this.initializeRoutes();
+    this.AuthenticationServiceInstance = Container.get(AuthenticationService);
   }
 
   private initializeRoutes() {
-    this.router.post(`${this.path}/register`, validationMiddleware(CreateUserDto), this.registration);
-    this.router.post(`${this.path}/login`, validationMiddleware(LogInDto), this.loggingIn);
-    this.router.post(`${this.path}/logout`, this.loggingOut);
+    this.router.post(`/register`, validationMiddleware(CreateUserDto), this.registration);
+    this.router.post(`/login`, validationMiddleware(LogInDto), this.loggingIn);
+    this.router.post(`/logout`, this.loggingOut);
   }
 
   private registration = async (request: Request, response: Response, next: NextFunction) => {
     const userData: CreateUserDto = request.body;
     try {
-      const { cookie, user } = await this.authenticationService.register(userData);
+      const { cookie, user } = await this.AuthenticationServiceInstance.register(userData);
       response.setHeader('Set-Cookie', [cookie]);
       response.send(user);
     } catch (error) {
+      console.log(`error in returning from authService `);
+      console.log(error);
+
       next(error);
     }
   };
@@ -71,10 +76,13 @@ class AuthenticationController implements IController {
     const dataStoredInToken: IDataStoredInToken = {
       _id: user._id,
     };
-    return {
-      expiresIn,
-      token: jwt.sign(dataStoredInToken, config.jwtSecret, { expiresIn }),
-    };
+    const jwtSecret = process.env.JWT_SECRET;
+    if (jwtSecret)
+      return {
+        expiresIn,
+        token: jwt.sign(dataStoredInToken, jwtSecret, { expiresIn }),
+      };
+    else throw new Error('invalid jwtSecret in env');
   }
 }
 

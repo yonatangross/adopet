@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, Router, Express } from 'express';
+import { Request, Response, NextFunction, Router } from 'express';
 import IController from '../../interfaces/IController';
 import authMiddleware from '../../middleware/auth';
 import UserNotFoundException from '../../exceptions/UserNotFoundException';

@@ -34,8 +34,6 @@ export default class dataSeeder {
       await this.SeedAdoptionRequestsAsync();
     }
 
-    console.log(`in users collection func`);
-
     // if ((await AdoptionRequest.collection.countDocuments()) > 0) {
     //   this.SeedAdoptionsInfoAsync();
     // }

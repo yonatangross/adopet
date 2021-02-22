@@ -7,9 +7,10 @@ import CreateUserDto from '../models/Dtos/createUserDto';
 import IUser from '../interfaces/IUser';
 
 import userModel from '../models/user';
-import config from '../config';
+import { Service } from 'typedi';
 
-class AuthenticationService {
+@Service()
+export default class AuthenticationService {
   public user = userModel;
 
   public async register(userData: CreateUserDto) {
@@ -23,6 +24,7 @@ class AuthenticationService {
     });
     const tokenData = this.createToken(user);
     const cookie = this.createCookie(tokenData);
+
     return {
       cookie,
       user,
@@ -36,11 +38,12 @@ class AuthenticationService {
     const dataStoredInToken: IDataStoredInToken = {
       _id: user._id,
     };
-    return {
-      expiresIn,
-      token: jwt.sign(dataStoredInToken, config.jwtSecret, { expiresIn }),
-    };
+    const jwtSecret = process.env.JWT_SECRET;
+    if (jwtSecret)
+      return {
+        expiresIn,
+        token: jwt.sign(dataStoredInToken, jwtSecret, { expiresIn }),
+      };
+    else throw new Error('invalid jwtSecret from env');
   }
 }
-
-export default AuthenticationService;

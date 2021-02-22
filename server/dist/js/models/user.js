@@ -9,7 +9,7 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         get: () => undefined,
     },
-}, { timestamps: true, toJSON: { virtuals: true, getters: true } });
+}, { timestamps: true, toJSON: { virtuals: false, getters: true } });
 const UserModel = mongoose_1.model('User', userSchema);
 exports.default = UserModel;
 //# sourceMappingURL=user.js.map

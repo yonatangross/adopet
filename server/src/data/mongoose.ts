@@ -28,11 +28,12 @@ const initDb = async (): Promise<void> => {
     new dbSeed();
     petSchemaExists = true;
   }
+  console.log('ended initdb');
 
-  if ((await UserSchema.collection.countDocuments()) != 0) {
-    await seedTestUser();
-    usersSchemaExists = true;
-  }
+  // if ((await UserSchema.collection.countDocuments()) != 0) {
+  //   await seedTestUser();
+  //   usersSchemaExists = true;
+  // }
 };
 
 const seedTestUser = async (): Promise<void> => {
@@ -41,7 +42,7 @@ const seedTestUser = async (): Promise<void> => {
       email: 'test@test.com',
       firstName: 'first',
       lastName: 'last',
-      password:'test' ,
+      password: 'test',
     });
     await user.save();
   } catch (err) {

@@ -12,6 +12,8 @@ import errorMiddleware from './middleware/error';
 import IController from './interfaces/IController';
 import validateEnv from './utils/validateEnv';
 import UserController from './controllers/users/user';
+import AuthenticationController from './controllers/authentication/authentication';
+
 require('dotenv').config();
 
 class App {
@@ -37,10 +39,9 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(loggerMiddleware);
-    this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(cookieParser());
-    this.app.use(express.json());
     this.app.use(
       cors({
         origin: (_origin, callback) => {
@@ -57,7 +58,7 @@ class App {
 
   private initializeControllers(controllers: IController[]) {
     controllers.forEach((controller) => {
-      this.app.use(`/${controller.path}`, controller.router);
+      this.app.use(controller.path, controller.router);
     });
     this.app.use('/pets', petsRoutes);
     this.app.use('/adoptionRequests', adoptionRequestsRoutes);
@@ -74,6 +75,6 @@ class App {
 
 validateEnv();
 
-const app = new App([new UserController()]);
+const app = new App([new UserController(), new AuthenticationController()]);
 
 app.listen();
