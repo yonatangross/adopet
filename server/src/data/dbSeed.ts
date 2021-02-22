@@ -19,7 +19,6 @@ export default class dataSeeder {
   private CAT_BREEDS: ICatBreed[] = [];
   constructor() {
     console.log('entered dbSeed');
-
     this.initialize();
   }
 

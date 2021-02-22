@@ -23,12 +23,11 @@ const mongooseLoader = async (): Promise<void> => {
 
 const initDb = async (): Promise<void> => {
   let petSchemaExists: boolean = false;
-  let usersSchemaExists: boolean = false;
   if ((await PetSchema.collection.countDocuments()) != 0) {
     new dbSeed();
     petSchemaExists = true;
+    console.log('ended initDb');
   }
-  console.log('ended initdb');
 
   // if ((await UserSchema.collection.countDocuments()) != 0) {
   //   await seedTestUser();
@@ -49,8 +48,5 @@ const seedTestUser = async (): Promise<void> => {
     console.log('error creating user');
   }
 };
-const isValidId = (id: string): boolean => {
-  return mongoose.Types.ObjectId.isValid(id);
-};
 
-export { mongooseLoader, isValidId, initDb };
+export { mongooseLoader, initDb };

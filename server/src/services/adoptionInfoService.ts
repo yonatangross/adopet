@@ -38,10 +38,10 @@ export default class AdoptionInfoService {
   }
 
   public async deleteById(adoptionInfoId: string) {
-    const deletedAdoptioninfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndRemove(adoptionInfoId);
+    const deletedAdoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndRemove(adoptionInfoId);
     return {
       message: `Adoption info of ${adoptionInfoId} deleted`,
-      adoptionInfo: deletedAdoptioninfo,
+      adoptionInfo: deletedAdoptionInfo,
     };
   }
 }

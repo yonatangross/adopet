@@ -4,15 +4,15 @@ import { mongooseLoader, initDb } from './data/mongoose';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import petsRoutes from './routes/pets';
-import adoptionRequestsRoutes from './routes/adoptionRequests';
-import AdoptionsInfoRoutes from './routes/adoptionsInfo';
 import { loggerMiddleware } from './middleware/logger';
 import errorMiddleware from './middleware/error';
 import IController from './interfaces/IController';
 import validateEnv from './utils/validateEnv';
-import UserController from './controllers/users/user';
-import AuthenticationController from './controllers/authentication/authentication';
+import UserController from './controllers/users';
+import AuthenticationController from './controllers/authentication';
+import PetController from './controllers/pets';
+import AdoptionRequestController from './controllers/adoptionRequests';
+import AdoptionInfoController from './controllers/adoptionsInfo';
 
 require('dotenv').config();
 
@@ -60,21 +60,19 @@ class App {
     controllers.forEach((controller) => {
       this.app.use(controller.path, controller.router);
     });
-    this.app.use('/pets', petsRoutes);
-    this.app.use('/adoptionRequests', adoptionRequestsRoutes);
-    this.app.use('/adoptionsInfo', AdoptionsInfoRoutes);
   }
 
   private connectToTheDatabase() {
     mongooseLoader();
   }
   private initializeDatabase() {
+    //todo: check in here instead of getting to func
     initDb();
   }
 }
 
 validateEnv();
 
-const app = new App([new UserController(), new AuthenticationController()]);
+const app = new App([new PetController(), new AdoptionRequestController(), new AdoptionInfoController(), new UserController(), new AuthenticationController()]);
 
 app.listen();

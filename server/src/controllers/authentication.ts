@@ -1,22 +1,21 @@
-import IUser from './../../interfaces/IUser';
+import IUser from '../interfaces/IUser';
 import * as bcrypt from 'bcrypt';
 import { Request, Response, NextFunction, Router } from 'express';
 import * as jwt from 'jsonwebtoken';
-import WrongCredentialsException from '../../exceptions/WrongCredentialsException';
-import IController from '../../interfaces/IController';
-import IDataStoredInToken from '../../interfaces/IDataStoredInToken';
-import ITokenData from '../../interfaces/ITokenData';
-import validationMiddleware from '../../middleware/validation';
-import CreateUserDto from '../../models/Dtos/createUserDto';
-import userModel from '../../models/user';
-import AuthenticationService from '../../services/authenticationService';
-import LogInDto from '../../models/Dtos/logInDto';
+import WrongCredentialsException from '../exceptions/WrongCredentialsException';
+import IController from '../interfaces/IController';
+import IDataStoredInToken from '../interfaces/IDataStoredInToken';
+import ITokenData from '../interfaces/ITokenData';
+import validationMiddleware from '../middleware/validation';
+import CreateUserDto from '../models/Dtos/createUserDto';
+import userModel from '../models/user';
+import AuthenticationService from '../services/authenticationService';
+import LogInDto from '../models/Dtos/logInDto';
 import Container from 'typedi';
 
 class AuthenticationController implements IController {
   public path = '/auth';
   public router = Router();
-  public authenticationService = new AuthenticationService();
   private user = userModel;
   private AuthenticationServiceInstance: AuthenticationService;
 

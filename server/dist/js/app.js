@@ -9,14 +9,14 @@ const mongoose_1 = require("./data/mongoose");
 const body_parser_1 = __importDefault(require("body-parser"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
-const pets_1 = __importDefault(require("./routes/pets"));
-const adoptionRequests_1 = __importDefault(require("./routes/adoptionRequests"));
-const adoptionsInfo_1 = __importDefault(require("./routes/adoptionsInfo"));
 const logger_1 = require("./middleware/logger");
 const error_1 = __importDefault(require("./middleware/error"));
 const validateEnv_1 = __importDefault(require("./utils/validateEnv"));
-const user_1 = __importDefault(require("./controllers/users/user"));
-const authentication_1 = __importDefault(require("./controllers/authentication/authentication"));
+const users_1 = __importDefault(require("./controllers/users"));
+const authentication_1 = __importDefault(require("./controllers/authentication"));
+const pets_1 = __importDefault(require("./controllers/pets"));
+const adoptionRequests_1 = __importDefault(require("./controllers/adoptionRequests"));
+const adoptionsInfo_1 = __importDefault(require("./controllers/adoptionsInfo"));
 require('dotenv').config();
 class App {
     constructor(controllers) {
@@ -55,18 +55,16 @@ class App {
         controllers.forEach((controller) => {
             this.app.use(controller.path, controller.router);
         });
-        this.app.use('/pets', pets_1.default);
-        this.app.use('/adoptionRequests', adoptionRequests_1.default);
-        this.app.use('/adoptionsInfo', adoptionsInfo_1.default);
     }
     connectToTheDatabase() {
         mongoose_1.mongooseLoader();
     }
     initializeDatabase() {
+        //todo: check in here instead of getting to func
         mongoose_1.initDb();
     }
 }
 validateEnv_1.default();
-const app = new App([new user_1.default(), new authentication_1.default()]);
+const app = new App([new pets_1.default(), new adoptionRequests_1.default(), new adoptionsInfo_1.default(), new users_1.default(), new authentication_1.default()]);
 app.listen();
 //# sourceMappingURL=app.js.map
