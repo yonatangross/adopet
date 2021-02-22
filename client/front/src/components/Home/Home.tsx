@@ -28,7 +28,7 @@ export const Home: React.FC<Props> = () => {
 
   return (
     <div>
-      <MDBView className="view-background" src={bannerimg}>
+      <MDBView id="view-background" src={bannerimg}>
         <MDBMask className="flex-center flex-column text-white text-center"></MDBMask>
       </MDBView>
       <PetGrid pets={pets} count={8} />

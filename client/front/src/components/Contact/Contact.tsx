@@ -2,16 +2,50 @@ import React, { ReactElement, useState } from "react";
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBIcon, MDBBtn, MDBInput } from "mdbreact";
 import './Contact.css';
 import { Redirect } from "react-router-dom";
+import PopupComponent from "../Popup/Popup";
+
 
 const Contact: React.FC = (): ReactElement => {
 
   const [formSent, setFormSent] = useState(false);
 
-  function handleSubmit(){
-    setFormSent(true);
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+
+  const handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    setName(e.currentTarget.value)
+    console.log(name);
+  }
+  const handleEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    setEmail(e.currentTarget.value)
+    console.log(email);
+  }
+  const handleSubjectChange = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    setSubject(e.currentTarget.value)
+    console.log(subject);
+  }
+  const handleMessageChange = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    setMessage(e.currentTarget.value)
+    console.log(message);
   }
 
-  if(formSent){
+  const handleSubmit = ()=> {
+    if(name==""||email==""||subject==""||message==""){
+      alert("TFIiiiiiiiiiiiiii");
+    }
+    else{
+    setFormSent(true);
+    }
+  }
+
+
+  if (formSent) {
     return <Redirect to="/contactRequestSent" />;
   }
   return (
@@ -45,6 +79,7 @@ const Contact: React.FC = (): ReactElement => {
                   iconClass="grey-text"
                   type="text"
                   id="form-name"
+                  onChange = {handleNameChange}
                 />
               </div>
               <div className="md-form">
@@ -54,6 +89,7 @@ const Contact: React.FC = (): ReactElement => {
                   iconClass="grey-text"
                   type="text"
                   id="form-email"
+                  onChange = {handleEmailChange}
                 />
               </div>
               <div className="md-form">
@@ -63,7 +99,8 @@ const Contact: React.FC = (): ReactElement => {
                   iconClass="grey-text"
                   type="text"
                   id="form-subject"
-                />
+                  onChange = {handleSubjectChange}
+                    />
               </div>
               <div className="md-form">
                 <MDBInput
@@ -72,6 +109,7 @@ const Contact: React.FC = (): ReactElement => {
                   iconClass="grey-text"
                   type="textarea"
                   id="form-text"
+                  onChange = {handleMessageChange}
                 />
               </div>
               <div className="text-center">
@@ -125,7 +163,7 @@ const Contact: React.FC = (): ReactElement => {
         </MDBCol>
       </MDBRow>
     </section>
-  
+
   );
 };
 

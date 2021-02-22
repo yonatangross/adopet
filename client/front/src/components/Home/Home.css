@@ -2,6 +2,13 @@
     text-decoration-line: underline; 
 }
 
-.view-background{
+#view-background{
+    margin-top:5%;
     margin-bottom: 5%;
+    background-size: 100% 100% !important;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    max-height: 50vh;
+
 }
