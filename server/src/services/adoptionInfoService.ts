@@ -1,27 +1,22 @@
-import { Service } from "typedi";
-import AdoptionInfo from "../models/adoptionInfo";
-import { IAdoptionRequest } from "../types/IAdoptionRequest";
-import { IPet } from "../types/IPet";
-import { IAdoptionInfo } from "./../types/IAdoptionInfo";
+import { Service } from 'typedi';
+import AdoptionInfo from '../models/adoptionInfo';
+import { IAdoptionRequest } from '../interfaces/IAdoptionRequest';
+import { IPet } from '../interfaces/IPet';
+import { IAdoptionInfo } from '../interfaces/IAdoptionInfo';
 @Service()
 export default class AdoptionInfoService {
   public async getById(id: string) {
-    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findById(
-      id
-    ).populate("pet", "adoptionRequest");
+    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findById(id).populate('pet', 'adoptionRequest');
     return adoptionInfo;
   }
 
   public async getAll() {
-    const adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate(
-      "pet",
-      "adoptionRequest"
-    );
+    const adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate('pet', 'adoptionRequest');
     return adoptionsInfo;
   }
 
   public async create(req: any, pet: IPet, adoptionRequest: IAdoptionRequest) {
-    const body = req as Pick<IAdoptionInfo, "adoptionDate">;
+    const body = req as Pick<IAdoptionInfo, 'adoptionDate'>;
 
     const adoptionInfo = new AdoptionInfo({
       pet: pet,
@@ -35,20 +30,15 @@ export default class AdoptionInfoService {
   }
 
   public async updateById(adoptionInfoId: string, req: any) {
-    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndUpdate(
-      { _id: adoptionInfoId },
-      req.body
-    );
+    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndUpdate({ _id: adoptionInfoId }, req.body);
     return {
-      message: "Adoption info updated",
+      message: 'Adoption info updated',
       adoptionInfo: adoptionInfo,
     };
   }
 
   public async deleteById(adoptionInfoId: string) {
-    const deletedAdoptioninfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndRemove(
-      adoptionInfoId
-    );
+    const deletedAdoptioninfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndRemove(adoptionInfoId);
     return {
       message: `Adoption info of ${adoptionInfoId} deleted`,
       adoptionInfo: deletedAdoptioninfo,

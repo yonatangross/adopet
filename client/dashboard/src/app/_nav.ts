@@ -119,6 +119,82 @@ export const navItems: INavData[] = [
     ]
   },
   {
+    name: 'Pets',
+    url: '/pets',
+    icon: 'cil-dog',
+    children: [
+      {
+        name: 'Pets',
+        url: '/pets/',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Create Pet',
+        url: '/pets/pet-creation',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Edit Pet',
+        url: '/pets/pet-update',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Delete Pet',
+        url: '/pets/pet-deletion',
+        icon: 'icon-cursor'
+      }
+    ]
+  },
+  {
+    name: 'Adoptions Requests',
+    url: '/adoption-requests',
+    icon: 'icon-cursor',
+    children: [
+      {
+        name: 'Adoption requests',
+        url: '/adoption-requests',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Update adoption request',
+        url: '/adoption-requests/edit-adoption-request',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Delete adoption request',
+        url: '/adoption-requests/delete-adoption-request',
+        icon: 'icon-cursor'
+      }
+    ]
+  },
+  {
+    name: 'Adoptions',
+    url: '/adoptions-info',
+    icon: 'icon-cursor',
+    children: [
+      {
+        name: 'Adoptions',
+        url: '/adoption-info',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Create adoption',
+        url: '/adoption-Info/add-adoption-info',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Edit adoption',
+        url: '/adoption-Info/edit-adoption-info',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Delete adoption',
+        url: '/adoption-Info/delete-adoption-info',
+        icon: 'icon-cursor'
+      }
+    ]
+  },
+  {
     name: 'Charts',
     url: '/charts',
     icon: 'icon-pie-chart'

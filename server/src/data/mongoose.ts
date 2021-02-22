@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import PetSchema from '../models/pet';
+import UserSchema from '../models/user';
+
+import UserModel from '../models/user';
 import dbSeed from './dbSeed';
 
 const mongooseLoader = async (): Promise<void> => {
@@ -16,21 +19,37 @@ const mongooseLoader = async (): Promise<void> => {
       console.log(`db entering failed! ${error}`);
       throw error;
     });
+};
 
-  let petSchemaExist: boolean = false;
-
+const initDb = async (): Promise<void> => {
+  let petSchemaExists: boolean = false;
+  let usersSchemaExists: boolean = false;
   if ((await PetSchema.collection.countDocuments()) != 0) {
-    petSchemaExist = true;
+    new dbSeed();
+    petSchemaExists = true;
   }
 
-  if (!petSchemaExist) {
-    new dbSeed();
-    petSchemaExist = true;
+  if ((await UserSchema.collection.countDocuments()) != 0) {
+    await seedTestUser();
+    usersSchemaExists = true;
   }
 };
 
+const seedTestUser = async (): Promise<void> => {
+  try {
+    const user = new UserModel({
+      email: 'test@test.com',
+      firstName: 'first',
+      lastName: 'last',
+      password:'test' ,
+    });
+    await user.save();
+  } catch (err) {
+    console.log('error creating user');
+  }
+};
 const isValidId = (id: string): boolean => {
   return mongoose.Types.ObjectId.isValid(id);
 };
 
-export { mongooseLoader, isValidId };
+export { mongooseLoader, isValidId, initDb };

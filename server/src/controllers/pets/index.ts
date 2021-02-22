@@ -1,6 +1,6 @@
 import { Container } from 'typedi';
 import { Response, Request } from 'express';
-import { IPet } from '../../types/IPet';
+import { IPet } from '../../interfaces/IPet';
 import PetService from '../../services/petService';
 
 const PetServiceInstance = Container.get(PetService);

@@ -1,6 +1,6 @@
-import { IPet } from './../../types/IPet';
+import { IPet } from '../../interfaces/IPet';
 import { Response, Request } from 'express';
-import { IAdoptionRequest } from '../../types/IAdoptionRequest';
+import { IAdoptionRequest } from '../../interfaces/IAdoptionRequest';
 import AdoptionRequestService from '../../services/adoptionRequestService';
 import Container from 'typedi';
 import PetService from '../../services/petService';

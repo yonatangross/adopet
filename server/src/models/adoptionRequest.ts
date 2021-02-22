@@ -1,4 +1,4 @@
-import { IAdoptionRequest } from '../types/IAdoptionRequest';
+import { IAdoptionRequest } from '../interfaces/IAdoptionRequest';
 import { Model, model, Schema } from 'mongoose';
 
 const adoptionRequestSchema: Schema = new Schema(

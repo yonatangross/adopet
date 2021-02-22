@@ -1,28 +1,19 @@
-import { IUser } from '../types/IUser';
-import { Model, model, Schema } from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
+import IUser from '../interfaces/IUser';
 
 const userSchema: Schema = new Schema(
   {
     email: { type: String, unique: true, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    passwordHash: { type: String, required: true },
-    role: { type: String, required: true },
+    password: {
+      type: String,
+      get: (): undefined => undefined,
+    },
   },
-
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true, getters: true } }
 );
 
-userSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc: any, ret: any) {
-    // remove these props when object is serialized
-    delete ret._id;
-    delete ret.passwordHash;
-  },
-});
+const UserModel = model<IUser & Document>('User', userSchema);
 
-const User: Model<IUser> = model<IUser>('Account', userSchema);
-
-export default User;
+export default UserModel;

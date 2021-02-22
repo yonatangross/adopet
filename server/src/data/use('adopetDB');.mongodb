@@ -1,12 +1,10 @@
 use('adopetDB');
 
-    db.adoptionrequests.aggregate([{ $group: { _id: "$pet", adoptionRequests: { $push: "$_id" } } },{/**
-     * size: The number of documents to sample.
-     */
-    $sample: {
-      size: 1
-    }}])
-
-    use('adopetDB');
-
-    db.adoptionrequests.aggregate([]);
+    db.adoptionrequests.mapReduce(
+  /* group by type */
+  function() { emit(pet, _id); },
+  /* select one random index */
+  function(u, vs) { return vs[Math.round(Math.random() * vs.length)]; },
+  /* return the results directly, or use {out: "coll_name" } */
+  {out: {inline: 1}} 
+)

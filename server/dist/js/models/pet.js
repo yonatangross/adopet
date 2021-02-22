@@ -33,3 +33,4 @@ const petSchema = new mongoose_1.Schema({
 }, { timestamps: true });
 const Pet = mongoose_1.model("Pet", petSchema);
 exports.default = Pet;
+//# sourceMappingURL=pet.js.map

@@ -1,6 +1,6 @@
-import { IPet } from './../types/IPet';
+import { IPet } from '../interfaces/IPet';
 import { Service } from 'typedi'
-import { IAdoptionRequest } from './../types/IAdoptionRequest';
+import { IAdoptionRequest } from '../interfaces/IAdoptionRequest';
 import AdoptionRequest from '../models/adoptionRequest';
 
 @Service()

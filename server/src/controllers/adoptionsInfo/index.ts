@@ -1,12 +1,12 @@
-import { IAdoptionInfo } from './../../types/IAdoptionInfo';
-import { IPet } from '../../types/IPet';
+import { IAdoptionInfo } from '../../interfaces/IAdoptionInfo';
+import { IPet } from '../../interfaces/IPet';
 import { Response, Request } from 'express';
 import AdoptionRequestService from '../../services/adoptionRequestService';
 import Container from 'typedi';
 import AdoptionInfoService from '../../services/adoptionInfoService';
 import adoptionInfo from '../../models/adoptionInfo';
 import PetService from '../../services/petService';
-import { IAdoptionRequest } from '../../types/IAdoptionRequest';
+import { IAdoptionRequest } from '../../interfaces/IAdoptionRequest';
 
 const AdoptionRequestServiceInstance = Container.get(AdoptionRequestService);
 const PetServiceInstance = Container.get(PetService);

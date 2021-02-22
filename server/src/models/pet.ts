@@ -1,4 +1,4 @@
-import { IPet } from '../types/IPet';
+import { IPet } from '../interfaces/IPet';
 import { Model, model, Schema } from 'mongoose';
 
 const petSchema: Schema = new Schema(

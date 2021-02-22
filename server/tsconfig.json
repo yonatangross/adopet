@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "sourceMap": true,
+    "target": "es2017",
     "module": "commonjs",
     "outDir": "dist/js",
     "rootDir": "src",
@@ -8,8 +9,10 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./types"]
   },
   "include": ["src/**/*"],
-  "exclude": ["src/types/*.ts", "node_modules", ".vscode"]
+  "exclude": ["node_modules", ".vscode"]
 }

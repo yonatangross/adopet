@@ -1,46 +1,79 @@
 import 'reflect-metadata';
-import express, { Express } from 'express';
-import { mongooseLoader } from './data/mongoose';
+import express from 'express';
+import { mongooseLoader, initDb } from './data/mongoose';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import usersRoutes from './routes/users';
 import petsRoutes from './routes/pets';
 import adoptionRequestsRoutes from './routes/adoptionRequests';
 import AdoptionsInfoRoutes from './routes/adoptionsInfo';
 import { loggerMiddleware } from './middleware/logger';
-
+import errorMiddleware from './middleware/error';
+import IController from './interfaces/IController';
+import validateEnv from './utils/validateEnv';
+import UserController from './controllers/users/user';
 require('dotenv').config();
 
-const app: Express = express();
+class App {
+  public app: express.Application;
+  private PORT: string | number = process.env.PORT || 4000;
 
-const PORT: string | number = process.env.PORT || 4000;
+  constructor(controllers: IController[]) {
+    this.app = express();
+    this.connectToTheDatabase();
+    this.initializeMiddlewares();
+    this.initializeControllers(controllers);
+    this.initializeErrorHandling();
+    this.initializeDatabase();
+  }
+  public listen() {
+    this.app.listen(this.PORT, () => {
+      console.log(`
+      ################################################
+        Server listening on port: ${this.PORT} 
+      ################################################`);
+    });
+  }
 
-app.use(loggerMiddleware);
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cookieParser());
+  private initializeMiddlewares() {
+    this.app.use(loggerMiddleware);
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(bodyParser.json());
+    this.app.use(cookieParser());
+    this.app.use(express.json());
+    this.app.use(
+      cors({
+        origin: (_origin, callback) => {
+          return callback(null, true);
+        },
+        credentials: true,
+      })
+    );
+  }
 
-app.use(express.json());
-app.use(
-  cors({
-    origin: (_origin, callback) => {
-      return callback(null, true);
-    },
-    credentials: true,
-  })
-);
+  private initializeErrorHandling() {
+    this.app.use(errorMiddleware);
+  }
 
-// app.use('/users', usersRoutes);
-app.use('/pets', petsRoutes);
-app.use('/adoptionRequests', adoptionRequestsRoutes);
-app.use('/adoptionsInfo', AdoptionsInfoRoutes);
+  private initializeControllers(controllers: IController[]) {
+    controllers.forEach((controller) => {
+      this.app.use(`/${controller.path}`, controller.router);
+    });
+    this.app.use('/pets', petsRoutes);
+    this.app.use('/adoptionRequests', adoptionRequestsRoutes);
+    this.app.use('/adoptionsInfo', AdoptionsInfoRoutes);
+  }
 
-mongooseLoader();
+  private connectToTheDatabase() {
+    mongooseLoader();
+  }
+  private initializeDatabase() {
+    initDb();
+  }
+}
 
-app.listen(PORT, () => {
-  console.log(`
-    ################################################
-      Server listening on port: ${PORT} 
-    ################################################`);
-});
+validateEnv();
+
+const app = new App([new UserController()]);
+
+app.listen();

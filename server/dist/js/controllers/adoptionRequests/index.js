@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -19,47 +10,48 @@ const petService_1 = __importDefault(require("../../services/petService"));
 const adoptionRequest_1 = __importDefault(require("../../models/adoptionRequest"));
 const AdoptionRequestServiceInstance = typedi_1.default.get(adoptionRequestService_1.default);
 const PetServiceInstance = typedi_1.default.get(petService_1.default);
-const getById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield AdoptionRequestServiceInstance.getById(req.params.id).then((adoptionRequest) => {
+const getById = async (req, res) => {
+    await AdoptionRequestServiceInstance.getById(req.params.id).then((adoptionRequest) => {
         res.status(200).json({ adoptionRequest });
     }).catch((err) => {
         throw err;
     });
-});
+};
 exports.getById = getById;
-const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield AdoptionRequestServiceInstance.getAll().then((adoptionRequests) => {
+const getAll = async (req, res) => {
+    await AdoptionRequestServiceInstance.getAll().then((adoptionRequests) => {
         res.status(200).json({ adoptionRequests });
     }).catch((err) => {
         throw err;
     });
-});
+};
 exports.getAll = getAll;
-const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield PetServiceInstance.getById(req.body.petId).then((pet) => __awaiter(void 0, void 0, void 0, function* () {
+const create = async (req, res) => {
+    await PetServiceInstance.getById(req.body.petId).then(async (pet) => {
         if (pet != null) {
-            yield AdoptionRequestServiceInstance.create(req.body, pet).then((value) => {
+            await AdoptionRequestServiceInstance.create(req.body, pet).then((value) => {
                 res.status(201).json({ message: 'Adoption request added', adoptionRequest: value.adoptionRequest });
             }).catch((err) => { throw err; });
         }
-    })).catch((err) => { throw err; });
-});
+    }).catch((err) => { throw err; });
+};
 exports.create = create;
-const updateById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield AdoptionRequestServiceInstance.updateById(req.params.id, req.body).then((value) => {
+const updateById = async (req, res) => {
+    await AdoptionRequestServiceInstance.updateById(req.params.id, req.body).then((value) => {
         res.status(200).json({
             message: `adoption Request updated ${adoptionRequest_1.default}`,
             adoptionRequest: value.adoptionRequest,
         });
     }).catch((err) => { throw err; });
-});
+};
 exports.updateById = updateById;
-const deleteById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield AdoptionRequestServiceInstance.deleteById(req.params.id).then((value) => {
+const deleteById = async (req, res) => {
+    await AdoptionRequestServiceInstance.deleteById(req.params.id).then((value) => {
         res.status(200).json({
             message: `Adoption request deleted`,
             adoptionRequest: value.adoptionRequest,
         });
     }).catch((err) => { throw err; });
-});
+};
 exports.deleteById = deleteById;
+//# sourceMappingURL=index.js.map

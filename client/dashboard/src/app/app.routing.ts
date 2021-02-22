@@ -81,6 +81,15 @@ export const routes: Routes = [
       {
         path: 'widgets',
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
+      }, {
+        path: 'pets',
+        loadChildren: () => import('./views/pets/pets.module').then(m => m.PetsModule)
+      }, {
+        path: 'adoption-requests',
+        loadChildren: () => import('./views/adoption-requests/adoption-requests.module').then(m => m.AdoptionRequestsModule)
+      }, {
+        path: 'adoptions',
+        loadChildren: () => import('./views/adoptions/adoptions.module').then(m => m.AdoptionsModule)
       }
     ]
   },
@@ -88,7 +97,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,5 +1,5 @@
 import { Service } from 'typedi'
-import { IPet } from './../types/IPet';
+import { IPet } from '../interfaces/IPet';
 import Pet from '../models/pet';
 import { genericSearch } from './Search/genericSearch';
 import { genericFilter } from './Filter/genericFilter';

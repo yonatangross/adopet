@@ -30,3 +30,4 @@ const adoptionRequestSchema = new mongoose_1.Schema({
 }, { timestamps: true });
 const AdoptionRequest = mongoose_1.model("AdoptionRequest", adoptionRequestSchema);
 exports.default = AdoptionRequest;
+//# sourceMappingURL=adoptionRequest.js.map

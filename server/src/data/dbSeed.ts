@@ -1,5 +1,5 @@
-import { IAdoptionRequest } from './../types/IAdoptionRequest';
-import { IPet } from './../types/IPet';
+import { IAdoptionRequest } from '../interfaces/IAdoptionRequest';
+import { IPet } from '../interfaces/IPet';
 import AdoptionRequest from '../models/adoptionRequest';
 import Pet from '../models/pet';
 import axios from 'axios';
@@ -20,7 +20,6 @@ export default class dataSeeder {
   constructor() {
     console.log('entered dbSeed');
 
-    this.getPetBreeds();
     this.initialize();
   }
 
@@ -31,12 +30,15 @@ export default class dataSeeder {
       await this.SeedPetsAsync();
     }
 
-    if ((await Pet.collection.countDocuments()) == this.SEED_INIT_NUMBER) {
+    if ((await AdoptionRequest.collection.countDocuments()) <= this.SEED_INIT_NUMBER) {
       await this.SeedAdoptionRequestsAsync();
     }
-    if (await AdoptionRequest.collection.countDocuments() > 0) {
-      this.SeedAdoptionsInfoAsync();
-    }
+
+    console.log(`in users collection func`);
+
+    // if ((await AdoptionRequest.collection.countDocuments()) > 0) {
+    //   this.SeedAdoptionsInfoAsync();
+    // }
   }
 
   private async getPetBreeds() {
@@ -188,58 +190,30 @@ export default class dataSeeder {
   }
 
   private async SeedAdoptionsInfoAsync() {
+    // let reqGroups = await AdoptionRequest.mapReduce(
+    //   /* group by type */
+    //   () => {
+    //     emit(this.pets, this.value);
+    //   },
+    //   /* select one random index */
+    //   function (u, vs) {
+    //     return vs[Math.round(Math.random() * vs.length)];
+    //   },
+    //   /* return the results directly, or use {out: "coll_name" } */
+    //   { out: { inline: 1 } }
+    // );
     // const adoptionRequests = AdoptionRequest.aggregate([{ $group: { _id: "$pet", adoptionRequests: { $push: "$_id" } } }])
     // console.log(`adoptionRequests:`);
     // console.log(adoptionRequests);
   }
-  private async createAdoptionInfo(animalType: string): Promise<IPet> {
-    let pet: IPet;
+  // private async createAdoptionInfo(animalType: string): Promise<IAdoptionInfo> {
 
-    const petName = await axios
-      .get(`https://randomuser.me/api/?inc=name&noinfo&nat=us`)
-      .then((res) => {
-        return res.data.results[0].name.first;
-      })
-      .catch((err: Error) => {
-        console.log(`error fetching fake name ${err}`);
-        throw err;
-      });
-    if (animalType === 'Dog') {
-      const randomDogBreed = this.getRandomInt(this.DOG_BREEDS.length);
-      const dogBreed = this.DOG_BREEDS[randomDogBreed];
+  //   const adoptionInfo: IAdoptionInfo = new AdoptionInfo({
+  //     pet: pet,
+  //   });
 
-      // do {
-      var imageUrlRequest = await axios.get(`https://dog.ceo/api/breed/${dogBreed}/images/random`);
-      //   var dimensions = sizeOf(imageUrlRequest.data.message);
-      //   console.log(`dimensions:`);
-      //   console.log(dimensions);
-      // } while (dimensions.width! >= this.MIN_IMAGE_WIDTH && dimensions.height! >= this.MIN_IMAGE_HEIGHT);
-
-      const dogPic = imageUrlRequest.data.message;
-      pet = new Pet({
-        name: petName,
-        gender: this.randomGender(),
-        breed: dogBreed.charAt(0).toUpperCase() + dogBreed.slice(1),
-        animalType: 'Dog',
-        age: this.getRandomPetAge(this.MAX_PET_AGE),
-        isAdopted: false,
-        primaryPicture: dogPic,
-      });
-    } else {
-      const randomCatTypeIndex = this.getRandomInt(this.CAT_BREEDS.length);
-      const catBreed: ICatBreed = { name: this.CAT_BREEDS[randomCatTypeIndex].name, imageUrl: this.CAT_BREEDS[randomCatTypeIndex].imageUrl };
-      pet = new Pet({
-        name: petName,
-        gender: this.randomGender(),
-        breed: catBreed.name,
-        animalType: 'Cat',
-        age: this.getRandomPetAge(this.MAX_PET_AGE),
-        isAdopted: false,
-        primaryPicture: catBreed.imageUrl,
-      });
-    }
-    return pet;
-  }
+  //   return adoptionInfo;
+  // }
 
   private getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
