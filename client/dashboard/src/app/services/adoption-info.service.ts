@@ -1,14 +1,13 @@
-import { environment } from "@environments/environment";
+import { environment } from "../../environments/environment";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AdoptionInfo } from "@app/models";
+import { AdoptionInfo } from "../models";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AdoptionInfoService {
-
   private baseUrl = `${environment.apiUrl}/adoption-requests`;
 
   httpOptions = {
@@ -17,7 +16,7 @@ export class AdoptionInfoService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(params: any): Observable<AdoptionInfo[]> {
+  getAll(params: any): Observable<any> {
     return this.http.get<AdoptionInfo[]>(this.baseUrl, { params });
   }
 

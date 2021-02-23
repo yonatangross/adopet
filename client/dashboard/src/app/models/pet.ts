@@ -8,3 +8,12 @@ export class Pet {
     isAdopted: boolean;
     primaryPicture?: string;
   }
+
+  export class PetViewModel{
+    name: string;
+    gender: string;
+    breed: string;
+    animalType: string;
+    age: number;
+    isAdopted: boolean;
+  }

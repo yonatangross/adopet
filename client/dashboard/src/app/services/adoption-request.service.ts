@@ -1,7 +1,7 @@
-import { environment } from "@environments/environment";
+import { environment } from "../../environments/environment";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AdoptionRequest } from "@app/models";
+import { AdoptionRequest } from "../models";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
@@ -17,7 +17,7 @@ export class AdoptionRequestService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(params: any): Observable<AdoptionRequest[]> {
+  getAll(params: any): Observable<any> {
     return this.http.get<AdoptionRequest[]>(this.baseUrl, { params });
   }
 
