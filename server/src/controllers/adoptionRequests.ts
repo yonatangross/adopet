@@ -9,7 +9,7 @@ import IController from '../interfaces/IController';
 import authMiddleware from '../middleware/auth';
 
 class AdoptionRequestController implements IController {
-  public path = '/adoptionRequests';
+  public path = '/adoption-requests';
   public router = Router();
   private PetServiceInstance: PetService;
   private AdoptionRequestServiceInstance: AdoptionRequestService;

@@ -11,7 +11,7 @@ import IController from '../interfaces/IController';
 import authMiddleware from '../middleware/auth';
 
 class AdoptionInfoController implements IController {
-  public path = '/adoptionsInfo';
+  public path = '/adoptions-info';
   public router = Router();
 
   private PetServiceInstance: PetService;

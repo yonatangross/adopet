@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { PetsRoutingModule } from './pets-routing.module';
-
+import { PetsRoutingModule } from "./pets-routing.module";
+import { PetsComponent } from "./pets.component";
+import { CreateComponent } from "./create.component";
+import { EditComponent } from "./edit.component";
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    PetsRoutingModule
-  ]
+  declarations: [PetsComponent, CreateComponent, EditComponent],
+  imports: [CommonModule, PetsRoutingModule],
 })
-export class PetsModule { }
+export class PetsModule {}
