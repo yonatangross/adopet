@@ -5,10 +5,9 @@ import { AdoptionRequest } from "../models";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AdoptionRequestService {
-
   private baseUrl = `${environment.apiUrl}/adoption-requests`;
 
   httpOptions = {

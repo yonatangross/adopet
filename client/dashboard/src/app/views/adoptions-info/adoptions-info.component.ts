@@ -1,25 +1,21 @@
-
 import { AdoptionInfo } from "./../../models/adoptionInfo";
 import { AdoptionInfoService } from "./../../services/adoption-info.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-adoptions-info',
-  templateUrl: './adoptions-info.component.html',
-  styles: [
-  ]
+  selector: "app-adoptions-info",
+  templateUrl: "./adoptions-info.component.html",
+  styles: [],
 })
 export class AdoptionsInfoComponent implements OnInit {
-
   AdoptionsInfo: AdoptionInfo[] = [];
   currentAdoptionInfo?: AdoptionInfo;
   currentIndex = -1;
   title = "";
-
   page = 1;
   count = 0;
   pageSize = 3;
-  pageSizes = [3, 6, 9];
+  pageSizes = [5, 10, 15];
 
   constructor(private AdoptionInfoService: AdoptionInfoService) {}
 

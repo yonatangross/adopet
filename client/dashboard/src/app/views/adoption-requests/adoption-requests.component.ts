@@ -1,19 +1,16 @@
-import { AdoptionRequest} from "./../../models";
-import {AdoptionRequestService } from "./../../services/adoption-request.service";
+import { AdoptionRequest } from "./../../models";
+import { AdoptionRequestService } from "./../../services/adoption-request.service";
 import { Component, OnInit } from "@angular/core";
 @Component({
-  selector: 'app-adoption-requests',
-  templateUrl: './adoption-requests.component.html',
-  styles: [
-  ]
+  selector: "app-adoption-requests",
+  templateUrl: "./adoption-requests.component.html",
+  styles: [],
 })
 export class AdoptionRequestsComponent implements OnInit {
-
   adoptionRequests: AdoptionRequest[] = [];
   currentAdoptionRequest?: AdoptionRequest;
   currentIndex = -1;
   title = "";
-
   page = 1;
   count = 0;
   pageSize = 3;
@@ -79,4 +76,3 @@ export class AdoptionRequestsComponent implements OnInit {
     this.currentIndex = index;
   }
 }
-

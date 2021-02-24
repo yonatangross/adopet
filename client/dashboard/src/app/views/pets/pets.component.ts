@@ -11,7 +11,6 @@ export class PetsComponent implements OnInit {
   currentPet?: Pet;
   currentIndex = -1;
   title = "";
-
   page = 1;
   count = 0;
   pageSize = 3;

@@ -1,10 +1,21 @@
 <app-header
   [navbarBrandRouterLink]="['/dashboard']"
   [fixed]="true"
-  [navbarBrandFull]="{src: 'assets/img/brand/logo.svg', width: 89, height: 25, alt: 'CoreUI Logo'}"
-  [navbarBrandMinimized]="{src: 'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'CoreUI Logo'}"
+  [navbarBrandFull]="{
+    src: 'assets/img/brand/logo.svg',
+    width: 89,
+    height: 25,
+    alt: 'CoreUI Logo'
+  }"
+  [navbarBrandMinimized]="{
+    src: 'assets/img/brand/sygnet.svg',
+    width: 30,
+    height: 30,
+    alt: 'CoreUI Logo'
+  }"
   [sidebarToggler]="'lg'"
-  [asideMenuToggler]="'lg'">
+  [asideMenuToggler]="'lg'"
+>
   <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
       <a class="nav-link" href="#">Dashboard</a>
@@ -18,15 +29,38 @@
   </ul>
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item dropdown" dropdown placement="bottom right">
-      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
-        <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com"/>
+      <a
+        class="nav-link"
+        data-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+        dropdownToggle
+        (click)="(false)"
+      >
+        <img
+          src="assets/img/avatars/6.jpg"
+          class="img-avatar"
+          alt="admin@bootstrapmaster.com"
+        />
       </a>
     </li>
   </ul>
 </app-header>
 <div class="app-body">
-  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
-    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+  <app-sidebar
+    #appSidebar
+    [fixed]="true"
+    [display]="'lg'"
+    [minimized]="sidebarMinimized"
+    (minimizedChange)="toggleMinimize($event)"
+  >
+    <app-sidebar-nav
+      [navItems]="navItems"
+      [perfectScrollbar]
+      [disabled]="appSidebar.minimized"
+    ></app-sidebar-nav>
     <app-sidebar-minimizer></app-sidebar-minimizer>
   </app-sidebar>
   <!-- Main content -->
@@ -36,17 +70,29 @@
     <cui-breadcrumb>
       <!-- Breadcrumb Menu-->
       <li class="breadcrumb-menu d-md-down-none">
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-          <a class="btn" [routerLink]="['/dashboard']"><i class="icon-graph"></i> &nbsp;Dashboard</a>
-          <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
+        <div
+          class="btn-group"
+          role="group"
+          aria-label="Button group with nested dropdown"
+        >
+          <a class="btn" [routerLink]="['/dashboard']"
+            ><i class="icon-graph"></i> &nbsp;Dashboard</a
+          >
+          <a class="btn" href="#"
+            ><i class="icon-settings"></i> &nbsp;Settings</a
+          >
         </div>
       </li>
     </cui-breadcrumb>
     <div class="container-fluid">
       <router-outlet></router-outlet>
-    </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.container-fluid -->
   </main>
 </div>
 <app-footer>
-  <span><a href="https://localhost:3000">Adop(e)t</a> &copy; 2021 Adop(e)t team.</span>
+  <span
+    ><a href="https://localhost:3000">Adop(e)t</a> &copy; 2021 Adop(e)t
+    team.</span
+  >
 </app-footer>

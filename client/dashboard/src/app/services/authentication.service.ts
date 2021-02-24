@@ -8,7 +8,6 @@ import { User } from "@app/models";
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
-
   private baseUrl = `${environment.apiUrl}/auth`;
 
   private currentUserSubject: BehaviorSubject<User>;
