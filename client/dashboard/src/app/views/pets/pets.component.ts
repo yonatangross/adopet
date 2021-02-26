@@ -10,7 +10,7 @@ export class PetsComponent implements OnInit {
   pets: Pet[] = [];
   currentPet?: Pet;
   currentIndex = -1;
-  title = "";
+  title = " ";
   page = 1;
   count = 0;
   pageSize = 3;
