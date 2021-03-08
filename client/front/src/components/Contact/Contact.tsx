@@ -141,15 +141,15 @@ const Contact: React.FC = (): ReactElement => {
                   <MDBBtn tag="a" floating color="blue" className="accent-1">
                     <MDBIcon icon="map-marker-alt" />
                   </MDBBtn>
-                  <p>Elie Wiesel St 2, Rishon LeTsiyon</p>
                   <p className="mb-md-0">Israel</p>
+                  <p>Elie Wiesel St 2, Rishon LeTsiyon</p>
                 </MDBCol>
                 <MDBCol md="4">
                   <MDBBtn tag="a" floating color="blue" className="accent-1">
                     <MDBIcon icon="phone" />
                   </MDBBtn>
-                  <p>+ 01 234 567 89</p>
                   <p className="mb-md-0">Mon - Fri, 8:00-22:00</p>
+                  <p>054-8147755</p>
                 </MDBCol>
                 <MDBCol md="4">
                   <MDBBtn tag="a" floating color="blue" className="accent-1">
