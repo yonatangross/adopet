@@ -1,10 +1,11 @@
 use('adopetDB');
 
-    db.adoptionrequests.mapReduce(
-  /* group by type */
-  function() { emit(pet, _id); },
-  /* select one random index */
-  function(u, vs) { return vs[Math.round(Math.random() * vs.length)]; },
-  /* return the results directly, or use {out: "coll_name" } */
-  {out: {inline: 1}} 
-)
+   db.pets.find(
+      { $or: [{ name: { $regex: '.*' + 'Seb' + '.*' } }, { animalType: { $regex: '.*' + 'Seb' + '.*' } }] },
+      {
+        animalType: { $ne: '', $regex: '' },
+        age: { $ne: '', $regex:'' },
+        gender: { $ne: '', $regex: '' },
+        breed: { $ne: '', $regex: '' },
+      }
+    ).exec();

@@ -1,4 +1,5 @@
 export default interface IFilter<T> {
-    property: keyof T;
-    isActive: boolean;
+  property: keyof T;
+  selectedValue: string;
+  values: string[];
 }

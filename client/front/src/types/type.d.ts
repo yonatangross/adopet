@@ -19,28 +19,26 @@ interface IAdoptionRequest {
   message?: string;
   createdAt?: string;
   updatedAt?: string;
-};
+}
 
 interface IPetProps {
   pet: IPet;
 }
 
-interface IsAdoptedProps{
-  isAdopted:boolean;
+interface IsAdoptedProps {
+  isAdopted: boolean;
 }
-
-
 
 interface IAdoptionRequestProps {
   adoptionRequest: IAdoptionRequest;
 }
-
 
 type PetApiDataType = {
   message: string; // pet updated
   status: string; //200
   pets: IPet[]; // all pets
   pet?: IPet; // updated pet
+  breeds?: string[];
 };
 
 type AdoptionRequestApiDataType = {

@@ -4,6 +4,8 @@ import { IPet } from '../interfaces/IPet';
 import PetService from '../services/petService';
 import IController from '../interfaces/IController';
 import authMiddleware from '../middleware/auth';
+import { values } from 'lodash';
+import IFilter from '../services/Filter/IFilter';
 
 class PetController implements IController {
   public path = '/pets';
@@ -33,8 +35,8 @@ class PetController implements IController {
 
   private getAll = async (req: Request, res: Response): Promise<void> => {
     await this.PetServiceInstance.getAll(req.query)
-      .then((pets: IPet[]) => {
-        res.status(200).json({ pets });
+      .then((value: { pets: IPet[]; breeds: string[]; filters: IFilter<IPet>[] }) => {
+        res.status(200).json({ pets: value.pets, breeds: value.breeds, filters: value.filters });
       })
       .catch((err: Error) => {
         throw err;

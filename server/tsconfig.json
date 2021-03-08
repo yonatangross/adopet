@@ -11,8 +11,13 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "typeRoots": ["./types"]
+    "noImplicitAny": true,
+    "typeRoots": ["./types"],
+    "watch": true,
+    "allowJs": true,
+    "checkJs": true,
+    "strictNullChecks": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", ".vscode"]
 }

@@ -12,21 +12,11 @@ export default function Sorters<T>(props: ISortersProps<T>) {
       <select
         id="sorters"
         className="custom-select"
-        onChange={(event) =>
-          onChangeSorter(
-            event.target.value.split(',')[0] as any,
-            event.target.value.split(',')[1] === 'true'
-          )
-        }
+        onChange={(event) => onChangeSorter(event.target.value.split(',')[0] as any, event.target.value.split(',')[1] === 'true')}
         defaultValue={['name', 'true']}
       >
         {Object.keys(object).map((key) => {
-          if (
-            !key ||
-            key === '_id' ||
-            key === '__v' ||
-            key === 'primaryPicture'
-          ) {
+          if (!key || key === '_id' || key === '__v' || key === 'primaryPicture') {
             return <></>;
           }
           return (

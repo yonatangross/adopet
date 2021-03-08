@@ -8,26 +8,41 @@ import PetGrid from '../PetGrid/PetGrid';
 import SearchInput from '../SearchInput/SearchInput';
 import ISorter from '../../interfaces/ISorter';
 import Sorters from '../Sorters/Sorters';
+import IFilter from '../../interfaces/IFilter';
+import { Filters } from '../Filters/Filters';
+
 interface Props extends RouteComponentProps {
   match: match<{ petId: string }>;
 }
 
-
 export const AllPetsIndex: React.FC<Props> = () => {
   const [searchInput, setSearchInput] = useState<string>('');
-  const [pets, setPets] = useState<IPet[]>([
-    { _id: '' ,gender: '', age: 0, animalType: '', breed: '', name: '', isAdopted: false },
-  ]);
+  const [pets, setPets] = useState<IPet[]>([{ _id: '', gender: '', age: 0, animalType: '', breed: '', name: '', isAdopted: false }]);
   const [activeSorter, setActiveSorter] = useState<ISorter<IPet>>({
     property: 'age',
     isDescending: false,
   });
 
+  const [animalBreeds, setAnimalBreeds] = useState<string[]>([]);
+
+  const [activeFilters, setActiveFilters] = useState<IFilter<IPet>[]>([
+    { property: 'animalType', selectedValue: '', values: ['Dog', 'Cat'] },
+    { property: 'age', selectedValue: '', values: ['Puppy', 'Young', 'Adult', 'Senior'] },
+    { property: 'gender', selectedValue: '', values: ['Male', 'Female'] },
+    { property: 'breed', selectedValue: '', values: animalBreeds },
+  ]);
+
   useEffect(() => {
-    getPets(searchInput, activeSorter)
-      .then(({ data: { pets } }: IPet[] | any) => setPets(pets))
+    getPets(searchInput, activeSorter, activeFilters)
+      .then(({ data: { pets, breeds, filters } }: any) => {
+        setPets(pets);
+        setAnimalBreeds(breeds);
+        if (activeFilters[3].values.length === 0) {
+          setActiveFilters(filters);
+        }
+      })
       .catch(() => console.log(`err on fetchPets`));
-  }, [searchInput, activeSorter]);
+  }, [searchInput, activeSorter, activeFilters]);
 
   return (
     <div className="allPetsGrid">
@@ -54,7 +69,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
                     </MDBCol>
                     <MDBCol md="8">
                       <Sorters<IPet>
-                        object={pets[0] }
+                        object={pets[0]}
                         onChangeSorter={(property, isDescending) => {
                           setActiveSorter({
                             property,
@@ -62,7 +77,6 @@ export const AllPetsIndex: React.FC<Props> = () => {
                           });
                         }}
                       />
-
                     </MDBCol>
                   </MDBRow>
                 </form>
@@ -77,81 +91,40 @@ export const AllPetsIndex: React.FC<Props> = () => {
             <MDBCard>
               <div className="header pt-3 grey lighten-2">
                 <MDBRow className="d-flex justify-content-start">
-                  <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
-                    Filter:
-                  </h3>
+                  <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Filter:</h3>
                 </MDBRow>
               </div>
               <MDBCardBody>
-                <form action="">
-                  <MDBRow>
-                    <MDBCol md="4">
-                      <span>Pet Type:</span>
-                    </MDBCol>
-                    <MDBCol md="8">
-                      <select className="browser-default custom-select">
-                        <option>Choose your option</option>
-                        <option value="1">Dog</option>
-                        <option value="2">Cat</option>
-                        <option value="3">Wolf</option>
-                      </select>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow className="allPetsGrid">
-                    <MDBCol md="4">
-                      <span>Age:</span>
-                    </MDBCol>
-                    <MDBCol md="8">
-                      <select className="browser-default custom-select">
-                        <option>Choose your option</option>
-                        <option value="1">Puppy</option>
-                        <option value="2">Young</option>
-                        <option value="3">Adult</option>
-                        <option value="3">Senior</option>
-                      </select>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow className="allPetsGrid">
-                    <MDBCol md="4">
-                      <span>Gender:</span>
-                    </MDBCol>
-                    <MDBCol md="8">
-                      <select className="browser-default custom-select">
-                        <option>Choose your option</option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
-                      </select>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow className="allPetsGrid">
-                    <MDBCol md="4">
-                      <span>Size Type:</span>
-                    </MDBCol>
-                    <MDBCol md="8">
-                      <select className="browser-default custom-select">
-                        <option>Choose your option</option>
-                        <option value="1">Dwarf</option>
-                        <option value="2">Small</option>
-                        <option value="2">Medium</option>
-                        <option value="2">Big</option>
-                        <option value="3">Giant</option>
-                      </select>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow className="allPetsGrid">
-                    <MDBCol md="4">
-                      <span>Breed:</span>
-                    </MDBCol>
-                    <MDBCol md="8">
-                      <select className="browser-default custom-select">
-                        <option>Choose your option</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                      </select>
-                    </MDBCol>
-                  </MDBRow>
-                </form>
+                <Filters<IPet>
+                  filters={activeFilters}
+                  onChangeFilter={(changedFilterProperty, selectedValue) => {
+                    console.log(`in onChangeFilter: ${changedFilterProperty} ${selectedValue}`);
+
+                    setActiveFilters([
+                      {
+                        property: 'animalType',
+                        selectedValue: changedFilterProperty === 'animalType' ? selectedValue : activeFilters[0].selectedValue,
+                        values: ['Dog', 'Cat'],
+                      },
+                      {
+                        property: 'age',
+                        selectedValue: changedFilterProperty === 'age' ? selectedValue : activeFilters[1].selectedValue,
+                        values: ['Puppy', 'Young', 'Adult', 'Senior'],
+                      },
+                      {
+                        property: 'gender',
+                        selectedValue: changedFilterProperty === 'gender' ? selectedValue : activeFilters[2].selectedValue,
+                        values: ['Male', 'Female'],
+                      },
+                      {
+                        property: 'breed',
+                        selectedValue: changedFilterProperty === 'breed' ? selectedValue : activeFilters[3].selectedValue,
+                        values: animalBreeds,
+                      },
+                    ]);
+                    console.log(activeFilters[1]);
+                  }}
+                />
               </MDBCardBody>
             </MDBCard>
           </div>
@@ -161,9 +134,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
             <MDBCard>
               <div className="header pt-3 grey lighten-2">
                 <MDBRow className="d-flex justify-content-start">
-                  <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
-                    {pets.length} Pets Found
-                  </h3>
+                  <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">{pets.length} Pets Found</h3>
                 </MDBRow>
               </div>
               <MDBCardBody>
