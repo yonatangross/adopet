@@ -3,8 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { environment } from "@environments/environment";
-import { User } from "@app/models";
+import { environment } from "../../environments/environment";
+import { User } from "../models";
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
@@ -22,6 +22,20 @@ export class AuthenticationService {
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
+  }
+
+  register(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, {
+      firstName,
+      lastName,
+      email,
+      password,
+    });
   }
 
   login(username: string, password: string) {

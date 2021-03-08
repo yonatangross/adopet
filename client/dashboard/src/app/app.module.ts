@@ -37,6 +37,7 @@ import {
   AppFooterModule,
   AppSidebarModule,
 } from "@coreui/angular";
+import { FormsModule } from "@angular/forms";
 
 // Import routing module
 import { AppRoutingModule } from "./app.routing";
@@ -61,6 +62,7 @@ import { ChartsModule } from "ng2-charts";
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
+    FormsModule,
     IconModule,
     IconSetModule.forRoot(),
   ],

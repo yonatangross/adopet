@@ -2,48 +2,129 @@
   <main class="main d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-6 mx-auto">
-          <div class="card mx-4">
-            <div class="card-body p-4">
-              <form>
-                <h1>Register</h1>
-                <p class="text-muted">Create your account</p>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-user"></i></span>
+        <div class="col-md-12">
+          <div class="card card-container">
+            <img
+              id="profile-img"
+              src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+              class="profile-img-card"
+            />
+            <form
+              *ngIf="!isSuccessful"
+              name="form"
+              (ngSubmit)="f.form.valid && onSubmit()"
+              #f="ngForm"
+              novalidate
+            >
+              <div class="form-group">
+                <label for="firstName">First name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="firstName"
+                  [(ngModel)]="form.firstName"
+                  required
+                  minlength="2"
+                  maxlength="20"
+                  #firstName="ngModel"
+                />
+                <div
+                  class="alert-danger"
+                  *ngIf="firstName.errors && f.submitted"
+                >
+                  <div *ngIf="firstName.errors.required">
+                    First name is required
                   </div>
-                  <input type="text" class="form-control" placeholder="Username" autocomplete="username" required>
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">@</span>
+                  <div *ngIf="firstName.errors.minlength">
+                    First name must be at least 2 characters
                   </div>
-                  <input type="text" class="form-control" placeholder="Email" autocomplete="email" required>
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  <div *ngIf="firstName.errors.maxlength">
+                    First name must be at most 20 characters
                   </div>
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" required>
-                </div>
-                <div class="input-group mb-4">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
-                  </div>
-                  <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password" required>
-                </div>
-                <button type="button" class="btn btn-block btn-success">Create Account</button>
-              </form>
-            </div>
-            <div class="card-footer p-4">
-              <div class="row">
-                <div class="col-6">
-                  <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
-                </div>
-                <div class="col-6">
-                  <button class="btn btn-block btn-twitter" type="button"><span>twitter</span></button>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="lastName"
+                  [(ngModel)]="form.lastName"
+                  required
+                  minlength="2"
+                  maxlength="20"
+                  #lastName="ngModel"
+                />
+                <div
+                  class="alert-danger"
+                  *ngIf="lastName.errors && f.submitted"
+                >
+                  <div *ngIf="lastName.errors.required">
+                    Last name is required
+                  </div>
+                  <div *ngIf="lastName.errors.minlength">
+                    Last name must be at least 2 characters
+                  </div>
+                  <div *ngIf="lastName.errors.maxlength">
+                    Last name must be at most 20 characters
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  [(ngModel)]="form.email"
+                  required
+                  email
+                  #email="ngModel"
+                />
+                <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                  <div *ngIf="email.errors.required">Email is required</div>
+                  <div *ngIf="email.errors.email">
+                    Email must be a valid email address
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  [(ngModel)]="form.password"
+                  required
+                  minlength="6"
+                  #password="ngModel"
+                />
+                <div
+                  class="alert-danger"
+                  *ngIf="password.errors && f.submitted"
+                >
+                  <div *ngIf="password.errors.required">
+                    Password is required
+                  </div>
+                  <div *ngIf="password.errors.minlength">
+                    Password must be at least 6 characters
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary btn-block">Sign Up</button>
+              </div>
+
+              <div
+                class="alert alert-warning"
+                *ngIf="f.submitted && isSignUpFailed"
+              >
+                Signup failed!<br />{{ errorMessage }}
+              </div>
+            </form>
+
+            <div class="alert alert-success" *ngIf="isSuccessful">
+              Your registration is successful!
             </div>
           </div>
         </div>
