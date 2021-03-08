@@ -138,7 +138,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
                 </MDBRow>
               </div>
               <MDBCardBody>
-                <PetGrid pets={pets} count={9999} />
+                <PetGrid pets={pets} count={9999} numOfCols={3}/>
               </MDBCardBody>
             </MDBCard>
           </div>

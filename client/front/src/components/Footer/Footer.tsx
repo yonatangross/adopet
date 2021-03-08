@@ -1,9 +1,9 @@
-import React from "react";
 import { Link } from 'react-router-dom';
 import './Footer.css';
-import { FaBeer, FaHome } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
+import { MdPets,MdPeople,MdPermContactCalendar  } from 'react-icons/md';
 
-import { AiFillContacts  } from 'react-icons/ai';
+
 
 
 
@@ -24,16 +24,16 @@ const FooterPage = () => {
             <h5 className="title">Links</h5>
             <ul>
               <li className="list-unstyled">
-              <Link to={'/'} >Home Page<FaHome/></Link>
+              <Link to={'/'} ><FaHome/> Home Page</Link>
               </li>
               <li className="list-unstyled">
-              <Link to={'/allPets'} >Pets</Link>
+              <Link to={'/allPets'} ><MdPets/> Pets</Link>
               </li>
               <li className="list-unstyled">
-              <Link to={'/about'} >About</Link>
+              <Link to={'/about'} ><MdPeople/> About</Link>
               </li>
               <li className="list-unstyled">
-              <Link to={'/contact'} >Contact Us<AiFillContacts/></Link>
+              <Link to={'/contact'} ><MdPermContactCalendar/> Contact Us</Link>
               </li>
             </ul>
           </MDBCol>
