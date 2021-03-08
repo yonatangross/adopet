@@ -12,9 +12,11 @@ import {
   MDBView,
   MDBTable,
   MDBTableBody,
+  MDBCardImage,
 } from 'mdbreact';
+import moment from 'moment';
 
-interface Props extends RouteComponentProps<{ petId: string }>, IPetProps {}
+interface Props extends RouteComponentProps<{ petId: string }>, IPetProps { }
 
 const Pet: React.FC<Props> = ({ match }) => {
   const [pet, setPet] = useState<IPet>();
@@ -31,59 +33,54 @@ const Pet: React.FC<Props> = ({ match }) => {
       .catch(() => console.log(`err on fetchPet`));
   };
 
+  let petUpdatedTime = moment(pet?.updatedAt).format('MMM Do YY');
   if (!pet) {
     return null;
   }
   return (
+    
     <div>
       <MDBCard className="my-5 px-5 pb-5">
         <MDBCardBody>
           <h2 className="h1-responsive font-weight-bold text-center my-5">
-            {pet.animalType} Page: {pet.name}
+            Meet {pet.animalType} {pet.name}
           </h2>
           <p className="text-center w-responsive mx-auto mb-5">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
+            Hi my name is {pet.name} I`m {pet.age} years old. I`m waiting here since {petUpdatedTime}, I`m looking 
+            for a loving home. Please adopt me.  
           </p>
           <MDBRow>
             <MDBCol lg="5">
-              <MDBView className="rounded z-depth-2 mb-lg-0 mb-4" hover waves>
-                <img
-                  className="img-fluid pet-image"
-                  src={pet.primaryPicture}
-                  alt=""
-                />
-                <a href="#!">
-                  <MDBMask overlay="white-slight" />
-                </a>
-              </MDBView>
+            <MDBCardImage id="imgPosition" className="img-fluid" src={pet.primaryPicture} 
+            waves />
+              {/* <MDBView id="primaryPic" src={pet.primaryPicture}>
+                <MDBMask className="flex-center flex-column text-white text-center"></MDBMask>
+              </MDBView> */}
             </MDBCol>
             <MDBCol lg="6">
               <MDBTable striped>
                 <MDBTableBody>
                   <tr>
-                    <td>Name:</td>
-                    <td>{pet.name}</td>
+                    <td className="font-weight-bold">Name:</td>
+                    <td className="font-weight-bolder">{pet.name}</td>
                   </tr>
                   <tr>
-                    <td>Type:</td>
-                    <td>{pet.animalType}</td>
+                    <td className="font-weight-bold">Type:</td>
+                    <td className="font-weight-bolder">{pet.animalType}</td>
                   </tr>
                   <tr>
-                    <td>Age:</td>
-                    <td>{pet.age}</td>
+                    <td className="font-weight-bold">Age:</td>
+                    <td className="font-weight-bolder">{pet.age}</td>
                   </tr>
                   <tr>
-                    <td>Breed:</td>
-                    <td>{pet.breed}</td>
+                    <td className="font-weight-bold">Breed:</td>
+                    <td className="font-weight-bolder">{pet.breed}</td>
                   </tr>
                 </MDBTableBody>
               </MDBTable>
               <Fragment>
                 <Link key={pet._id} to={`/AdoptionForm/${pet._id}`}>
-                  <MDBBtn gradient="peach">Adopt Me!!!</MDBBtn>
+                  <MDBBtn gradient="peach">Adopt Me!</MDBBtn>
                 </Link>
               </Fragment>
             </MDBCol>

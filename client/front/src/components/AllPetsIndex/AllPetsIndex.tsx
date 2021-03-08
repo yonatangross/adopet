@@ -56,7 +56,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
         <MDBCol md="4">
           <div className="sort_table">
             <MDBCard>
-              <div className="header pt-3 grey lighten-2">
+              <div className="header pt-3  green darken-1">
                 <MDBRow className="d-flex justify-content-start">
                   <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Sort:</h3>
                 </MDBRow>
@@ -89,7 +89,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
         <MDBCol md="3">
           <div className="Filter_Row_Table">
             <MDBCard>
-              <div className="header pt-3 grey lighten-2">
+              <div className="header pt-3  green darken-1">
                 <MDBRow className="d-flex justify-content-start">
                   <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Filter:</h3>
                 </MDBRow>
@@ -132,13 +132,13 @@ export const AllPetsIndex: React.FC<Props> = () => {
         <MDBCol md="9">
           <div className="petgrid">
             <MDBCard>
-              <div className="header pt-3 grey lighten-2">
+              <div className="header pt-3  green darken-1 lighten-2">
                 <MDBRow className="d-flex justify-content-start">
                   <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">{pets.length} Pets Found</h3>
                 </MDBRow>
               </div>
               <MDBCardBody>
-                <PetGrid pets={pets} count={9999} />
+                <PetGrid pets={pets} count={9999} numOfCols={3}/>
               </MDBCardBody>
             </MDBCard>
           </div>

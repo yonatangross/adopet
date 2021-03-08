@@ -1,69 +1,13 @@
-.pet_item {
-  display: block;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 150px;
-  background: #ffffff;
-  cursor: pointer;
-  text-align: center;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
-  border-radius: 14px;
+.petImage{
+  width: 150;
 }
 
-.pet-image {
-  max-height: 200px;
-  max-height: 247px;
-  height: 200px;
-  object-fit: contain;
+.bolila{
+    margin-top:5%;
+    margin-bottom: 5%;
+    background-size: 100% 100% !important;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    max-height: 50vh;
 }
-.pet_content {
-  width: 100%;
-}
-
-.pet_name {
-  max-height: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
-  -webkit-box-orient: vertical;
-}
-
-.pet_name div {
-  width: 100%;
-}
-
-.pet_name div a {
-  font-size: 14px;
-  font-weight: 400;
-  color: #000000;
-  white-space: nowrap;
-  -webkit-transition: all 200ms ease;
-  -moz-transition: all 200ms ease;
-  -ms-transition: all 200ms ease;
-  -o-transition: all 200ms ease;
-  transition: all 200ms ease;
-}
-
-.pet_name div a:hover { color: #0e8ce4; }
-
-
-/*************************/
-
-
-
-#adopted{
-
-    width: 150px;
-    position: absolute;
-    top: 0;
-    padding: 5px 5px 5px 15px;
-    z-index: 1;
-    background-color: transparent;
-    right: 0;
-    top: 0;
-    
-}
-  

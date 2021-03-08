@@ -5,10 +5,10 @@ import { MDBRow, MDBCol, MDBIcon } from 'mdbreact';
 import './Home.css';
 import img from '../../images/AdoptionDog.jpg';
 import bannerimg from '../../images/BannerHomePage.jpg';
-
 import { MDBMask, MDBView } from 'mdbreact';
-
 import PetGrid from '../PetGrid/PetGrid';
+
+
 interface Props extends RouteComponentProps {
   match: match<{ petId: string }>;
 }
@@ -36,7 +36,7 @@ export const Home: React.FC<Props> = () => {
       <MDBView id="view-background" src={bannerimg}>
         <MDBMask className="flex-center flex-column text-white text-center"></MDBMask>
       </MDBView>
-      <PetGrid pets={pets} count={8} />
+      <PetGrid pets={pets} count={8} numOfCols={4}/>
       <section className="my-5">
         <h1 className="h1-responsive font-weight-bold text-center my-5"> Pet Adoption Tips</h1>
         <h3 className="h3-responsive font-weight-bold text-left my-5"> Why Adopt a Dog or Cat Over Buying?</h3>

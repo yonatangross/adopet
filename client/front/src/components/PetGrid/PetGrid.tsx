@@ -7,15 +7,24 @@ import './PetGrid.css';
 interface PetGridProps {
   pets: IPet[];
   count:number;
+  numOfCols:number;
 }
 
-const PetGrid: React.FC<PetGridProps> = ({ pets ,count }) => {
+const GenerateNumberOfColsStyle=(numOfCols:number):string=>{
+  let frStyle=""
+  for(let i=0;i<numOfCols;i++){
+    frStyle= frStyle.concat(" ","1fr");
+  }
+  return frStyle;
+};
+
+const PetGrid: React.FC<PetGridProps> = ({ pets ,count, numOfCols}) => {
   return (
-    <div className="pet_grid">
+    <div className="pet_grid" style={{gridTemplateColumns: GenerateNumberOfColsStyle(numOfCols)}}>
       {pets.slice(0,count).map((pet: IPet) => {
         return (
           <Link key={pet._id} to={`/pets/${pet._id}`}>
-            <PetCardTEST key={pet._id} pet={pet} />
+            <PetCard key={pet._id} pet={pet} />
           </Link>
         );
       })}
