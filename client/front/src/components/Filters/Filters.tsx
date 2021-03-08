@@ -7,6 +7,18 @@ export interface IFiltersProps<T> {
   onChangeFilter: (filterProperty: keyof T, selectedValue: string) => void;
 }
 
+const filterChangeName =(propertyFilter:string):string=>{
+  let nameFilter:string="";
+
+  if(propertyFilter==="animalType"){
+    nameFilter="Type";
+  }
+  else{
+    nameFilter=propertyFilter.charAt(0).toUpperCase()+ propertyFilter.slice(1);
+  }  
+  return nameFilter;
+}
+
 export function Filters<T>(props: IFiltersProps<T>) {
   const { filters, onChangeFilter } = props;
 
@@ -16,7 +28,7 @@ export function Filters<T>(props: IFiltersProps<T>) {
         return (
           <MDBRow className="allPetsGrid" key={filter.property.toString()}>
             <MDBCol md="4">
-              <span>{filter.property}</span>
+              <span>{filterChangeName(filter.property.toString())}</span>
             </MDBCol>
             <MDBCol md="8">
               <select
@@ -27,7 +39,7 @@ export function Filters<T>(props: IFiltersProps<T>) {
                 }}
               >
                 <option key="" value="">
-                  Choose your {filter.property}
+                  Choose your {filterChangeName(filter.property.toString())}
                 </option>
                 {filter.values.map((value) => {
                   return (
