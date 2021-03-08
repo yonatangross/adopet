@@ -22,7 +22,12 @@ export default class PetService {
     const page = <number>(query.page || 1);
     const searchInput = <string>(query.searchInput || '');
     let sorter;
-    let activeFilters: IFilter<IPet>[];
+    let activeFilters: IFilter<IPet>[] = [
+      { property: 'animalType', selectedValue: '', values: ['Dog', 'Cat'] },
+      { property: 'age', selectedValue: '', values: ['Puppy', 'Young', 'Adult', 'Senior'] },
+      { property: 'gender', selectedValue: '', values: ['Male', 'Female'] },
+      // { property: 'breed', selectedValue: '', values: [] },
+    ];
     if (!!query.sorter) {
       // console.log('sorter:');
       // console.log(query.sorter);
@@ -30,7 +35,7 @@ export default class PetService {
     } else sorter = <ISorter<IPet>>{ property: 'name', isDescending: true };
 
     const activeSorter: ISorter<IPet> = sorter;
-    console.log(`search input: ${searchInput}`);
+    // console.log(`search input: ${searchInput}`);
     let pets: IPet[] = [];
 
     await Pet.find(
@@ -46,17 +51,14 @@ export default class PetService {
     const breeds: string[] = this.getPetsBreedsList(pets);
 
     if (!!query.filters) {
-      // console.log('in activeFilters from query');
       activeFilters = <IFilter<IPet>[]>JSON.parse(query.filters);
       activeFilters[3].values = breeds;
-      // console.log(activeFilters);
     } else {
-      // console.log('in activeFilters not from query');
       activeFilters = <IFilter<IPet>[]>[
         { property: 'animalType', selectedValue: '', values: ['Dog', 'Cat'] },
         { property: 'age', selectedValue: '', values: ['Puppy', 'Young', 'Adult', 'Senior'] },
         { property: 'gender', selectedValue: '', values: ['Male', 'Female'] },
-        { property: 'breed', selectedValue: '', values: breeds },
+        // { property: 'breed', selectedValue: '', values: breeds },
       ];
     }
 
@@ -65,24 +67,30 @@ export default class PetService {
       maxFilteredAge = PetAge[activeFilters[1].selectedValue as keyof typeof PetAge];
     }
 
-    const queryMon = Pet.find({
-      $and: [
-        { $or: [{ name: { $regex: '.*' + searchInput + '.*' } }, { animalType: { $regex: '.*' + searchInput + '.*' } }] },
-        { animalType: { $ne: '', $eq: activeFilters[0].selectedValue } },
-        // { age: { $lte: maxFilteredAge } },
-        // { gender: { $ne: '', $eq: activeFilters[2].selectedValue } },
-        // { breed: { $ne: '', $eq: activeFilters[3].selectedValue } },
-      ],
+    let filterQuery: any = { $or: [{ name: { $regex: '.*' + searchInput + '.*' } }, { animalType: { $regex: '.*' + searchInput + '.*' } }] };
+    activeFilters.forEach((filter) => {
+      if (filter.property !== 'age' && filter.selectedValue !== '') {
+        filterQuery[filter.property] = { $eq: filter.selectedValue.toLowerCase() };
+      } else if (filter.property === 'age' && filter.selectedValue !== '') {
+        const petAge: PetAge = (<any>PetAge)[filter.selectedValue];
+        const petMaxAge = this.getPetMaxAge(petAge);
+        filterQuery[filter.property] = { $lt: petMaxAge };
+      }
     });
 
+    console.log(filterQuery);
+
+    const queryMon = Pet.find(filterQuery);
+
     let petQueryResult: IPet[] = await queryMon.exec();
-    console.log(petQueryResult);
+    console.log(`petQueryResult: ${petQueryResult.length}`);
+    // console.log(petQueryResult);
 
     // if (activeSorter != null) {
     //   petQueryResult = petQueryResult.sort((petA, petB) => genericSort(petA, petB, activeSorter));
     // }
 
-    return { pets: pets, breeds: breeds, filters: activeFilters };
+    return { pets: petQueryResult, breeds: breeds, filters: activeFilters };
   }
   private getPetMaxAge(petAge: PetAge): number {
     const age = petAge as number;

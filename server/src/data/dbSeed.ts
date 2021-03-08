@@ -114,7 +114,7 @@ export default class dataSeeder {
       pet = new Pet({
         name: petName,
         gender: this.randomGender(),
-        breed: dogBreed.charAt(0).toUpperCase() + dogBreed.slice(1),
+        breed: dogBreed.toLowerCase(),
         animalType: 'Dog',
         age: this.getRandomPetAge(this.MAX_PET_AGE),
         isAdopted: false,
