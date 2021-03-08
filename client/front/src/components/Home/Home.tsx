@@ -21,7 +21,12 @@ export const Home: React.FC<Props> = () => {
   }, []);
 
   const fetchPets = (): void => {
-    getPets('', { property: 'createdAt', isDescending: true }, [])
+    getPets('', { property: 'createdAt', isDescending: true }, [
+      { property: 'animalType', selectedValue: '', values: ['Dog', 'Cat'] },
+      { property: 'age', selectedValue: '', values: ['Puppy', 'Young', 'Adult', 'Senior'] },
+      { property: 'gender', selectedValue: '', values: ['Male', 'Female'] },
+      { property: 'breed', selectedValue: '', values: [] },
+    ])
       .then(({ data: { pets } }: IPet[] | any) => setPets(pets))
       .catch((err: Error) => console.log(`err on fetchPets: ${err}`));
   };

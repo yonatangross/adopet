@@ -41,8 +41,6 @@ export default class PetService {
       }
     );
 
-    console.log(pets);
-    
     // let filteredPets: IPet[] = pets.filter((pet) => genericSearch<IPet>(pet, ['name', 'animalType'], searchInput));
 
     const breeds: string[] = this.getPetsBreedsList(pets);
