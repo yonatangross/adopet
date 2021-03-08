@@ -26,18 +26,17 @@ export default class PetService {
       { property: 'animalType', selectedValue: '', values: ['Dog', 'Cat'] },
       { property: 'age', selectedValue: '', values: ['Puppy', 'Young', 'Adult', 'Senior'] },
       { property: 'gender', selectedValue: '', values: ['Male', 'Female'] },
-      // { property: 'breed', selectedValue: '', values: [] },
+      { property: 'breed', selectedValue: '', values: [] },
     ];
+
     if (!!query.sorter) {
-      // console.log('sorter:');
-      // console.log(query.sorter);
       sorter = <ISorter<IPet>>JSON.parse(query.sorter);
     } else sorter = <ISorter<IPet>>{ property: 'name', isDescending: true };
-
     const activeSorter: ISorter<IPet> = sorter;
-    // console.log(`search input: ${searchInput}`);
+
     let pets: IPet[] = [];
 
+    // search by searchInput in: name / animalType
     await Pet.find(
       { $or: [{ name: { $regex: '.*' + searchInput + '.*' } }, { animalType: { $regex: '.*' + searchInput + '.*' } }] },
       function (err, petsResult) {
@@ -46,86 +45,63 @@ export default class PetService {
       }
     );
 
-    // let filteredPets: IPet[] = pets.filter((pet) => genericSearch<IPet>(pet, ['name', 'animalType'], searchInput));
-
     const breeds: string[] = this.getPetsBreedsList(pets);
+    // console.log(`${breeds.length} breeds for ${pets.length} pets.`);
 
     if (!!query.filters) {
       activeFilters = <IFilter<IPet>[]>JSON.parse(query.filters);
-      activeFilters[3].values = breeds;
     } else {
       activeFilters = <IFilter<IPet>[]>[
         { property: 'animalType', selectedValue: '', values: ['Dog', 'Cat'] },
         { property: 'age', selectedValue: '', values: ['Puppy', 'Young', 'Adult', 'Senior'] },
         { property: 'gender', selectedValue: '', values: ['Male', 'Female'] },
-        // { property: 'breed', selectedValue: '', values: breeds },
+        { property: 'breed', selectedValue: '', values: breeds },
       ];
     }
 
-    let maxFilteredAge: number = 100;
-    if (activeFilters[1].selectedValue !== '') {
-      maxFilteredAge = PetAge[activeFilters[1].selectedValue as keyof typeof PetAge];
-    }
-
-    let filterQuery: any = { $or: [{ name: { $regex: '.*' + searchInput + '.*' } }, { animalType: { $regex: '.*' + searchInput + '.*' } }] };
+    let filterQuery: any = {
+      $or: [{ name: { $regex: new RegExp('.*' + searchInput + '.*', 'i') } }, { animalType: { $regex: new RegExp('.*' + searchInput + '.*', 'i') } }],
+    };
     activeFilters.forEach((filter) => {
       if (filter.property !== 'age' && filter.selectedValue !== '') {
         filterQuery[filter.property] = { $eq: filter.selectedValue.toLowerCase() };
       } else if (filter.property === 'age' && filter.selectedValue !== '') {
         const petAge: PetAge = (<any>PetAge)[filter.selectedValue];
-        const petMaxAge = this.getPetMaxAge(petAge);
-        filterQuery[filter.property] = { $lt: petMaxAge };
+        const petAgeRange = this.getPetAgeRange(petAge);
+        filterQuery[filter.property] = { $gte: petAgeRange[0], $lte: petAgeRange[1] }; //todo:add $gt with petAge group.
       }
     });
 
-    console.log(filterQuery);
+    // console.log(filterQuery);
 
-    const queryMon = Pet.find(filterQuery);
+    let petQueryResult: IPet[] = await Pet.find(filterQuery).exec();
 
-    let petQueryResult: IPet[] = await queryMon.exec();
-    console.log(`petQueryResult: ${petQueryResult.length}`);
-    // console.log(petQueryResult);
+    // console.log(`petQueryResult: ${petQueryResult.length}`);
 
-    // if (activeSorter != null) {
-    //   petQueryResult = petQueryResult.sort((petA, petB) => genericSort(petA, petB, activeSorter));
-    // }
+    if (activeSorter != null) {
+      petQueryResult = petQueryResult.sort((petA, petB) => genericSort(petA, petB, activeSorter));
+    }
 
-    return { pets: petQueryResult, breeds: breeds, filters: activeFilters };
+    return { pets: petQueryResult, breeds: breeds };
   }
-  private getPetMaxAge(petAge: PetAge): number {
-    const age = petAge as number;
-    switch (true) {
-      case age <= PetAge.Puppy:
-        return PetAge.Puppy;
-      case age <= PetAge.Young:
-        return PetAge.Young;
-      case age <= PetAge.Adult:
-        return PetAge.Adult;
-      case age <= PetAge.Senior:
-        return PetAge.Senior;
+  private getPetAgeRange(petAge: PetAge): [min: number, max: number] {
+    switch (petAge) {
+      case PetAge.Puppy:
+        return [0, 1];
+      case PetAge.Young:
+        return [1, 2];
+      case PetAge.Adult:
+        return [2, 12];
+      case PetAge.Senior:
+        return [12, 30];
       default:
-        throw new IllegalPetAgeException(age);
+        throw new IllegalPetAgeException(petAge);
     }
   }
 
-  private getPetAge(age: number): PetAge {
-    switch (true) {
-      case age <= PetAge.Puppy:
-        return PetAge.Puppy;
-      case age <= PetAge.Young:
-        return PetAge.Young;
-      case age <= PetAge.Adult:
-        return PetAge.Adult;
-      case age > PetAge.Adult:
-        return PetAge.Senior;
-      default:
-        throw new IllegalPetAgeException(age);
-    }
-  }
-
-  private getPetsBreedsList(filteredPets: IPet[]): string[] {
+  private getPetsBreedsList(pets: IPet[]): string[] {
     return _.map(
-      _.uniqBy(filteredPets, (pet) => {
+      _.uniqBy(pets, (pet) => {
         return pet.breed;
       }),
       (pet) => {

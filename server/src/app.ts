@@ -50,10 +50,14 @@ class App {
         credentials: true,
       })
     );
+    console.log('finished initializeMiddlewares function.');
+    
   }
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
+    console.log('finished initializeErrorHandling function.');
+
   }
 
   private initializeControllers(controllers: IController[]) {

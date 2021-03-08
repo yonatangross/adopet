@@ -47,9 +47,11 @@ class App {
             },
             credentials: true,
         }));
+        console.log('finished initializeMiddlewares function.');
     }
     initializeErrorHandling() {
         this.app.use(error_1.default);
+        console.log('finished initializeErrorHandling function.');
     }
     initializeControllers(controllers) {
         controllers.forEach((controller) => {

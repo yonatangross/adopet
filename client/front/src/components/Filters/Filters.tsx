@@ -1,5 +1,6 @@
 import { MDBCol, MDBRow } from 'mdbreact';
 import * as React from 'react';
+import { useEffect } from 'react';
 import IFilter from '../../interfaces/IFilter';
 
 export interface IFiltersProps<T> {
@@ -7,20 +8,23 @@ export interface IFiltersProps<T> {
   onChangeFilter: (filterProperty: keyof T, selectedValue: string) => void;
 }
 
-const filterChangeName =(propertyFilter:string):string=>{
-  let nameFilter:string="";
+const filterChangeName = (propertyFilter: string): string => {
+  let nameFilter: string = '';
 
-  if(propertyFilter==="animalType"){
-    nameFilter="Type";
+  if (propertyFilter === 'animalType') {
+    nameFilter = 'Type';
+  } else {
+    nameFilter = propertyFilter.charAt(0).toUpperCase() + propertyFilter.slice(1);
   }
-  else{
-    nameFilter=propertyFilter.charAt(0).toUpperCase()+ propertyFilter.slice(1);
-  }  
   return nameFilter;
-}
+};
 
 export function Filters<T>(props: IFiltersProps<T>) {
   const { filters, onChangeFilter } = props;
+  useEffect(() => {
+    console.log('in use effect on filters generic');
+    console.log(filters[3].values.length);
+  }, [filters, onChangeFilter]);
 
   return (
     <div className="filters-list">

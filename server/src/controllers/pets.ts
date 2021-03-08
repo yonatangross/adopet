@@ -35,8 +35,8 @@ class PetController implements IController {
 
   private getAll = async (req: Request, res: Response): Promise<void> => {
     await this.PetServiceInstance.getAll(req.query)
-      .then((value: { pets: IPet[]; breeds: string[]; filters: IFilter<IPet>[] }) => {
-        res.status(200).json({ pets: value.pets, breeds: value.breeds, filters: value.filters });
+      .then((value: { pets: IPet[]; breeds: string[]; }) => {
+        res.status(200).json({ pets: value.pets, breeds: value.breeds });
       })
       .catch((err: Error) => {
         throw err;

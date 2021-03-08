@@ -36,6 +36,8 @@ export default class dataSeeder {
     // if ((await AdoptionRequest.collection.countDocuments()) > 0) {
     //   this.SeedAdoptionsInfoAsync();
     // }
+
+    console.log('ended dbSeed init.');
   }
 
   private async getPetBreeds() {
@@ -71,8 +73,8 @@ export default class dataSeeder {
       const randomPetTypeValue = this.getRandomInt(2);
       let animalType = '';
       if (randomPetTypeValue == 1) {
-        animalType = 'Dog';
-      } else animalType = 'Cat';
+        animalType = 'dog';
+      } else animalType = 'cat';
       try {
         const pet: IPet = await this.createPet(animalType);
         try {
@@ -84,6 +86,8 @@ export default class dataSeeder {
         console.log(`error saving pet to db ${animalType}[${petIndex + 1}],${err}`);
       }
     }
+    console.log('finished creating pets.');
+    
   }
   private async createPet(animalType: string): Promise<IPet> {
     let pet: IPet;
@@ -97,7 +101,7 @@ export default class dataSeeder {
         console.log(`error fetching fake name ${err}`);
         throw err;
       });
-    if (animalType === 'Dog') {
+    if (animalType === 'dog') {
       const randomDogBreed = this.getRandomInt(this.DOG_BREEDS.length);
       const dogBreed = this.DOG_BREEDS[randomDogBreed];
 
@@ -115,7 +119,7 @@ export default class dataSeeder {
         name: petName,
         gender: this.randomGender(),
         breed: dogBreed.toLowerCase(),
-        animalType: 'Dog',
+        animalType: 'dog',
         age: this.getRandomPetAge(this.MAX_PET_AGE),
         isAdopted: false,
         primaryPicture: dogPic,
@@ -127,12 +131,13 @@ export default class dataSeeder {
         name: petName,
         gender: this.randomGender(),
         breed: catBreed.name,
-        animalType: 'Cat',
+        animalType: 'cat',
         age: this.getRandomPetAge(this.MAX_PET_AGE),
         isAdopted: false,
         primaryPicture: catBreed.imageUrl,
       });
     }
+    
     return pet;
   }
 

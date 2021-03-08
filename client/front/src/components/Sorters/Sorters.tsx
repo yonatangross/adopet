@@ -7,6 +7,7 @@ export interface ISortersProps<T> {
 
 export default function Sorters<T>(props: ISortersProps<T>) {
   const { object, onChangeSorter } = props;
+
   return (
     <>
       <select
@@ -21,7 +22,7 @@ export default function Sorters<T>(props: ISortersProps<T>) {
           }
           return (
             <option key={`${key}-true`} value={[key, 'true']}>
-              sort by '{key}' descending
+              sort by {key} descending
             </option>
           );
         })}
@@ -31,7 +32,7 @@ export default function Sorters<T>(props: ISortersProps<T>) {
           }
           return (
             <option key={`${key}-false`} value={[key, 'false']}>
-              sort by '{key}' ascending
+              sort by {key} ascending
             </option>
           );
         })}

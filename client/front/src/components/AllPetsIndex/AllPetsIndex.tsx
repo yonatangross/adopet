@@ -33,13 +33,15 @@ export const AllPetsIndex: React.FC<Props> = () => {
   ]);
 
   useEffect(() => {
+    // console.log(`started useEffect, animalBreeds length: ${animalBreeds.length}`);
+
     getPets(searchInput, activeSorter, activeFilters)
-      .then(({ data: { pets, breeds, filters } }: any) => {
+      .then(({ data: { pets, breeds } }: any) => {
+        console.log(`number of Pets: ${Object.keys(pets).length} number of breeds:${Object.keys(breeds).length}`);
         setPets(pets);
         setAnimalBreeds(breeds);
-        if (activeFilters[3].values.length === 0) {
-          setActiveFilters(filters);
-        }
+        //todo: fix initial render of pet breeds.
+        setActiveFilters(activeFilters);
       })
       .catch(() => console.log(`err on fetchPets`));
   }, [searchInput, activeSorter, activeFilters]);
@@ -69,7 +71,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
                     </MDBCol>
                     <MDBCol md="8">
                       <Sorters<IPet>
-                        object={pets[0]}
+                        object={{ _id: '', gender: '', age: 0, animalType: '', breed: '', name: '', isAdopted: false }}
                         onChangeSorter={(property, isDescending) => {
                           setActiveSorter({
                             property,
@@ -98,8 +100,6 @@ export const AllPetsIndex: React.FC<Props> = () => {
                 <Filters<IPet>
                   filters={activeFilters}
                   onChangeFilter={(changedFilterProperty, selectedValue) => {
-                    console.log(`in onChangeFilter: ${changedFilterProperty} ${selectedValue}`);
-
                     setActiveFilters([
                       {
                         property: 'animalType',
@@ -122,7 +122,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
                         values: animalBreeds,
                       },
                     ]);
-                    console.log(activeFilters[1]);
+                    // console.log(`after onChangeFilter: ${changedFilterProperty} ${selectedValue}`);
                   }}
                 />
               </MDBCardBody>
@@ -138,7 +138,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
                 </MDBRow>
               </div>
               <MDBCardBody>
-                <PetGrid pets={pets} count={9999} numOfCols={3}/>
+                <PetGrid pets={pets} count={9999} numOfCols={3} />
               </MDBCardBody>
             </MDBCard>
           </div>
