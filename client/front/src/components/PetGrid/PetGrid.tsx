@@ -15,7 +15,7 @@ const PetGrid: React.FC<PetGridProps> = ({ pets ,count }) => {
       {pets.slice(0,count).map((pet: IPet) => {
         return (
           <Link key={pet._id} to={`/pets/${pet._id}`}>
-            <PetCardTEST key={pet._id} pet={pet} />
+            <PetCard key={pet._id} pet={pet} />
           </Link>
         );
       })}

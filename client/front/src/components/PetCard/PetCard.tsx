@@ -1,16 +1,6 @@
 import React from 'react';
 import './PetCard.css';
-import { IsAdopted } from '../IsAdopted/IsAdopted';
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCol,
-  MDBIcon,
-  MDBView,
-} from 'mdbreact';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
 import moment from 'moment';
 
 const PetCard: React.FC<IPetProps> = ({ pet }) => {
@@ -19,37 +9,21 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
   }
   let petUpdatedTime = moment(pet.updatedAt).format('MMM Do YY HH:mm');
   return (
-    <div>
-      <MDBCol style={{ maxWidth: '22rem' }}>
-        <MDBCard wide cascade>
-          <MDBView cascade>
-            <IsAdopted isAdopted={pet.isAdopted} />
-            <MDBCardImage
-              hover
-              overlay="white-slight"
-              className="card-img-top pet-image"
-              src={pet.primaryPicture}
-              alt="Card cap"
-            />
-          </MDBView>
-          <MDBCardBody>
-            <MDBCardTitle>{pet.name}</MDBCardTitle>
-            <MDBCardText>Gender: {pet.gender}</MDBCardText>
+    <MDBCol style={{ maxWidth: "22rem" }}>
+      <MDBCard>
+        <MDBCardImage className="img-fluid" src={pet.primaryPicture} style={{maxWidth: "100%", height: "250px"}}waves />
+        <MDBCardBody>
+          <MDBCardTitle>{pet.name}</MDBCardTitle>
+          <MDBCardText>Gender: {pet.gender}</MDBCardText>
             <MDBCardText>Age: {pet.age}</MDBCardText>
             <MDBCardText>Type: {pet.animalType}</MDBCardText>
             <MDBCardText>Breed: {pet.breed}</MDBCardText>
-          </MDBCardBody>
-          <div className="rounded-bottom mdb-color lighten-3 text-center pt-3 blue-gradient">
-            <ul className="list-unstyled list-inline font-small">
-              <li className="list-inline-item pr-2 white-text">
-                <MDBIcon far icon="clock" /> {petUpdatedTime}
-              </li>
-            </ul>
-          </div>
-        </MDBCard>
-      </MDBCol>
-    </div>
-  );
+        </MDBCardBody>
+      </MDBCard>
+    </MDBCol>
+  )
+
+
 };
 
 export default PetCard;

@@ -5,10 +5,10 @@ import { MDBRow, MDBCol, MDBIcon } from 'mdbreact';
 import './Home.css';
 import img from '../../images/AdoptionDog.jpg';
 import bannerimg from '../../images/BannerHomePage.jpg';
-
 import { MDBMask, MDBView } from 'mdbreact';
-
 import PetGrid from '../PetGrid/PetGrid';
+
+
 interface Props extends RouteComponentProps {
   match: match<{ petId: string }>;
 }
