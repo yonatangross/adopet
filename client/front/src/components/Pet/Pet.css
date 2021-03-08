@@ -55,3 +55,13 @@
   display: flex;
   flex-direction: column;
 }
+
+#imgPosition{
+  display:block;
+  margin: auto;
+  width: 400px;
+  height: 350px; 
+  border-radius: 8px;
+
+   
+}

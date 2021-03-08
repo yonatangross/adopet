@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import './Footer.css';
+import { FaBeer, FaHome } from 'react-icons/fa';
+
+import { AiFillContacts  } from 'react-icons/ai';
+
+
 
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 
@@ -19,7 +24,7 @@ const FooterPage = () => {
             <h5 className="title">Links</h5>
             <ul>
               <li className="list-unstyled">
-              <Link to={'/'} >Home Page</Link>
+              <Link to={'/'} >Home Page<FaHome/></Link>
               </li>
               <li className="list-unstyled">
               <Link to={'/allPets'} >Pets</Link>
@@ -28,7 +33,7 @@ const FooterPage = () => {
               <Link to={'/about'} >About</Link>
               </li>
               <li className="list-unstyled">
-              <Link to={'/contact'} >Contact Us</Link>
+              <Link to={'/contact'} >Contact Us<AiFillContacts/></Link>
               </li>
             </ul>
           </MDBCol>
