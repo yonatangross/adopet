@@ -1,62 +1,46 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 import { environment } from "../../environments/environment";
-import { User } from "../models";
+
+const httpOptions = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+};
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
   private baseUrl = `${environment.apiUrl}/auth`;
 
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
-
-  constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem("currentUser"))
-    );
-    this.currentUser = this.currentUserSubject.asObservable();
-  }
-
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-  }
-
+  constructor(private http: HttpClient) {}
+  
   register(
     firstName: string,
     lastName: string,
     email: string,
     password: string
   ): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, {
-      firstName,
-      lastName,
-      email,
-      password,
-    });
-  }
-
-  login(username: string, password: string) {
-    return this.http
-      .post<any>(`${this.baseUrl}/`, {
-        username,
+    return this.http.post(
+      `${this.baseUrl}/register`,
+      {
+        firstName,
+        lastName,
+        email,
         password,
-      })
-      .pipe(
-        map((user) => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem("currentUser", JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return user;
-        })
-      );
+      },
+      httpOptions
+    );
   }
 
-  logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
-    this.currentUserSubject.next(null);
+  login(email: string, password: string) {
+    return this.http.post<any>(
+      `${this.baseUrl}/login`,
+      {
+        email,
+        password,
+      },
+      httpOptions
+    );
   }
 }

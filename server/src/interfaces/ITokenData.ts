@@ -1,5 +1,5 @@
 interface TokenData {
-  token: string;
+  accessToken: string;
   expiresIn: number;
 }
 

@@ -19,7 +19,7 @@ export class AdoptionRequestsComponent implements OnInit {
   constructor(private AdoptionRequestService: AdoptionRequestService) {}
 
   ngOnInit(): void {
-    this.retrievePets();
+    this.retrieveAdoptionRequests();
   }
 
   getRequestParams(searchTitle: string, page: number, pageSize: number): any {
@@ -41,12 +41,12 @@ export class AdoptionRequestsComponent implements OnInit {
     return params;
   }
 
-  retrievePets(): void {
+  retrieveAdoptionRequests(): void {
     const params = this.getRequestParams(this.title, this.page, this.pageSize);
 
     this.AdoptionRequestService.getAll(params).subscribe(
       (response) => {
-        this.adoptionRequests = response.pets;
+        this.adoptionRequests = response.adoptionRequests;
       },
       (error) => {
         console.log(error);
@@ -56,17 +56,17 @@ export class AdoptionRequestsComponent implements OnInit {
 
   handlePageChange(event: number): void {
     this.page = event;
-    this.retrievePets();
+    this.retrieveAdoptionRequests();
   }
 
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.retrievePets();
+    this.retrieveAdoptionRequests();
   }
 
   refreshList(): void {
-    this.retrievePets();
+    this.retrieveAdoptionRequests();
     this.currentAdoptionRequest = undefined;
     this.currentIndex = -1;
   }

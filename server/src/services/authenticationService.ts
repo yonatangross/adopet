@@ -22,17 +22,14 @@ export default class AuthenticationService {
       ...userData,
       password: hashedPassword,
     });
-    const tokenData = this.createToken(user);
-    const cookie = this.createCookie(tokenData);
+    const { accessToken } = this.createToken(user);
 
     return {
-      cookie,
+      accessToken,
       user,
     };
   }
-  public createCookie(tokenData: ITokenData) {
-    return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
-  }
+
   public createToken(user: IUser): ITokenData {
     const expiresIn = 60 * 60; // an hour
     const dataStoredInToken: IDataStoredInToken = {
@@ -42,7 +39,7 @@ export default class AuthenticationService {
     if (jwtSecret)
       return {
         expiresIn,
-        token: jwt.sign(dataStoredInToken, jwtSecret, { expiresIn }),
+        accessToken: jwt.sign(dataStoredInToken, jwtSecret, { expiresIn }),
       };
     else throw new Error('invalid jwtSecret from env');
   }

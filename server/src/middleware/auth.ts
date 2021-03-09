@@ -6,10 +6,12 @@ import DataStoredInToken from '../interfaces/IDataStoredInToken';
 import userModel from '../models/user';
 
 async function authMiddleware(request: Request, response: Response, next: NextFunction): Promise<void> {
-  const cookies = request.cookies;
-  if (cookies && cookies.Authorization && process.env.JWT_SECRET) {
+  response.header('Access-Control-Allow-Headers', 'x-access-token, Origin, Content-Type, Accept');
+  const token: string = <string>request.headers['x-access-token'];
+
+  if (!!token && process.env.JWT_SECRET) {
     try {
-      const verificationResponse = jwt.verify(cookies.Authorization, process.env.JWT_SECRET) as DataStoredInToken;
+      const verificationResponse = jwt.verify(token, process.env.JWT_SECRET) as DataStoredInToken;
       const id = verificationResponse._id;
       const user = await userModel.findById(id);
       if (user) {

@@ -24,13 +24,10 @@ export class RegisterComponent {
   onSubmit(): void {
     const { firstName, lastName, email, password } = this.form;
 
-    console.log({ firstName, lastName, email, password });
-
     this.authenticationService
       .register(firstName, lastName, email, password)
       .subscribe(
         (data) => {
-          console.log(data);
           this.isSuccessful = true;
           this.isSignUpFailed = false;
         },

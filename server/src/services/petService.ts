@@ -68,7 +68,7 @@ export default class PetService {
       } else if (filter.property === 'age' && filter.selectedValue !== '') {
         const petAge: PetAge = (<any>PetAge)[filter.selectedValue];
         const petAgeRange = this.getPetAgeRange(petAge);
-        filterQuery[filter.property] = { $gte: petAgeRange[0], $lte: petAgeRange[1] }; //todo:add $gt with petAge group.
+        filterQuery[filter.property] = { $gte: petAgeRange[0], $lte: petAgeRange[1] };
       }
     });
 
