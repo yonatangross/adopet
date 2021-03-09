@@ -9,7 +9,7 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
   }
   let petUpdatedTime = moment(pet.updatedAt).format('MMM Do YY HH:mm');
   return (
-    <MDBCol style={{ maxWidth: "22rem" }}>
+    <MDBCol style={{ maxWidth: "22rem"}}>
       <MDBCard> 
         <MDBCardImage className="img-fluid" src={pet.primaryPicture} style={{width: "100%", height: "250px"}}waves />
         <MDBCardBody>

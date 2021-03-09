@@ -5,3 +5,13 @@
     height: 100px;
     width: 100%;
 }
+
+#footerLinks li {
+    display: inline;
+    margin: 3% 3%;
+    font-size: larger;
+}
+
+#footerContainer{
+    margin-left: 30%;
+}
