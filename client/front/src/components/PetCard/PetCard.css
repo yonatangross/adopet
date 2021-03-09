@@ -11,3 +11,11 @@
     height: 100vh;
     max-height: 50vh;
 }
+
+#adoptedSticker{
+ position: absolute;
+ color: #fff;
+ font-size: 25px;
+ margin-left: 5%;
+
+}

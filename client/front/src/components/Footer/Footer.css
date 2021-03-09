@@ -1,7 +1,16 @@
-.footer{
+#divFooter{
     position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+
+#footerLinks li {
+    display: inline;
+    margin: 3% 3%;
+    font-size: larger;
+}
+
+#footerContainer{
+    margin-left: 30%;
 }

@@ -4,3 +4,10 @@
 .navBar{
     margin-bottom: 2.2%;
 }
+
+#navigation,.navbar .navbar-default{
+    /* background-image: url("https://image.shutterstock.com/image-vector/dog-bone-isolated-seamless-pattern-260nw-1021763782.jpg"); */
+    background: linear-gradient(40deg, #45cafc, #303f9f);
+    
+    
+  }

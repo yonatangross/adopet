@@ -3,12 +3,11 @@
 }
 
 #view-background{
-    margin-top:5%;
-    margin-bottom: 5%;
-    background-size: 100% 100% !important;
+    margin-top:4%;
+    margin-bottom: 4%;
+    background-size: 80% 100% !important;
     background-position: center center;
     background-repeat: no-repeat;
-    height: 100vh;
-    max-height: 50vh;
+    max-height: 350px;
 
 }
