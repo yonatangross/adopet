@@ -44,16 +44,16 @@ const FooterPage = () => {
         <MDBContainer fluid>
           <ul id="footerLinks">
             <li>
-              Matan Hassin <FaLinkedin />
+              Matan Hassin <a href="https://www.linkedin.com/in/matan-hassin-725822192/"><FaLinkedin /></a>
             </li>
             <li>
-             Diana Isakov <FaLinkedin />
+             Diana Isakov <a href="https://www.linkedin.com/in/diana-lanciano-91590a176/"><FaLinkedin /></a>
             </li>
             <li>
-            Yonatan Gross <FaLinkedin />
+            Yonatan Gross <a href="https://www.linkedin.com/in/yonatangross/"><FaLinkedin /></a>
             </li>
             <li>
-             Aviv Miranda <FaLinkedin />
+             Aviv Miranda <a href="https://www.linkedin.com/in/aviv-miranda/"><FaLinkedin /></a>
             </li>
           </ul>
 
