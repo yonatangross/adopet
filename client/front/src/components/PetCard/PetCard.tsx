@@ -15,10 +15,9 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
   let petUpdatedTime = moment(pet.updatedAt).format('MMM Do YY HH:mm');
   return (
     <MDBCol style={{ maxWidth: "22rem"}}>
-      <div className={ pet.isAdopted ? " adoptedSticker" : " adoptedSticker" }>
       <MDBCard>  
         <MDBCardImage className="img-fluid" src={pet.primaryPicture} style={{width: "100%", height: "250px"}}waves />
-        <Text></Text>
+        {pet.isAdopted ? <MDBCardText id="adoptedSticker">Adopted!</MDBCardText> : ""}
         <MDBCardBody>
           <MDBCardTitle className="font-weight-bold">{pet.name}</MDBCardTitle>
           <MDBCardText className="font-weight-bolder">Gender: {pet.gender}</MDBCardText>
@@ -28,7 +27,6 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
             <MDBCardText className="font-weight-bolder">Updated in: {petUpdatedTime}</MDBCardText>
         </MDBCardBody>
       </MDBCard>
-      </div>
     </MDBCol>
   )
 
