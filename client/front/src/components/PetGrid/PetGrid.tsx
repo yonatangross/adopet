@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PetCard from '../PetCard/PetCard';
-import PetCardTEST from '../testPetCard/PetCard';
 import './PetGrid.css';
 
 interface PetGridProps {
