@@ -33,7 +33,7 @@ class AuthenticationController implements IController {
     const userData: CreateUserDto = request.body;
     try {
       const { user, accessToken } = await this.AuthenticationServiceInstance.register(userData);
-      response.send({ user, accessToken });
+      response.status(200).send({ user, accessToken });
     } catch (error) {
       console.log(`error in returning from authService `);
       console.log(error);
