@@ -25,11 +25,11 @@ export default class dataSeeder {
   private async initialize() {
     if (this.DOG_BREEDS.length == 0 || this.CAT_BREEDS.length == 0) await this.getPetBreeds();
 
-    if ((await Pet.collection.countDocuments()) == 0) {
+    while ((await Pet.collection.countDocuments()) <= this.SEED_INIT_NUMBER) {
       await this.SeedPetsAsync();
     }
 
-    if ((await AdoptionRequest.collection.countDocuments()) <= this.SEED_INIT_NUMBER) {
+    while ((await AdoptionRequest.collection.countDocuments()) <= this.SEED_INIT_NUMBER) {
       await this.SeedAdoptionRequestsAsync();
     }
 
@@ -69,6 +69,8 @@ export default class dataSeeder {
   }
 
   private async SeedPetsAsync() {
+    console.log('entered seedPetsAsync function');
+
     for (let petIndex = 0; petIndex < this.SEED_INIT_NUMBER; petIndex++) {
       const randomPetTypeValue = this.getRandomInt(2);
       let animalType = '';
@@ -87,7 +89,6 @@ export default class dataSeeder {
       }
     }
     console.log('finished creating pets.');
-    
   }
   private async createPet(animalType: string): Promise<IPet> {
     let pet: IPet;
@@ -137,7 +138,7 @@ export default class dataSeeder {
         primaryPicture: catBreed.imageUrl,
       });
     }
-    
+
     return pet;
   }
 
@@ -156,6 +157,7 @@ export default class dataSeeder {
         }
       }
     }
+    console.log('finished creating adoption requests.');
   }
 
   private async createAdoptionRequest(pet: IPet): Promise<IAdoptionRequest> {

@@ -24,11 +24,7 @@ const mongooseLoader = async (): Promise<void> => {
 const initDb = async (): Promise<void> => {
   console.log('entered initDb');
 
-  let petSchemaExists: boolean = false;
-  if ((await PetSchema.collection.countDocuments()) === 0) {
-    new dbSeed();
-    petSchemaExists = true;
-  }
+  new dbSeed();
 
   // if ((await UserSchema.collection.countDocuments()) != 0) {
   //   await seedTestUser();

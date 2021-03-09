@@ -47,7 +47,7 @@ export class AdoptionsInfoComponent implements OnInit {
 
     this.AdoptionInfoService.getAll(params).subscribe(
       (response) => {
-        this.AdoptionsInfo = response.AdoptionsInfo;
+        this.AdoptionsInfo = response.adoptionsInfo;
       },
       (error) => {
         console.log(error);
