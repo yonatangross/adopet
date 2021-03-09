@@ -17,31 +17,31 @@ import ThankYouForContact from '../ThankYouForContact/ThankYouForContact';
 
 const Navigator: React.FC = () => {
   return (
-    <div className="main_div">
-         <MDBContainer style={{ maxWidth: "80%"}}>
-      <MDBRow>
-        <MDBCol ><div>
-          <div>
-            <Navbar  />
-          </div>
-          <div>
-          <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path={`/pets/:petId`} exact component={Pet} />
-            <Route path="/allPets" exact component={AllPetsIndex} />
-            <Route path={`/adoptionForm/:petId`} exact component={AdoptionRequestForm} />
-            <Route path={`/contact`} exact component={Contact} />
-            <Route path={`/requestSent`} exact component={RequestSentSuccessfully} />
-            <Route path={`/contactRequestSent`} exact component={ThankYouForContact} />
-          </Switch>
-          </div>
-        </div></MDBCol>
-      </MDBRow>
-    </MDBContainer>
-    <div>
+    <div id="main_div">
+      <MDBContainer style={{ maxWidth: "80%" }}>
+        <MDBRow>
+          <MDBCol ><div>
+            <div>
+              <Navbar />
+            </div>
+            <div id="content-wrap">
+              <Switch>
+                <Route exact path="/" component={Home}></Route>
+                <Route path="/about">
+                  <About />
+                </Route>
+                <Route path={`/pets/:petId`} exact component={Pet} />
+                <Route path="/allPets" exact component={AllPetsIndex} />
+                <Route path={`/adoptionForm/:petId`} exact component={AdoptionRequestForm} />
+                <Route path={`/contact`} exact component={Contact} />
+                <Route path={`/requestSent`} exact component={RequestSentSuccessfully} />
+                <Route path={`/contactRequestSent`} exact component={ThankYouForContact} />
+              </Switch>
+            </div>
+          </div></MDBCol>
+        </MDBRow>
+      </MDBContainer>
+      <div>
         <Footer />
       </div>
     </div>
