@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
   providedIn: "root",
 })
 export class AdoptionInfoService {
-  private baseUrl = `${environment.apiUrl}/adoption-requests`;
+  private baseUrl = `${environment.apiUrl}/adoptions-info`;
 
   httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),

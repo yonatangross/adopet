@@ -6,12 +6,12 @@ import { IAdoptionInfo } from '../interfaces/IAdoptionInfo';
 @Service()
 export default class AdoptionInfoService {
   public async getById(id: string) {
-    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findById(id).populate('pet', 'adoptionRequest');
+    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findById(id).populate('pet').populate('adoptionRequest');
     return adoptionInfo;
   }
 
   public async getAll() {
-    const adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate('pet', 'adoptionRequest');
+    const adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find();
     return adoptionsInfo;
   }
 
