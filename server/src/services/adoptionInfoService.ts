@@ -11,7 +11,7 @@ export default class AdoptionInfoService {
   }
 
   public async getAll() {
-    const adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate('pet');
+    const adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find();
     return adoptionsInfo;
   }
 
