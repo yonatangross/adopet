@@ -1,8 +1,11 @@
 import { IAdoptionRequest } from '../interfaces/IAdoptionRequest';
 import { IPet } from '../interfaces/IPet';
 import AdoptionRequest from '../models/adoptionRequest';
+import AdoptionInfo from '../models/adoptionInfo';
+
 import Pet from '../models/pet';
 import axios from 'axios';
+import { IAdoptionInfo } from '../interfaces/IAdoptionInfo';
 
 interface ICatBreed {
   name: string;
@@ -33,9 +36,9 @@ export default class dataSeeder {
       await this.SeedAdoptionRequestsAsync();
     }
 
-    // if ((await AdoptionRequest.collection.countDocuments()) > 0) {
-    //   this.SeedAdoptionsInfoAsync();
-    // }
+    if ((await AdoptionInfo.collection.countDocuments()) <= this.SEED_INIT_NUMBER / 5) {
+      await this.SeedAdoptionsInfoAsync();
+    }
 
     console.log('ended dbSeed init.');
   }
@@ -194,30 +197,35 @@ export default class dataSeeder {
   }
 
   private async SeedAdoptionsInfoAsync() {
-    // let reqGroups = await AdoptionRequest.mapReduce(
-    //   /* group by type */
-    //   () => {
-    //     emit(this.pets, this.value);
-    //   },
-    //   /* select one random index */
-    //   function (u, vs) {
-    //     return vs[Math.round(Math.random() * vs.length)];
-    //   },
-    //   /* return the results directly, or use {out: "coll_name" } */
-    //   { out: { inline: 1 } }
-    // );
-    // const adoptionRequests = AdoptionRequest.aggregate([{ $group: { _id: "$pet", adoptionRequests: { $push: "$_id" } } }])
-    // console.log(`adoptionRequests:`);
-    // console.log(adoptionRequests);
+    const adoptionRequestsGroupByPetQuery: any = [{ $group: { _id: '$pet', data: { $push: '$$ROOT' } } }];
+    const adoptionRequestsGroupByPet: { _id: string; data: IAdoptionRequest[] }[] = await AdoptionRequest.aggregate(adoptionRequestsGroupByPetQuery);
+
+    adoptionRequestsGroupByPet.forEach(async (adoptionRequestsGroup) => {
+      const randomIndex: number = this.getRandomInt(adoptionRequestsGroup.data.length);
+
+      const randomAdoptionRequestForPet: IAdoptionRequest = adoptionRequestsGroup.data[randomIndex];
+      const adoptionFlag: boolean = this.getRandomInt(5) === 1;
+
+      if (adoptionFlag) {
+        const adoptionInfo: IAdoptionInfo = await this.createAdoptionInfo(adoptionRequestsGroup._id, randomAdoptionRequestForPet);
+        try {
+          await adoptionInfo.save();
+        } catch (err: any) {
+          console.log(`error saving adoptionInfo ${adoptionInfo._id}`);
+        }
+      }
+    });
   }
-  // private async createAdoptionInfo(animalType: string): Promise<IAdoptionInfo> {
 
-  //   const adoptionInfo: IAdoptionInfo = new AdoptionInfo({
-  //     pet: pet,
-  //   });
+  private async createAdoptionInfo(petId: string, adoptionRequest: IAdoptionRequest): Promise<IAdoptionInfo> {
+    const adoptionInfo: IAdoptionInfo = new AdoptionInfo({
+      pet: petId,
+      adoptionRequest: adoptionRequest,
+      adoptionDate: new Date(),
+    });
 
-  //   return adoptionInfo;
-  // }
+    return adoptionInfo;
+  }
 
   private getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
