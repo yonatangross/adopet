@@ -21,11 +21,6 @@ export const navItems: INavData[] = [
         url: "/pets/create",
         icon: "icon-cursor",
       },
-      {
-        name: "Edit Pet",
-        url: "/pets/edit",
-        icon: "icon-cursor",
-      },
     ],
   },
   {
@@ -43,11 +38,6 @@ export const navItems: INavData[] = [
         url: "/adoption-requests/create",
         icon: "icon-cursor",
       },
-      {
-        name: "Update",
-        url: "/adoption-requests/edit",
-        icon: "icon-cursor",
-      },
     ],
   },
   {
@@ -63,11 +53,6 @@ export const navItems: INavData[] = [
       {
         name: "Create",
         url: "/adoptions-info/create",
-        icon: "icon-cursor",
-      },
-      {
-        name: "Edit",
-        url: "/adoptions-info/edit",
         icon: "icon-cursor",
       },
     ],

@@ -8,12 +8,12 @@ import IFilter from './Filter/IFilter';
 import ISorter from './Sorter/ISorter';
 import { genericSort } from './Sorter/genericSort';
 import IllegalPetAgeException from '../exceptions/IllegalPetAgeException';
-import { PetSize } from '../types/PetSize';
 
 @Service()
 export default class PetService {
   public async getById(id: string) {
     const pet: IPet | null = await Pet.findById(id);
+    //todo: if pet not found return 404 error
     return pet;
   }
 
@@ -128,7 +128,18 @@ export default class PetService {
   }
 
   public async update(petId: string, req: any) {
-    const updatedPet: IPet | null = await Pet.findByIdAndUpdate({ _id: petId }, req.body);
+    const body = req.body as Pick<IPet, 'name' | 'gender' | 'breed' | 'animalType' | 'age' | 'isAdopted' | 'primaryPicture'>;
+
+    const pet = new Pet({
+      name: body.name,
+      gender: body.gender,
+      breed: body.breed,
+      animalType: body.animalType,
+      age: body.age,
+      isAdopted: body.isAdopted,
+      primaryPicture: body.primaryPicture,
+    });
+    const updatedPet: IPet | null = await Pet.findByIdAndUpdate({ _id: petId }, pet);
     return {
       message: 'Pet updated',
       pet: updatedPet,

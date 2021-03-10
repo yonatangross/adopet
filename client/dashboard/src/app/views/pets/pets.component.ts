@@ -1,10 +1,11 @@
+import { TokenStorageService } from "./../../services/token-storage.service";
 import { Pet } from "./../../models/pet";
 import { PetService } from "./../../services/pet.service";
 import { Component, OnInit } from "@angular/core";
 @Component({
   selector: "app-pets",
   templateUrl: "./pets.component.html",
-  styleUrls: [],
+  styleUrls: ["./pets.component.css"],
 })
 export class PetsComponent implements OnInit {
   pets: Pet[] = [];
@@ -15,10 +16,17 @@ export class PetsComponent implements OnInit {
   count = 0;
   pageSize = 3;
   pageSizes = [3, 6, 9];
+  isLoggedIn = false;
 
-  constructor(private PetService: PetService) {}
+  constructor(
+    private PetService: PetService,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   ngOnInit(): void {
+    if (this.tokenStorageService.getToken()) {
+      this.isLoggedIn = true;
+    }
     this.retrievePets();
   }
 
@@ -74,5 +82,15 @@ export class PetsComponent implements OnInit {
   setActivePet(Pet: Pet, index: number): void {
     this.currentPet = Pet;
     this.currentIndex = index;
+  }
+
+  delete(pet: Pet): void {
+    if (!pet.isAdopted) {
+      this.PetService.delete(pet._id).subscribe();
+      this.refreshList();
+    } else {
+      //todo: add alert from notifcations
+      alert(`pet is adopted! can't delete ${pet._id}`);
+    }
   }
 }

@@ -13,6 +13,7 @@
                 <th>animal type</th>
                 <th>Age</th>
                 <th>Adopted</th>
+                <th *ngIf="isLoggedIn">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -22,20 +23,31 @@
                 <td>{{ pet.breed }}</td>
                 <td>{{ pet.animalType }}</td>
                 <td>{{ pet.age }}</td>
-                <td>{{ pet.isAdopted }}</td>
+                <td *ngIf="pet.isAdopted">
+                  <span class="badge badge-success">Adopted</span>
+                </td>
+                <td *ngIf="!pet.isAdopted">
+                  <span class="badge badge-info">Waiting for Adoption</span>
+                </td>
+                <td *ngIf="isLoggedIn">
+                  <a
+                    type="button"
+                    class="btn btn-sm btn-pill btn-block btn-warning"
+                    routerLink="{{ pet._id }}"
+                  >
+                    Edit
+                  </a>
+                  <button
+                    (click)="delete(pet)"
+                    type="button"
+                    class="btn btn-sm btn-pill btn-block btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
         </div>
       </div>
     </div>

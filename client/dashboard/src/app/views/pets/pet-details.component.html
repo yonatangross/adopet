@@ -1,0 +1,9 @@
+<div *ngIf="pet">
+  <h2>{{ pet.name | uppercase }} Details</h2>
+  <div><span>id: </span>{{ pet._id }}</div>
+  <div>
+    <label for="pet-name">Pet name: </label>
+    <input id="pet-name" [(ngModel)]="pet.name" placeholder="Pet name" />
+  </div>
+  <button (click)="save()">save</button>
+</div>
