@@ -1,5 +1,7 @@
+import { Pet } from "./pet";
 export class AdoptionRequest {
-  petId: string;
+  _id: string;
+  pet: Pet;
   fullName: string;
   email: string;
   phoneNumber: string;
