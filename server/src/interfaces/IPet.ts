@@ -7,5 +7,5 @@ export interface IPet extends Document {
   animalType: string;
   age: number;
   isAdopted: boolean;
-  primaryPicture:string;
+  primaryPicture: any;
 }

@@ -1,648 +1,210 @@
 <div *ngIf="pet">
-  <h2>{{ pet.name | uppercase }} Details</h2>
-  <div><span>id: </span>{{ pet._id }}</div>
-  <div>
-    <label for="pet-name">Pet name: </label>
-    <input id="pet-name" [(ngModel)]="pet.name" placeholder="Pet name" />
-  </div>
-  <button (click)="save()">save</button>
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header"><strong>Basic Form</strong> Elements</div>
-      <div class="card-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
         <form
-          action=""
-          method="post"
           enctype="multipart/form-data"
           class="form-horizontal"
+          *ngIf="!isSuccessful"
+          name="form"
+          (ngSubmit)="
+            f.form.valid && this.pet.isAdopted === false && onSubmit()
+          "
+          #f="ngForm"
+          novalidate
         >
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Static</label>
-            <div class="col-md-9">
-              <p class="form-control-static">Username</p>
+          <div class="card-header"><strong>Pet Details</strong></div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-1 col-form-label">Pet id</label>
+              <label class="col-md-2 col-form-label">{{ pet._id }}</label>
             </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input"
-              >Text Input</label
-            >
-            <div class="col-md-9">
-              <input
-                type="text"
-                id="text-input"
-                name="text-input"
-                class="form-control"
-                placeholder="Text"
-              />
-              <span class="help-block">This is a help text</span>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="email-input"
-              >Email Input</label
-            >
-            <div class="col-md-9">
-              <input
-                type="email"
-                id="email-input"
-                name="email-input"
-                class="form-control"
-                placeholder="Enter Email"
-                autocomplete="email"
-              />
-              <span class="help-block">Please enter your email</span>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="password-input"
-              >Password</label
-            >
-            <div class="col-md-9">
-              <input
-                type="password"
-                id="password-input"
-                name="password-input"
-                class="form-control"
-                placeholder="Password"
-                autocomplete="current-password"
-              />
-              <span class="help-block">Please enter a complex password</span>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="date-input"
-              >Date Input</label
-            >
-            <div class="col-md-9">
-              <input
-                class="form-control"
-                id="date-input"
-                type="date"
-                name="date-input"
-                placeholder="date"
-              />
-              <span class="help-block">Please enter a valid date</span>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="disabled-input"
-              >Disabled Input</label
-            >
-            <div class="col-md-9">
-              <input
-                type="text"
-                id="disabled-input"
-                name="disabled-input"
-                class="form-control"
-                placeholder="Disabled"
-                disabled
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="textarea-input"
-              >Textarea</label
-            >
-            <div class="col-md-9">
-              <textarea
-                id="textarea-input"
-                name="textarea-input"
-                rows="9"
-                class="form-control"
-                placeholder="Content.."
-              ></textarea>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Select</label>
-            <div class="col-md-9">
-              <select id="select1" name="select1" class="form-control">
-                <option value="0">Please select</option>
-                <option value="1">Option #1</option>
-                <option value="2">Option #2</option>
-                <option value="3">Option #3</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select2"
-              >Select Large</label
-            >
-            <div class="col-md-9">
-              <select
-                id="select2"
-                name="select2"
-                class="form-control form-control-lg"
+            <div class="form-group row">
+              <label
+                for="gender"
+                class="col-md-1 col-form-label"
+                for="text-input"
+                >Pet gender</label
               >
-                <option value="0">Please select</option>
-                <option value="1">Option #1</option>
-                <option value="2">Option #2</option>
-                <option value="3">Option #3</option>
-              </select>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="gender"
+                  [(ngModel)]="form.gender"
+                  [disabled]="this.pet.isAdopted === true"
+                  required
+                  minlength="2"
+                  maxlength="20"
+                  #gender="ngModel"
+                />
+              </div>
+              <div class="alert-danger" *ngIf="gender.errors && f.submitted">
+                <div *ngIf="gender.errors.required">Pet gender is required</div>
+                <div *ngIf="gender.errors.minlength">
+                  Pet gender must be at least 2 characters
+                </div>
+                <div *ngIf="gender.errors.maxlength">
+                  Pet gender must be at most 20 characters
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select3"
-              >Select Small</label
-            >
-            <div class="col-md-9">
-              <select
-                id="select3"
-                name="select3"
-                class="form-control form-control-sm"
+            <div class="form-group row">
+              <label
+                for="breed"
+                class="col-md-1 col-form-label"
+                for="text-input"
+                >Pet breed</label
               >
-                <option value="0">Please select</option>
-                <option value="1">Option #1</option>
-                <option value="2">Option #2</option>
-                <option value="3">Option #3</option>
-              </select>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="breed"
+                  [disabled]="this.pet.isAdopted === true"
+                  [(ngModel)]="form.breed"
+                  defaultValue="{{ pet.breed }}"
+                  required
+                  minlength="2"
+                  maxlength="20"
+                  #breed="ngModel"
+                />
+              </div>
+              <div class="alert-danger" *ngIf="breed.errors && f.submitted">
+                <div *ngIf="breed.errors.required">Pet breed is required</div>
+                <div *ngIf="breed.errors.minlength">
+                  Pet breed must be at least 2 characters
+                </div>
+                <div *ngIf="breed.errors.maxlength">
+                  Pet breed must be at most 20 characters
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="disabledSelect"
-              >Disabled Select</label
-            >
-            <div class="col-md-9">
-              <select id="disabledSelect" class="form-control" disabled>
-                <option value="0">Please select</option>
-                <option value="1">Option #1</option>
-                <option value="2">Option #2</option>
-                <option value="3">Option #3</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="multiple-select"
-              >Multiple select</label
-            >
-            <div class="col-md-9">
-              <select
-                id="multiple-select"
-                name="multiple-select"
-                class="form-control"
-                size="5"
-                multiple
+            <div class="form-group row">
+              <label
+                for="animalType"
+                class="col-md-1 col-form-label"
+                for="text-input"
+                >Animal type</label
               >
-                <option value="1">Option #1</option>
-                <option value="2">Option #2</option>
-                <option value="3">Option #3</option>
-                <option value="4">Option #4</option>
-                <option value="5">Option #5</option>
-                <option value="6">Option #6</option>
-                <option value="7">Option #7</option>
-                <option value="8">Option #8</option>
-                <option value="9">Option #9</option>
-                <option value="10">Option #10</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Radios</label>
-            <div class="col-md-9 col-form-label">
-              <div class="form-check">
+              <div class="col-md-6">
                 <input
-                  class="form-check-input"
-                  type="radio"
-                  name="radios"
-                  id="radio1"
-                  value="option1"
-                  checked
+                  type="text"
+                  class="form-control"
+                  name="animalType"
+                  placeholder="Cat or Dog"
+                  [(ngModel)]="form.animalType"
+                  defaultValue="{{ pet.animalType }}"
+                  required
+                  [disabled]="this.pet.isAdopted === true"
+                  #animalType="ngModel"
                 />
-                <label class="form-check-label" for="radio1"> Option 1 </label>
               </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="radios"
-                  id="radio2"
-                  value="option2"
-                />
-                <label class="form-check-label" for="radio2"> Option 2 </label>
-              </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="radios"
-                  id="radio3"
-                  value="option3"
-                />
-                <label class="form-check-label" for="radio3"> Option 3 </label>
+              <div
+                class="alert-danger"
+                *ngIf="animalType.errors && f.submitted"
+              >
+                <div *ngIf="animalType.errors.required">
+                  Animal type is required
+                </div>
               </div>
             </div>
+            <div class="form-group row">
+              <label for="age" class="col-md-1 col-form-label" for="text-input"
+                >Age</label
+              >
+              <div class="col-md-1">
+                <input
+                  type="number"
+                  class="form-control"
+                  name="age"
+                  [(ngModel)]="form.age"
+                  [disabled]="this.pet.isAdopted === true"
+                  defaultValue="{{ pet.age }}"
+                  required
+                  max="20"
+                  min="0"
+                  #age="ngModel"
+                />
+              </div>
+              <div class="alert-danger" *ngIf="age.errors && f.submitted">
+                <div *ngIf="age.errors.required">Age is required</div>
+                <div *ngIf="age.errors.min">Age must be at least 0 years</div>
+                <div *ngIf="age.errors.max">Age must be at most 20 years</div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-1 col-form-label">Adopted</label>
+              <div class="col-md-4 col-form-label">
+                <div class="form-check form-check-inline mr-1">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="inline-checkbox1"
+                    value="{{ pet.isAdopted }}"
+                    hidden
+                  />
+                  {{ pet.isAdopted ? "Adopted" : "Waiting for adoption!" }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-1 col-form-label" for="file-input"
+                >Primary picture</label
+              >
+              <div class="col-md-3">
+                <div
+                  [innerHtml]="imageMessage"
+                  *ngIf="imageMessage"
+                  style="color: red"
+                ></div>
+                <div>
+                  <img
+                    [src]="imageUrl"
+                    *ngIf="imageUrl"
+                    style="width: 250px; height: 250px"
+                  />
+                </div>
+                <p>
+                  <input
+                    type="file"
+                    [hidden]="this.pet.isAdopted === true"
+                    [disabled]="this.pet.isAdopted === true"
+                    (change)="selectFile($event)"
+                  />
+                </p>
+              </div>
+            </div>
+            <div class="alert alert-warning" *ngIf="f.submitted">
+              Update pet failed!<br />{{ errorMessage }}
+            </div>
           </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="inline-radios"
-              >Inline Radios</label
+          <div class="card-footer">
+            <button
+              class="btn btn-sm btn-success"
+              *ngIf="this.pet.isAdopted === false"
             >
-            <div class="col-md-9 col-form-label">
-              <div class="form-check form-check-inline mr-1" id="inline-radios">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="inline-radios"
-                  id="inlineRadio1"
-                  value="option1"
-                />
-                <label class="form-check-label" for="inlineRadio1">One</label>
-              </div>
-              <div class="form-check form-check-inline mr-1">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="inline-radios"
-                  id="inlineRadio2"
-                  value="option2"
-                />
-                <label class="form-check-label" for="inlineRadio2">Two</label>
-              </div>
-              <div class="form-check form-check-inline mr-1">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="inline-radios"
-                  id="inlineRadio3"
-                  value="option3"
-                />
-                <label class="form-check-label" for="inlineRadio3">Three</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Checkboxes</label>
-            <div class="col-md-9 col-form-label">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value="option1"
-                  id="checkbox1"
-                />
-                <label class="form-check-label" for="checkbox1">
-                  Option 1
-                </label>
-              </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value="option1"
-                  id="checkbox2"
-                />
-                <label class="form-check-label" for="checkbox2">
-                  Option 2
-                </label>
-              </div>
-              <div class="form-check checkbox">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value="option1"
-                  id="checkbox3"
-                />
-                <label class="form-check-label" for="checkbox3">
-                  Option 3
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Inline Checkboxes</label>
-            <div class="col-md-9 col-form-label">
-              <div class="form-check form-check-inline mr-1">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="inline-checkbox1"
-                  value="option1"
-                />
-                <label class="form-check-label" for="inline-checkbox1"
-                  >One</label
-                >
-              </div>
-              <div class="form-check form-check-inline mr-1">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="inline-checkbox2"
-                  value="option2"
-                />
-                <label class="form-check-label" for="inline-checkbox2"
-                  >Two</label
-                >
-              </div>
-              <div class="form-check form-check-inline mr-1">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="inline-checkbox3"
-                  value="option3"
-                />
-                <label class="form-check-label" for="inline-checkbox3"
-                  >Three</label
-                >
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="file-input"
-              >File input</label
+              <i class="fa fa-dot-circle-o"></i> Submit
+            </button>
+            <button
+              class="btn btn-warning"
+              *ngIf="this.pet.isAdopted === true"
+              disabled
             >
-            <div class="col-md-9">
-              <input type="file" id="file-input" name="file-input" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="file-multiple-input"
-              >Multiple File input</label
-            >
-            <div class="col-md-9">
-              <input
-                type="file"
-                id="file-multiple-input"
-                name="file-multiple-input"
-                multiple
-              />
-            </div>
+              Pet already adopted!
+            </button>
+            <!-- <button
+            type="reset"
+            class="btn btn-sm btn-danger"
+            *ngIf="this.pet.isAdopted === false"
+          >
+            <i class="fa fa-ban"></i> Reset
+          </button> -->
           </div>
         </form>
       </div>
-      <div class="card-footer">
-        <button type="submit" class="btn btn-sm btn-primary">
-          <i class="fa fa-dot-circle-o"></i> Submit
-        </button>
-        <button type="reset" class="btn btn-sm btn-danger">
-          <i class="fa fa-ban"></i> Reset
-        </button>
-      </div>
+      <!--/.col-->
     </div>
-    <div class="card">
-      <div class="card-header"><strong>Inline</strong> Form</div>
-      <div class="card-body">
-        <form action="" method="post" class="form-inline">
-          <div class="form-group">
-            <label class="sr-only" for="if-email">Email</label>
-            <input
-              type="email"
-              id="if-email"
-              name="if-email"
-              class="form-control"
-              placeholder="Enter Email.."
-              autocomplete="email"
-            />
-          </div>
-          <div class="form-group">
-            <label class="sr-only" for="if-password">Password</label>
-            <input
-              type="password"
-              id="if-password"
-              name="if-password"
-              class="form-control"
-              placeholder="Enter Password.."
-              autocomplete="current-password"
-            />
-          </div>
-        </form>
-      </div>
-      <div class="card-footer">
-        <button type="submit" class="btn btn-sm btn-primary">
-          <i class="fa fa-dot-circle-o"></i> Submit
-        </button>
-        <button type="reset" class="btn btn-sm btn-danger">
-          <i class="fa fa-ban"></i> Reset
-        </button>
-      </div>
-    </div>
+    <!--/.row-->
   </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header"><strong>Horizontal</strong> Form</div>
-      <div class="card-body">
-        <form action="" method="post" class="form-horizontal">
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="hf-email">Email</label>
-            <div class="col-md-9">
-              <input
-                type="email"
-                id="hf-email"
-                name="hf-email"
-                class="form-control"
-                placeholder="Enter Email.."
-                autocomplete="email"
-              />
-              <span class="help-block">Please enter your email</span>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="hf-password"
-              >Password</label
-            >
-            <div class="col-md-9">
-              <input
-                type="password"
-                id="hf-password"
-                name="hf-password"
-                class="form-control"
-                placeholder="Enter Password.."
-                autocomplete="current-password"
-              />
-              <span class="help-block">Please enter your password</span>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="card-footer">
-        <button type="submit" class="btn btn-sm btn-primary">
-          <i class="fa fa-dot-circle-o"></i> Submit
-        </button>
-        <button type="reset" class="btn btn-sm btn-danger">
-          <i class="fa fa-ban"></i> Reset
-        </button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header"><strong>Normal</strong> Form</div>
-      <div class="card-body">
-        <form action="" method="post">
-          <div class="form-group">
-            <label for="nf-email">Email</label>
-            <input
-              type="email"
-              id="nf-email"
-              name="nf-email"
-              class="form-control"
-              placeholder="Enter Email.."
-              autocomplete="email"
-            />
-            <span class="help-block">Please enter your email</span>
-          </div>
-          <div class="form-group">
-            <label for="nf-password">Password</label>
-            <input
-              type="password"
-              id="nf-password"
-              name="nf-password"
-              class="form-control"
-              placeholder="Enter Password.."
-              autocomplete="current-password"
-            />
-            <span class="help-block">Please enter your password</span>
-          </div>
-        </form>
-      </div>
-      <div class="card-footer">
-        <button type="submit" class="btn btn-sm btn-primary">
-          <i class="fa fa-dot-circle-o"></i> Submit
-        </button>
-        <button type="reset" class="btn btn-sm btn-danger">
-          <i class="fa fa-ban"></i> Reset
-        </button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">
-        Input
-        <strong>Grid</strong>
-      </div>
-      <div class="card-body">
-        <form action="" method="post" class="form-horizontal">
-          <div class="form-group row">
-            <div class="col-sm-3">
-              <input type="text" class="form-control" placeholder=".col-sm-3" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-4">
-              <input type="text" class="form-control" placeholder=".col-sm-4" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-5">
-              <input type="text" class="form-control" placeholder=".col-sm-5" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-6">
-              <input type="text" class="form-control" placeholder=".col-sm-6" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-7">
-              <input type="text" class="form-control" placeholder=".col-sm-7" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-8">
-              <input type="text" class="form-control" placeholder=".col-sm-8" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-9">
-              <input type="text" class="form-control" placeholder=".col-sm-9" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-10">
-              <input
-                type="text"
-                class="form-control"
-                placeholder=".col-sm-10"
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-11">
-              <input
-                type="text"
-                class="form-control"
-                placeholder=".col-sm-11"
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-12">
-              <input
-                type="text"
-                class="form-control"
-                placeholder=".col-sm-12"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="card-footer">
-        <button type="submit" class="btn btn-sm btn-primary">
-          <i class="fa fa-user"></i> Login
-        </button>
-        <button type="reset" class="btn btn-sm btn-danger">
-          <i class="fa fa-ban"></i> Reset
-        </button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">
-        Input
-        <strong>Sizes</strong>
-      </div>
-      <div class="card-body">
-        <form action="" method="post" class="form-horizontal">
-          <div class="form-group row">
-            <label class="col-sm-5 col-form-label" for="input-small"
-              >Small Input</label
-            >
-            <div class="col-sm-6">
-              <input
-                type="text"
-                id="input-small"
-                name="input-small"
-                class="form-control form-control-sm"
-                placeholder=".form-control-sm"
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-5 col-form-label" for="input-normal"
-              >Normal Input</label
-            >
-            <div class="col-sm-6">
-              <input
-                type="text"
-                id="input-normal"
-                name="input-normal"
-                class="form-control"
-                placeholder="Normal"
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-5 col-form-label" for="input-large"
-              >Large Input</label
-            >
-            <div class="col-sm-6">
-              <input
-                type="text"
-                id="input-large"
-                name="input-large"
-                class="form-control form-control-lg"
-                placeholder=".form-control-lg"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="card-footer">
-        <button type="submit" class="btn btn-sm btn-primary">
-          <i class="fa fa-dot-circle-o"></i> Submit
-        </button>
-        <button type="reset" class="btn btn-sm btn-danger">
-          <i class="fa fa-ban"></i> Reset
-        </button>
-      </div>
-    </div>
-  </div>
-  <!--/.col-->
 </div>
-<!--/.row-->

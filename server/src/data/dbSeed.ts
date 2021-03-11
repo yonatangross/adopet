@@ -233,6 +233,7 @@ export default class dataSeeder {
   }
 
   private getRandomInt(max: number): number {
+
     return Math.floor(Math.random() * max);
   }
 
