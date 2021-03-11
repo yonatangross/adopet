@@ -18,16 +18,12 @@ export class PetDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log("diana");
-
     this.getPet();
   }
 
   getPet(): void {
-    console.log("diana");
-
     const id: string = this.route.snapshot.paramMap.get("id");
-    this.petService.get(id).subscribe((pet) => (this.pet = pet));
+    this.petService.get(id).subscribe((response) => (this.pet = response.pet));
   }
 
   goBack(): void {

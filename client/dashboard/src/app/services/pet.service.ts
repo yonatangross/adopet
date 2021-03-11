@@ -21,8 +21,11 @@ export class PetService {
     return res;
   }
 
-  get(id: string): Observable<Pet> {
-    return this.http.get<Pet>(`${this.baseUrl}/${id}`);
+  get(id: string): Observable<any> {
+    const res = this.http.get<Pet>(`${this.baseUrl}/${id}`);
+    console.log(res);
+
+    return res;
   }
 
   create(data: any): Observable<any> {
