@@ -210,6 +210,11 @@ export default class dataSeeder {
         const adoptionInfo: IAdoptionInfo = await this.createAdoptionInfo(adoptionRequestsGroup._id, randomAdoptionRequestForPet);
         try {
           await adoptionInfo.save();
+          try {
+            await Pet.findByIdAndUpdate({ _id: adoptionRequestsGroup._id }, { isAdopted: true });
+          } catch (error: any) {
+            console.log(`error updating pet, error: ${error}`);
+          }
         } catch (err: any) {
           console.log(`error saving adoptionInfo ${adoptionInfo._id}`);
         }
