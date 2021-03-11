@@ -1,3 +1,4 @@
+import { AdoptionInfoService } from "./../../services/adoption-info.service";
 import { AdoptionRequest } from "./../../models";
 import { AdoptionRequestService } from "./../../services/adoption-request.service";
 import { Component, OnInit } from "@angular/core";
@@ -16,7 +17,10 @@ export class AdoptionRequestsComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private AdoptionRequestService: AdoptionRequestService) {}
+  constructor(
+    private adoptionRequestService: AdoptionRequestService,
+    private adoptionInfoService: AdoptionInfoService
+  ) {}
 
   ngOnInit(): void {
     this.retrieveAdoptionRequests();
@@ -44,7 +48,7 @@ export class AdoptionRequestsComponent implements OnInit {
   retrieveAdoptionRequests(): void {
     const params = this.getRequestParams(this.title, this.page, this.pageSize);
 
-    this.AdoptionRequestService.getAll(params).subscribe(
+    this.adoptionRequestService.getAll(params).subscribe(
       (response) => {
         this.adoptionRequests = response.adoptionRequests;
       },
@@ -71,8 +75,29 @@ export class AdoptionRequestsComponent implements OnInit {
     this.currentIndex = -1;
   }
 
-  setActivePet(AdoptionRequest: AdoptionRequest, index: number): void {
-    this.currentAdoptionRequest = AdoptionRequest;
+  setActiveAdoptionRequest(
+    adoptionRequest: AdoptionRequest,
+    index: number
+  ): void {
+    this.currentAdoptionRequest = adoptionRequest;
     this.currentIndex = index;
+  }
+
+  delete(adoptionRequest: AdoptionRequest): void {
+    if (adoptionRequest.pet.isAdopted) {
+      this.adoptionInfoService
+        .get(adoptionRequest.pet._id)
+        .subscribe((response) => {
+          const adoptionInfo = response;
+          if (adoptionInfo.adoptionRequest._id !== adoptionRequest._id) {
+            this.adoptionRequestService.delete(adoptionRequest._id).subscribe();
+            this.refreshList();
+          } else {
+            console.log(
+              "error while trying to delete adoptionRequest, pet is adopted."
+            );
+          }
+        });
+    }
   }
 }

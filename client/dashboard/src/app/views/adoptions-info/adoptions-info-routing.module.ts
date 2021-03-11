@@ -1,3 +1,4 @@
+import { AdoptionInfoDetailsComponent } from "./adoption-info-details.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CreateComponent } from "./create.component";
@@ -9,6 +10,8 @@ const routes: Routes = [
     component: AdoptionsInfoComponent,
   },
   { path: "create", component: CreateComponent },
+  { path: ":id", component: AdoptionInfoDetailsComponent },
+
   // otherwise redirect to home
   { path: "**", redirectTo: "" },
 ];
