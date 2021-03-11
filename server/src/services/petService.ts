@@ -133,6 +133,7 @@ export default class PetService {
     const updatedPet: IPet | null = await Pet.findByIdAndUpdate({ _id: petId }, body, { new: true });
     return {
       message: 'Pet updated',
+      
       pet: updatedPet,
     };
   }
