@@ -5,6 +5,26 @@
                 (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
                 <div class="card-header"><strong>Create new pet</strong></div>
                 <div class="card-body">
+
+
+                    <div class="form-group row">
+                        <label for="name" class="col-md-1 col-form-label" for="text-input">Pet name</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required
+                                minlength="2" maxlength="20" #name="ngModel" />
+                        </div>
+                        <div class="alert-danger" *ngIf="name.errors && f.submitted">
+                            <div *ngIf="name.errors.required">Pet name is required</div>
+                            <div *ngIf="name.errors.minlength">
+                                Pet name must be at least 2 characters
+                            </div>
+                            <div *ngIf="name.errors.maxlength">
+                                Pet name must be at most 20 characters
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="form-group row">
                         <label for="gender" class="col-md-1 col-form-label" for="text-input">Pet gender</label>
                         <div class="col-md-6">
@@ -78,17 +98,9 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-sm btn-success">
+                    <button type="submit" class="btn btn-sm btn-success">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
-
-                    <!-- <button
-            type="reset"
-            class="btn btn-sm btn-danger"
-            *ngIf="this.pet.isAdopted === false"
-          >
-            <i class="fa fa-ban"></i> Reset
-          </button> -->
                 </div>
             </form>
         </div>

@@ -57,30 +57,37 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log();
     const {
-      _id,
       name,
       gender,
       breed,
       animalType,
       age,
-      isAdopted,
       primaryPicture,
     } = this.form;
 
-    // let pet = new Pet();
-    // pet = {
-    //   _id,
-    //   name,
-    //   gender,
-    //   breed,
-    //   animalType,
-    //   age,
-    //   isAdopted,
-    //   primaryPicture,
-    // };
-    // console.log(pet);
+    let pet = new Pet();
+    pet = {
+      _id : pet._id,
+      name : this.form.name,
+      gender : this.form.gender,
+      breed : this.form.breed,
+      animalType : this.form.animalType,
+      age : this.form.age,
+      isAdopted : false,
+      primaryPicture,
+    };
+    console.log(pet);
+
+    this.petService.create(pet).subscribe(
+      (data) => {
+        this.isSuccessful = true;
+        this.reloadPage();
+      },
+      (err) => {
+        this.errorMessage = err.error.message;
+      }
+    )
 
     // this.petService.update(_id, pet).subscribe(
     //   (data) => {
