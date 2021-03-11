@@ -33,11 +33,6 @@ export const navItems: INavData[] = [
         url: "/adoption-requests/",
         icon: "icon-cursor",
       },
-      {
-        name: "Create",
-        url: "/adoption-requests/create",
-        icon: "icon-cursor",
-      },
     ],
   },
   {

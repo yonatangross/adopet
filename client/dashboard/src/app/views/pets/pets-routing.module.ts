@@ -9,7 +9,9 @@ const routes: Routes = [
     path: "",
     component: PetsComponent,
   },
+  { path: "create", component: CreateComponent },
   { path: ":id", component: PetDetailsComponent },
+
   //todo: add redirect to notfound page.
 ];
 @NgModule({
