@@ -5,9 +5,10 @@ import { CommonModule } from "@angular/common";
 
 import { AdoptionsInfoRoutingModule } from "./adoptions-info-routing.module";
 import { CreateComponent } from "./create.component";
+import { AdoptionInfoDetailsComponent } from './adoption-info-details.component';
 
 @NgModule({
-  declarations: [CreateComponent, AdoptionsInfoComponent],
+  declarations: [CreateComponent, AdoptionsInfoComponent, AdoptionInfoDetailsComponent],
   imports: [CommonModule, AdoptionsInfoRoutingModule, RouterModule],
 })
 export class AdoptionsInfoModule {}

@@ -12,6 +12,8 @@ const routes: Routes = [
   { path: "create", component: CreateComponent },
   { path: ":id", component: PetDetailsComponent },
 
+  // otherwise redirect to home
+  { path: "**", redirectTo: "" },
   //todo: add redirect to notfound page.
 ];
 @NgModule({
