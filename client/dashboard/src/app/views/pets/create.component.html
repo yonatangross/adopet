@@ -1,1 +1,121 @@
-<p>create works!</p>
+<div *ngIf="pet">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form enctype="multipart/form-data" class="form-horizontal" *ngIf="!isSuccessful" name="form"
+                    (ngSubmit)="
+              f.form.valid && this.pet.isAdopted === false && onSubmit()
+            " #f="ngForm" novalidate>
+                    <div class="card-header"><strong>Create new pet</strong></div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="gender" class="col-md-1 col-form-label" for="text-input">Pet Name</label>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="gender" class="col-md-1 col-form-label" for="text-input">Pet
+                                        gender</label>
+                                </div>
+                                <div class="alert-danger" *ngIf="gender.errors && f.submitted">
+                                    <div *ngIf="gender.errors.required">Pet gender is required</div>
+                                    <div *ngIf="gender.errors.minlength">
+                                        Pet gender must be at least 2 characters
+                                    </div>
+                                    <div *ngIf="gender.errors.maxlength">
+                                        Pet gender must be at most 20 characters
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="breed" class="col-md-1 col-form-label" for="text-input">Pet breed</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="breed"
+                                        [disabled]="this.pet.isAdopted === true" [(ngModel)]="form.breed"
+                                        defaultValue="{{ pet.breed }}" required minlength="2" maxlength="20"
+                                        #breed="ngModel" />
+                                </div>
+                                <div class="alert-danger" *ngIf="breed.errors && f.submitted">
+                                    <div *ngIf="breed.errors.required">Pet breed is required</div>
+                                    <div *ngIf="breed.errors.minlength">
+                                        Pet breed must be at least 2 characters
+                                    </div>
+                                    <div *ngIf="breed.errors.maxlength">
+                                        Pet breed must be at most 20 characters
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="animalType" class="col-md-1 col-form-label" for="text-input">Animal
+                                    type</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="animalType" placeholder="Cat or Dog"
+                                        [(ngModel)]="form.animalType" defaultValue="{{ pet.animalType }}" required
+                                        [disabled]="this.pet.isAdopted === true" #animalType="ngModel" />
+                                </div>
+                                <div class="alert-danger" *ngIf="animalType.errors && f.submitted">
+                                    <div *ngIf="animalType.errors.required">
+                                        Animal type is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="age" class="col-md-1 col-form-label" for="text-input">Age</label>
+                                <div class="col-md-1">
+                                    <input type="number" class="form-control" name="age" [(ngModel)]="form.age"
+                                        [disabled]="this.pet.isAdopted === true" defaultValue="{{ pet.age }}" required
+                                        max="20" min="0" #age="ngModel" />
+                                </div>
+                                <div class="alert-danger" *ngIf="age.errors && f.submitted">
+                                    <div *ngIf="age.errors.required">Age is required</div>
+                                    <div *ngIf="age.errors.min">Age must be at least 0 years</div>
+                                    <div *ngIf="age.errors.max">Age must be at most 20 years</div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-1 col-form-label">Adopted</label>
+                                <div class="col-md-4 col-form-label">
+                                    <div class="form-check form-check-inline mr-1">
+                                        <input class="form-check-input" type="checkbox" id="inline-checkbox1"
+                                            value="{{ pet.isAdopted }}" hidden />
+                                        {{ pet.isAdopted ? "Adopted" : "Waiting for adoption!" }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-1 col-form-label" for="file-input">Primary picture</label>
+                                <div class="col-md-3">
+                                    <div [innerHtml]="imageMessage" *ngIf="imageMessage" style="color: red"></div>
+                                    <div>
+                                        <img [src]="imageUrl" *ngIf="imageUrl" style="width: 250px; height: 250px" />
+                                    </div>
+                                    <p>
+                                        <input type="file" [hidden]="this.pet.isAdopted === true"
+                                            [disabled]="this.pet.isAdopted === true" (change)="selectFile($event)" />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning" *ngIf="f.submitted">
+                                Update pet failed!<br />{{ errorMessage }}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-success" *ngIf="this.pet.isAdopted === false">
+                                <i class="fa fa-dot-circle-o"></i> Submit
+                            </button>
+                            <button class="btn btn-warning" *ngIf="this.pet.isAdopted === true" disabled>
+                                Pet already adopted!
+                            </button>
+                            <!-- <button
+              type="reset"
+              class="btn btn-sm btn-danger"
+              *ngIf="this.pet.isAdopted === false"
+            >
+              <i class="fa fa-ban"></i> Reset
+            </button> -->
+                        </div>
+                </form>
+            </div>
+            <!--/.col-->
+        </div>
+        <!--/.row-->
+    </div>
+</div>
