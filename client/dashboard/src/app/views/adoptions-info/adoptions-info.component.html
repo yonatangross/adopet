@@ -10,13 +10,30 @@
                 <th>petId</th>
                 <th>adoptionRequestId</th>
                 <th>adoptionDate</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let adoptionInfo of AdoptionsInfo">
-                <td>{{ adoptionInfo.pet}}</td>
+                <td>{{ adoptionInfo.pet }}</td>
                 <td>{{ adoptionInfo.adoptionRequest }}</td>
                 <td>{{ adoptionInfo.adoptionDate }}</td>
+                <td>
+                  <a
+                    type="button"
+                    class="btn btn-sm btn-pill btn-block btn-warning"
+                    routerLink="{{ adoptionInfo._id }}"
+                  >
+                    Edit
+                  </a>
+                  <button
+                    (click)="delete(adoptionInfo)"
+                    type="button"
+                    class="btn btn-sm btn-pill btn-block btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>

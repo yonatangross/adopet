@@ -74,8 +74,19 @@ export class AdoptionsInfoComponent implements OnInit {
     this.currentIndex = -1;
   }
 
-  setActivePet(AdoptionInfo: AdoptionInfo, index: number): void {
+  setActiveAdoptionInfo(AdoptionInfo: AdoptionInfo, index: number): void {
     this.currentAdoptionInfo = AdoptionInfo;
     this.currentIndex = index;
+  }
+
+  delete(adoptionInfo: AdoptionInfo): void {
+    if (adoptionInfo.pet.isAdopted) {
+      this.AdoptionInfoService.delete(adoptionInfo._id).subscribe();
+      this.refreshList();
+    }
+    else{
+      console.log('error while trying to delete adoptionInfo, pet is not adopted.');
+      
+    }
   }
 }
