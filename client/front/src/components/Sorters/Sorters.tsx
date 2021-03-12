@@ -5,6 +5,21 @@ export interface ISortersProps<T> {
   onChangeSorter: (sortProperty: keyof T, isDescending: boolean) => void;
 }
 
+const sortChangeName = (propertySort: string): string => {
+  let nameSort: string = '';
+  console.log(propertySort);
+  if (propertySort === 'isAdopted') {
+    return 'Adopted';
+  } 
+  if(propertySort === 'animalType'){
+    return 'Animal Type';
+  }
+  else{
+    nameSort = propertySort.charAt(0).toUpperCase() + propertySort.slice(1);
+  }
+  return nameSort;
+};
+
 export default function Sorters<T>(props: ISortersProps<T>) {
   const { object, onChangeSorter } = props;
 
@@ -17,22 +32,22 @@ export default function Sorters<T>(props: ISortersProps<T>) {
         defaultValue={['name', 'true']}
       >
         {Object.keys(object).map((key) => {
-          if (!key || key === '_id' || key === '__v' || key === 'primaryPicture') {
-            return <></>;
-          }
-          return (
-            <option key={`${key}-true`} value={[key, 'true']}>
-              sort by {key} descending
-            </option>
-          );
-        })}
-        {Object.keys(object).map((key) => {
           if (!key || key === '_id' || key === '__v') {
             return <></>;
           }
           return (
             <option key={`${key}-false`} value={[key, 'false']}>
-              sort by {key} ascending
+              {sortChangeName(key)} Ascending
+            </option>
+          );
+        })}
+        {Object.keys(object).map((key) => {
+          if (!key || key === '_id' || key === '__v' || key === 'primaryPicture') {
+            return <></>;
+          }
+          return (
+            <option key={`${key}-true`} value={[key, 'true']}>
+              {sortChangeName(key)} Decending
             </option>
           );
         })}
