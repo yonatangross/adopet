@@ -1,3 +1,4 @@
+import { PetService } from "./../../services/pet.service";
 import { AdoptionRequest } from "./../../models/adoptionRequest";
 import { AdoptionRequestService } from "./../../services/adoption-request.service";
 import { AdoptionInfoService } from "./../../services/adoption-info.service";
@@ -25,6 +26,7 @@ export class CreateComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private petService: PetService,
     private adoptionInfoService: AdoptionInfoService,
     private adoptionRequestService: AdoptionRequestService,
     private location: Location
@@ -41,41 +43,43 @@ export class CreateComponent implements OnInit {
     );
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
-  save(): void {
-    this.adoptionInfoService
-      .update(this.adoptionInfo._id, this.adoptionInfo)
-      .subscribe(() => this.goBack());
-  }
-
-  onSubmit(): void {
-    const { pet, adoptionRequest, adoptionDate } = this.form;
-
-    let adoptionInfo = new AdoptionInfo();
-    adoptionInfo = {
-      _id: adoptionInfo._id,
-      pet: this.form.pet,
-      adoptionRequest: this.form.adoptionRequest,
-      adoptionDate: this.form.adoptionDate,
-    };
-
-    console.log(adoptionInfo);
-
-    this.adoptionInfoService.create(adoptionInfo).subscribe(
-      (data) => {
-        this.isSuccessful = true;
-        this.reloadPage();
+  retrieveAdoptionRequestsGroups(): void {
+    this.adoptionRequestService.getAllGroups().subscribe(
+      (response) => {
+        this.adoptionRequestsGroups = response.adoptionRequestsGroups;
       },
-      (err) => {
-        this.errorMessage = err.error.message;
+      (error) => {
+        console.log(`error occurred during getAllGroups func ${error}`);
       }
     );
   }
 
-  reloadPage(): void {
+  goBack(): void {
+    this.location.back();
+  }
+
+  createAdoptionInfo(petId: string, adoptionRequest: AdoptionRequest) {
+    let adoptionInfo = {
+      petId: petId,
+      adoptionRequestId: adoptionRequest._id,
+      adoptionDate: new Date(),
+    };
+
+    this.adoptionInfoService.create(adoptionInfo).subscribe(
+      (response) => {
+        console.log("created adoption successfull!");
+        this.refreshList();
+      },
+      (error) => {
+        console.log("error while creating ");
+
+        console.log(error);
+      }
+    );
+  }
+
+  refreshList(): void {
+    this.retrieveAdoptionRequestsGroups();
     window.location.reload();
   }
 }
