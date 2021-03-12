@@ -65,7 +65,6 @@ export const Home: React.FC<Props> = () => {
         <h1 className="h1-responsive font-weight-bold text-center my-5">Top reasons to adopt a pet</h1>
         <h3 className="h3-responsive font-weight text-center my-5">Thinking of adding a pet to your family? Here are 5 reasons to adopt your new best friend.</h3>
         <MDBRow>
-
           <MDBCol lg="8">
             <MDBRow className="mb-3">
               <MDBCol size="1">

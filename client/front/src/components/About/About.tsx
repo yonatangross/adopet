@@ -16,7 +16,7 @@ const About = () => {
           </h2>
           <MDBRow>
             <MDBCol lg="3" md="6" className="mb-lg-0 mb-5">
-              <MDBCol xl="5" md="4" className="mb-3 text-center">
+              <MDBCol className="Hero_Image">
                 <img
                   src={WonderWoman}
                   className="img-fluid z-depth-1 rounded-circle"
@@ -34,7 +34,7 @@ const About = () => {
             </MDBCol>
 
             <MDBCol lg="3" md="6" className="mb-lg-0 mb-5">
-              <MDBCol xl="5" md="4" className="mb-3 text-center">
+            <MDBCol className="Hero_Image">
                 <img
                   src={Flash}
                   className="img-fluid z-depth-1 rounded-circle"
@@ -52,7 +52,7 @@ const About = () => {
             </MDBCol>
 
             <MDBCol lg="3" md="6" className="mb-lg-0 mb-5">
-              <MDBCol xl="5" md="4" className="mb-3 text-center">
+            <MDBCol className="Hero_Image">
                 <img
                   src={SuperMan}
                   className="img-fluid z-depth-1 rounded-circle"
@@ -70,7 +70,7 @@ const About = () => {
             </MDBCol>
 
             <MDBCol lg="3" md="6" className="mb-lg-0 mb-5">
-              <MDBCol xl="5" md="4" className="mb-3 text-center">
+            <MDBCol className="Hero_Image">
                 <img
                   src={Monkey}
                   className="img-fluid z-depth-1 rounded-circle"
