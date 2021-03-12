@@ -57,7 +57,7 @@ export default class AdoptionInfoService {
   }
 
   public async updateById(adoptionInfoId: string, req: any) {
-    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndUpdate({ _id: adoptionInfoId }, req.body);
+    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndUpdate({ _id: adoptionInfoId }, req, { new: true });
     return {
       message: 'Adoption info updated',
       adoptionInfo: adoptionInfo,

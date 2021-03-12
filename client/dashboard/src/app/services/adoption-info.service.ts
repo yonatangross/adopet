@@ -22,7 +22,7 @@ export class AdoptionInfoService {
     return this.http.get<AdoptionInfo[]>(this.baseUrl, { params });
   }
 
-  get(id: string): Observable<AdoptionInfo> {
+  get(id: string): Observable<any> {
     return this.http.get<AdoptionInfo>(`${this.baseUrl}/${id}`);
   }
 

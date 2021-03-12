@@ -33,7 +33,9 @@ export class AdoptionInfoDetailsComponent implements OnInit {
   getAdoptionInfo(): void {
     const id: string = this.route.snapshot.paramMap.get("id");
     this.adoptionInfoService.get(id).subscribe((response) => {
-      this.form = this.adoptionInfo = response;
+      this.form = this.adoptionInfo = response.adoptionInfo;
+      this.form.adoptionDate = this.adoptionInfo.adoptionDate;
+      console.log(this.adoptionInfo.adoptionDate);
       console.log(this.adoptionInfo);
     });
   }
