@@ -89,7 +89,7 @@ export class AdoptionsInfoComponent implements OnInit {
       this.petService.update(adoptionInfo.pet._id, {isAdopted : false} );
       this.adoptionInfoService.delete(adoptionInfo._id).subscribe();
       this.refreshList();
-      window.location.reload();
+      //window.location.reload();
     } else {
       console.log(
         "error while trying to delete adoptionInfo, pet is not adopted."

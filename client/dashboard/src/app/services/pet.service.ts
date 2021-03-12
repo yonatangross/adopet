@@ -35,6 +35,9 @@ export class PetService {
   }
 
   update(id: any, data: any): Observable<any> {
+    console.log(data);
+    console.log(id);
+    
     const res = this.http.put(`${this.baseUrl}/${id}`, data);
     console.log(res);
     

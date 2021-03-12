@@ -38,8 +38,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let adoptionInfo of adoptionsInfo">
-                <td>{{ adoptionInfo.pet }}</td>
-                <td>{{ adoptionInfo.adoptionRequest }}</td>
+                <td>{{ adoptionInfo.pet._id }}</td>
+                <td>{{ adoptionInfo.adoptionRequest._id }}</td>
                 <!-- todo: convert date from iso to normal time -->
                 <td>{{ adoptionInfo.adoptionDate }}</td>
                 <td>
