@@ -7,6 +7,7 @@ import img from '../../images/AdoptionDog.jpg';
 import bannerimg from '../../images/BannerHomePage.jpg';
 import { MDBMask, MDBView } from 'mdbreact';
 import PetGrid from '../PetGrid/PetGrid';
+import adoptMeImg from '../../images/AdoptMeImg.jpg';
 
 
 interface Props extends RouteComponentProps {
@@ -36,7 +37,7 @@ export const Home: React.FC<Props> = () => {
       <MDBView id="view-background" src={bannerimg}>
         <MDBMask className="flex-center flex-column text-white text-center"></MDBMask>
       </MDBView>
-     
+
       <PetGrid pets={pets} count={8} numOfCols={4} />
       <section className="my-5">
         <h1 className="h1-responsive font-weight-bold text-center my-5"> Pet Adoption Tips</h1>
@@ -61,47 +62,68 @@ export const Home: React.FC<Props> = () => {
           perfect pet is available! So even if you've made the commitment to adopt a puppy or adopt a kitten, we will email you immediately when we know of a
           local little furry fellow who is in need of a new home!
         </p>
+        <h1 className="h1-responsive font-weight-bold text-center my-5">Top reasons to adopt a pet</h1>
+        <h3 className="h3-responsive font-weight text-center my-5">Thinking of adding a pet to your family? Here are 5 reasons to adopt your new best friend.</h3>
         <MDBRow>
-          <MDBCol lg="5" className="text-center text-lg-left">
-            <img className="img-fluid" src={img} alt="" />
+
+          <MDBCol lg="8">
+            <MDBRow className="mb-3">
+              <MDBCol size="1">
+                <MDBIcon icon="share" size="lg" className="indigo-text" />
+              </MDBCol>
+              <MDBCol xl="10" md="11" size="10">
+                <h5 className="font-weight-bold mb-3">Because you'll save a life.</h5>
+                <p className="lead font-weight-light">
+                Each year, it's estimated that more than one million adoptable dogs and cats are euthanized in the United States, simply because too many pets come into shelters and too few people consider adoption when looking for a pet.
+                </p>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow className="mb-3">
+              <MDBCol size="1">
+                <MDBIcon icon="share" size="lg" className="indigo-text" />
+              </MDBCol>
+              <MDBCol xl="10" md="11" size="10">
+                <h5 className="font-weight-bold mb-3">Because you'll get a great animal.</h5>
+                <p className="lead font-weight-light">
+                Animal shelters and rescue groups are brimming with happy, healthy pets just waiting for someone to take them home. Most shelter pets wound up there because of a human problem like a move or a divorce, not because the animals did anything wrong. Many are already house-trained and used to living with families.
+                </p>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow className="mb-3">
+              <MDBCol size="1">
+                <MDBIcon icon="share" size="lg" className="indigo-text" />
+              </MDBCol>
+              <MDBCol xl="10" md="11" size="10">
+                <h5 className="font-weight-bold mb-3">Because your home will thank you.</h5>
+                <p className="lead font-weight-light">
+                Many of the pets from shelters and rescues are already house-trained, which means you’re not only saving a pet’s life, you may be saving your rug. Adopting a mature pet not only gives older animals a second chance, it often means introducing them to your family will be much easier.
+                </p>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow className="mb-3">
+              <MDBCol size="1">
+                <MDBIcon icon="share" size="lg" className="indigo-text" />
+              </MDBCol>
+              <MDBCol xl="10" md="11" size="10">
+                <h5 className="font-weight-bold mb-3">Because adoption helps more than just one animal.</h5>
+                <p className="lead font-weight-light">
+                Overburdened shelters take in millions of stray, abused and lost animals every year, and by adopting an animal, you’re making room for others. Not only are you giving more animals a second chance, but the cost of your adoption goes directly towards helping those shelters better care for the animals they take in!                </p>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow className="mb-3">
+              <MDBCol size="1">
+                <MDBIcon icon="share" size="lg" className="indigo-text" />
+              </MDBCol>
+              <MDBCol xl="10" md="11" size="10">
+                <h5 className="font-weight-bold mb-3">Because you'll change a homeless animal's whole world.</h5>
+                <p className="lead font-weight-light">
+                And get a new best friend out of the deal. Seriously, what could be better than that?                </p>
+              </MDBCol>
+            </MDBRow>
           </MDBCol>
-          <MDBCol lg="7">
-            <MDBRow className="mb-3">
-              <MDBCol size="1">
-                <MDBIcon icon="share" size="lg" className="indigo-text" />
-              </MDBCol>
-              <MDBCol xl="10" md="11" size="10">
-                <h5 className="font-weight-bold mb-3">Safety</h5>
-                <p className="grey-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit enim ad minima veniam, quis nostrum exercitationem ullam. Reprehenderit maiores
-                  aperiam assumenda deleniti hic.
-                </p>
-              </MDBCol>
-            </MDBRow>
-            <MDBRow className="mb-3">
-              <MDBCol size="1">
-                <MDBIcon icon="share" size="lg" className="indigo-text" />
-              </MDBCol>
-              <MDBCol xl="10" md="11" size="10">
-                <h5 className="font-weight-bold mb-3">Technology</h5>
-                <p className="grey-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit enim ad minima veniam, quis nostrum exercitationem ullam. Reprehenderit maiores
-                  aperiam assumenda deleniti hic.
-                </p>
-              </MDBCol>
-            </MDBRow>
-            <MDBRow className="mb-3">
-              <MDBCol size="1">
-                <MDBIcon icon="share" size="lg" className="indigo-text" />
-              </MDBCol>
-              <MDBCol xl="10" md="11" size="10">
-                <h5 className="font-weight-bold mb-3">Finance</h5>
-                <p className="grey-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit enim ad minima veniam, quis nostrum exercitationem ullam. Reprehenderit maiores
-                  aperiam assumenda deleniti hic.
-                </p>
-              </MDBCol>
-            </MDBRow>
+          <MDBCol lg="4" className="text-center text-lg-left">
+            <img className="HomeImage" src={img} alt="" />
+            <img className="HomeImage" src={adoptMeImg} alt="" />
           </MDBCol>
         </MDBRow>
       </section>

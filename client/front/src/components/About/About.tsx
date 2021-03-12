@@ -63,7 +63,7 @@ const About = () => {
               <h5 className="font-weight-bold mt-4 mb-3">Matan Hasin</h5>
               <p className="text-uppercase blue-text">FullStack Developer</p>
               <ul className="list-unstyled mb-0">
-                <a href="https://www.linkedin.com/in/matan-hassin-725822192/" className="p-2 fa-lg">
+                <a href="https://www.linkedin.com/in/matan-hassin" className="p-2 fa-lg">
                   <MDBIcon fab icon="linkedin" className="blue-text" />
                 </a>
               </ul>
