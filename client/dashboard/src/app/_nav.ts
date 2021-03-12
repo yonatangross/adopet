@@ -14,41 +14,41 @@ export const navItems: INavData[] = [
       {
         name: "Overview",
         url: "/pets/",
-        icon: "icon-cursor",
+        icon: "cil-info",
       },
       {
         name: "Create Pet",
         url: "/pets/create",
-        icon: "icon-cursor",
+        icon: "cil-plus",
       },
     ],
   },
   {
     name: "Adoptions Requests",
     url: "/adoption-requests/",
-    icon: "icon-cursor",
+    icon: "cil-clipboard",
     children: [
       {
         name: "Overview",
         url: "/adoption-requests/",
-        icon: "icon-cursor",
+        icon: "cil-info",
       },
     ],
   },
   {
     name: "Adoptions",
     url: "/adoptions-info/",
-    icon: "icon-cursor",
+    icon: "cil-paw",
     children: [
       {
         name: "Overview",
         url: "/adoptions-info/",
-        icon: "icon-cursor",
+        icon: "cil-info",
       },
       {
         name: "Create",
         url: "/adoptions-info/create",
-        icon: "icon-cursor",
+        icon: "cil-plus",
       },
     ],
   },
@@ -60,22 +60,22 @@ export const navItems: INavData[] = [
       {
         name: 'Login',
         url: '/login',
-        icon: 'icon-star'
+        icon: 'cil-input'
       },
       {
         name: 'Register',
         url: '/register',
-        icon: 'icon-star'
+        icon: 'cil-user-plus'
       },
       {
         name: 'Error 404',
         url: '/404',
-        icon: 'icon-star'
+        icon: 'cil-warning'
       },
       {
         name: 'Error 500',
         url: '/500',
-        icon: 'icon-star'
+        icon: 'cil-warning'
       }
     ]
   },
