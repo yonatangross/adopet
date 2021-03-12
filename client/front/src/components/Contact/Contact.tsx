@@ -50,7 +50,7 @@ const Contact: React.FC = (): ReactElement => {
   }
   return (
     <section className="contact margetop">
-      <h2 className="h1-responsive font-weight-bold text-center ">
+      <h2 className="h1-responsive font-weight-bold text-center">
         Contact us
       </h2>
       <p className="text-center w-responsive mx-auto pb-5">
@@ -61,9 +61,9 @@ const Contact: React.FC = (): ReactElement => {
       <MDBRow>
         <MDBCol lg="5" className="lg-0 mb-4">
           <MDBCard>
-            <div className="header pt-3 grey lighten-2">
+            <div id="inputsBack" className="header pt-3  pink">
               <MDBRow className="d-flex justify-content-start">
-                <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Write to us:</h3>
+              <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">Write to us:</h3>
               </MDBRow>
             </div>
             <MDBCardBody>
