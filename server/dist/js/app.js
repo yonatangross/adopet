@@ -17,6 +17,7 @@ const authentication_1 = __importDefault(require("./controllers/authentication")
 const pets_1 = __importDefault(require("./controllers/pets"));
 const adoptionRequests_1 = __importDefault(require("./controllers/adoptionRequests"));
 const adoptionsInfo_1 = __importDefault(require("./controllers/adoptionsInfo"));
+const WebSocket = require('ws');
 require('dotenv').config();
 class App {
     constructor(controllers) {

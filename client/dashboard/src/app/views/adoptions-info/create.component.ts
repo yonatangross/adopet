@@ -1,3 +1,4 @@
+import { PetService } from "./../../services/pet.service";
 import { AdoptionRequest } from "./../../models/adoptionRequest";
 import { AdoptionRequestService } from "./../../services/adoption-request.service";
 import { AdoptionInfoService } from "./../../services/adoption-info.service";
@@ -13,6 +14,7 @@ import { Location } from "@angular/common";
 })
 export class CreateComponent implements OnInit {
   adoptionInfo: AdoptionInfo;
+
   adoptionRequestsGroups: { _id: string; data: AdoptionRequest[] }[];
   form: any = {
     pet: null,
@@ -24,6 +26,7 @@ export class CreateComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private petService: PetService,
     private adoptionInfoService: AdoptionInfoService,
     private adoptionRequestService: AdoptionRequestService,
     private location: Location
@@ -32,8 +35,18 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
     this.adoptionRequestService.getAllGroups().subscribe(
       (response) => {
-        this.adoptionRequestsGroups = response;
-        console.log(response);
+        this.adoptionRequestsGroups = response.adoptionRequestsGroups;
+      },
+      (error) => {
+        console.log(`error occurred during getAllGroups func ${error}`);
+      }
+    );
+  }
+
+  retrieveAdoptionRequestsGroups(): void {
+    this.adoptionRequestService.getAllGroups().subscribe(
+      (response) => {
+        this.adoptionRequestsGroups = response.adoptionRequestsGroups;
       },
       (error) => {
         console.log(`error occurred during getAllGroups func ${error}`);
@@ -45,37 +58,28 @@ export class CreateComponent implements OnInit {
     this.location.back();
   }
 
-  save(): void {
-    this.adoptionInfoService
-      .update(this.adoptionInfo._id, this.adoptionInfo)
-      .subscribe(() => this.goBack());
-  }
-
-  onSubmit(): void {
-    const { pet, adoptionRequest, adoptionDate } = this.form;
-
-    let adoptionInfo = new AdoptionInfo();
-    adoptionInfo = {
-      _id: adoptionInfo._id,
-      pet: this.form.pet,
-      adoptionRequest: this.form.adoptionRequest,
-      adoptionDate: this.form.adoptionDate,
+  createAdoptionInfo(petId: string, adoptionRequest: AdoptionRequest) {
+    let adoptionInfo = {
+      petId: petId,
+      adoptionRequestId: adoptionRequest._id,
+      adoptionDate: new Date(),
     };
 
-    console.log(adoptionInfo);
-
     this.adoptionInfoService.create(adoptionInfo).subscribe(
-      (data) => {
-        this.isSuccessful = true;
-        this.reloadPage();
+      (response) => {
+        console.log("created adoption successfull!");
+        this.refreshList();
       },
-      (err) => {
-        this.errorMessage = err.error.message;
+      (error) => {
+        console.log("error while creating ");
+
+        console.log(error);
       }
     );
   }
 
-  reloadPage(): void {
+  refreshList(): void {
+    this.retrieveAdoptionRequestsGroups();
     window.location.reload();
   }
 }

@@ -47,7 +47,7 @@ export default function Sorters<T>(props: ISortersProps<T>) {
           }
           return (
             <option key={`${key}-true`} value={[key, 'true']}>
-              {sortChangeName(key)} Decending
+              {sortChangeName(key)} Descending
             </option>
           );
         })}

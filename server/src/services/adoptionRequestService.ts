@@ -1,7 +1,10 @@
 import { IPet } from '../interfaces/IPet';
 import { Service } from 'typedi';
+import * as _ from 'lodash';
+
 import { IAdoptionRequest } from '../interfaces/IAdoptionRequest';
 import AdoptionRequest from '../models/adoptionRequest';
+import Pet from '../models/pet';
 
 @Service()
 export default class AdoptionRequestService {
@@ -16,12 +19,14 @@ export default class AdoptionRequestService {
   }
 
   public async getAllGroups() {
-    console.log(`in AdoptionRequestService, getAllGroups`);
-
     const adoptionRequestsGroupByPetQuery: any = [{ $group: { _id: '$pet', data: { $push: '$$ROOT' } } }];
-    const adoptionRequestsGroupByPet = await AdoptionRequest.aggregate(adoptionRequestsGroupByPetQuery);
+    let adoptionRequestsGroupByPet: { _id: string; data: IAdoptionRequest[] }[] = await AdoptionRequest.aggregate(adoptionRequestsGroupByPetQuery);
 
-    console.log(adoptionRequestsGroupByPet);
+    _.filter(adoptionRequestsGroupByPet, async function (element) {
+      const pet = await Pet.findOne({ _id: element._id });
+
+      return pet?.isAdopted === false;
+    });
 
     return adoptionRequestsGroupByPet;
   }

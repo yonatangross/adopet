@@ -21,9 +21,9 @@ export class AdoptionRequestService {
   }
 
   getAllGroups(): Observable<any> {
-    console.log(`in getAllGroups func`);
-    const res = this.http.get<any>(`${this.baseUrl}/groups`);
-    console.log(res);
+    const res = this.http.get<{ _id: string; data: AdoptionRequest[] }[]>(
+      `${this.baseUrl}/groups`
+    );
     return res;
   }
   get(id: string): Observable<any> {

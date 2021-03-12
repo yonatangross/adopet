@@ -67,10 +67,10 @@ export default class AdoptionInfoService {
   public async deleteById(adoptionInfoId: string) {
     console.log('deleteById');
     console.log(adoptionInfoId);
-    
+
     const deletedAdoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndRemove(adoptionInfoId);
     console.log(deletedAdoptionInfo);
-    
+
     return {
       message: `Adoption info of ${adoptionInfoId} deleted`,
       adoptionInfo: deletedAdoptionInfo,
