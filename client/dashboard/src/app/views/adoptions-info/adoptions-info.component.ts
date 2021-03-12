@@ -8,10 +8,10 @@ import { Component, OnInit } from "@angular/core";
   styles: [],
 })
 export class AdoptionsInfoComponent implements OnInit {
-  AdoptionsInfo: AdoptionInfo[] = [];
+  adoptionsInfo: AdoptionInfo[] = [];
   currentAdoptionInfo?: AdoptionInfo;
   currentIndex = -1;
-  title = "";
+  searchInput = "";
   page = 1;
   count = 0;
   pageSize = 3;
@@ -23,13 +23,11 @@ export class AdoptionsInfoComponent implements OnInit {
     this.retrieveAdoptionsInfo();
   }
 
-  getRequestParams(searchTitle: string, page: number, pageSize: number): any {
+  getRequestParams(searchInput: string, page: number, pageSize: number): any {
     // tslint:disable-next-line:prefer-const
     let params: any = {};
 
-    if (searchTitle) {
-      params[`title`] = searchTitle;
-    }
+    params[`searchInput`] = searchInput;
 
     if (page) {
       params[`page`] = page - 1;
@@ -43,13 +41,18 @@ export class AdoptionsInfoComponent implements OnInit {
   }
 
   retrieveAdoptionsInfo(): void {
-    const params = this.getRequestParams(this.title, this.page, this.pageSize);
+    const params = this.getRequestParams(
+      this.searchInput,
+      this.page,
+      this.pageSize
+    );
+    console.log(params);
 
     this.AdoptionInfoService.getAll(params).subscribe(
       (response) => {
         console.log(response.adoptionsInfo);
 
-        this.AdoptionsInfo = response.adoptionsInfo;
+        this.adoptionsInfo = response.adoptionsInfo;
       },
       (error) => {
         console.log(error);
@@ -83,10 +86,30 @@ export class AdoptionsInfoComponent implements OnInit {
     if (adoptionInfo.pet.isAdopted) {
       this.AdoptionInfoService.delete(adoptionInfo._id).subscribe();
       this.refreshList();
+    } else {
+      console.log(
+        "error while trying to delete adoptionInfo, pet is not adopted."
+      );
     }
-    else{
-      console.log('error while trying to delete adoptionInfo, pet is not adopted.');
-      
-    }
+  }
+
+  searchTitle(): void {
+    this.currentAdoptionInfo = undefined;
+    this.currentIndex = -1;
+    const params = this.getRequestParams(
+      this.searchInput,
+      this.page,
+      this.pageSize
+    );
+
+    this.AdoptionInfoService.getAll(params).subscribe(
+      (data) => {
+        this.adoptionsInfo = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -2,6 +2,29 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search adoptions"
+              [(ngModel)]="searchInput"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="searchTitle()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="card">
         <div class="card-header"><i class="fa fa-list"></i>Adoptions list</div>
         <div class="card-body">
           <table class="table table-striped">
@@ -14,9 +37,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let adoptionInfo of AdoptionsInfo">
+              <tr *ngFor="let adoptionInfo of adoptionsInfo">
                 <td>{{ adoptionInfo.pet }}</td>
                 <td>{{ adoptionInfo.adoptionRequest }}</td>
+                <!-- todo: convert date from iso to normal time -->
                 <td>{{ adoptionInfo.adoptionDate }}</td>
                 <td>
                   <a

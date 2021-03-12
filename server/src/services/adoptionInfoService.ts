@@ -3,6 +3,8 @@ import AdoptionInfo from '../models/adoptionInfo';
 import { IAdoptionRequest } from '../interfaces/IAdoptionRequest';
 import { IPet } from '../interfaces/IPet';
 import { IAdoptionInfo } from '../interfaces/IAdoptionInfo';
+import ISorter from './Sorter/ISorter';
+import { genericSort } from './Sorter/genericSort';
 @Service()
 export default class AdoptionInfoService {
   public async getById(id: string) {
@@ -10,8 +12,33 @@ export default class AdoptionInfoService {
     return adoptionInfo;
   }
 
-  public async getAll() {
-    const adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find();
+  public async getAll(query: any) {
+    const page = <number>(query.page || 1);
+    const searchInput = <string>(query.searchInput || '');
+    let sorter;
+
+    console.log(query);
+
+    if (!!query.sorter) {
+      sorter = <ISorter<IAdoptionInfo>>JSON.parse(query.sorter);
+    } else sorter = <ISorter<IAdoptionInfo>>{ property: 'pet', isDescending: true };
+    const activeSorter: ISorter<IAdoptionInfo> = sorter;
+
+    let adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find();
+
+    // console.log(adoptionsInfo[0]);
+
+    // let searchQuery: any = {};
+
+    // // search by searchInput in: pet / adoptionRequest
+    // let searchQueryResult = await AdoptionInfo.find({ pet: { name: { $eq: 'Jennie' } } });
+
+    // console.log(searchQueryResult);
+
+    if (activeSorter != null) {
+      adoptionsInfo = adoptionsInfo.sort((infoA, infoB) => genericSort(infoA, infoB, activeSorter));
+    }
+
     return adoptionsInfo;
   }
 

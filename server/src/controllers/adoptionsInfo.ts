@@ -46,7 +46,7 @@ class AdoptionInfoController implements IController {
   };
 
   private getAll = async (req: Request, res: Response): Promise<void> => {
-    await this.AdoptionInfoServiceInstance.getAll()
+    await this.AdoptionInfoServiceInstance.getAll(req.query)
       .then((adoptionsInfo: IAdoptionInfo[]) => {
         res.status(200).json({ adoptionsInfo: adoptionsInfo });
       })
