@@ -20,8 +20,8 @@
           </div>
           <div class="card-body">
             <div class="form-group row">
-              <label class="col-md-3 col-form-label">Adoption request id</label>
-              <label class="col-md-9 col-form-label">{{
+              <label class="col-md-6 col-form-label">Adoption request id</label>
+              <label class="col-md-6 col-form-label">{{
                 adoptionRequest._id
               }}</label>
             </div>
@@ -39,8 +39,8 @@
                   name="fullName"
                   [(ngModel)]="form.fullName"
                   required
-                  minlength="2"
-                  maxlength="20"
+                  minlength="5"
+                  maxlength="30"
                   #fullName="ngModel"
                 />
               </div>
@@ -49,10 +49,10 @@
                   Full name is required
                 </div>
                 <div *ngIf="fullName.errors.minlength">
-                  Full name must be at least 4 characters
+                  Full name must be at least 5 characters
                 </div>
                 <div *ngIf="fullName.errors.maxlength">
-                  Full name must be at most 20 characters
+                  Full name must be at most 30 characters
                 </div>
               </div>
             </div>
@@ -71,8 +71,6 @@
                   name="email"
                   [(ngModel)]="form.email"
                   required
-                  minlength="2"
-                  maxlength="20"
                   #email="ngModel"
                 />
               </div>
@@ -128,7 +126,6 @@
                   [(ngModel)]="form.address"
                   required
                   minlength="7"
-                  maxlength="20"
                   #address="ngModel"
                 />
               </div>
@@ -152,9 +149,9 @@
                 ></textarea>
               </div>
             </div>
-            <div class="alert alert-warning" *ngIf="f.submitted">
+            <!-- <div class="alert alert-warning" *ngIf="f.submitted && f.errors">
               Update pet failed!<br />{{ errorMessage }}
-            </div>
+            </div> -->
           </div>
           <div class="card-footer">
             <button class="btn btn-sm btn-success">
@@ -169,6 +166,14 @@
       <div class="card">
         <div class="card-header"><strong>Pet Details</strong></div>
         <div class="card-body">
+          <div class="form-group row">
+            <label class="col-md-1 col-form-label">Adopted</label>
+            <label class="col-md-2 col-form-label">{{
+              this.adoptionRequest.pet.isAdopted
+                ? "Adopted!"
+                : "Waiting for adoption"
+            }}</label>
+          </div>
           <div class="form-group row">
             <label class="col-md-1 col-form-label">Pet id</label>
             <label class="col-md-2 col-form-label">{{
@@ -213,18 +218,11 @@
             </div>
           </div>
 
-          <div class="form-group row">
-            <label class="col-md-1 col-form-label" for="file-input"
-              >Primary picture</label
-            >
-            <div class="col-md-3">
-              <div>
-                <img
-                  [src]="this.adoptionRequest.pet.primaryPicture"
-                  style="width: 250px; height: 250px"
-                />
-              </div>
-            </div>
+          <div>
+            <img
+              [src]="this.adoptionRequest.pet.primaryPicture"
+              style="width: 250px; height: 250px"
+            />
           </div>
         </div>
         <div class="card-footer"></div>
