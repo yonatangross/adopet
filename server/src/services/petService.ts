@@ -131,6 +131,8 @@ export default class PetService {
 
   public async update(petId: string, req: any) {
     const body = req as Pick<IPet, 'name' | 'gender' | 'breed' | 'animalType' | 'age' | 'isAdopted' | 'primaryPicture'>;
+    console.log(body);
+    
 
     const updatedPet: IPet | null = await Pet.findByIdAndUpdate({ _id: petId }, body, { new: true });
     return {

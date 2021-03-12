@@ -1,6 +1,7 @@
 import { AdoptionInfo } from "./../../models/adoptionInfo";
 import { AdoptionInfoService } from "./../../services/adoption-info.service";
 import { Component, OnInit } from "@angular/core";
+import { PetService } from "./../../services/pet.service";
 
 @Component({
   selector: "app-adoptions-info",
@@ -9,7 +10,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class AdoptionsInfoComponent implements OnInit {
   adoptionsInfo: AdoptionInfo[] = [];
-  currentAdoptionInfo?: AdoptionInfo;
+  currentAdoptionInfo?: AdoptionInfo; 
   currentIndex = -1;
   searchInput = "";
   page = 1;
@@ -17,7 +18,7 @@ export class AdoptionsInfoComponent implements OnInit {
   pageSize = 3;
   pageSizes = [5, 10, 15];
 
-  constructor(private AdoptionInfoService: AdoptionInfoService) {}
+  constructor(private adoptionInfoService: AdoptionInfoService, private petService : PetService) {}
 
   ngOnInit(): void {
     this.retrieveAdoptionsInfo();
@@ -48,7 +49,7 @@ export class AdoptionsInfoComponent implements OnInit {
     );
     console.log(params);
 
-    this.AdoptionInfoService.getAll(params).subscribe(
+    this.adoptionInfoService.getAll(params).subscribe(
       (response) => {
         console.log(response.adoptionsInfo);
 
@@ -83,9 +84,12 @@ export class AdoptionsInfoComponent implements OnInit {
   }
 
   delete(adoptionInfo: AdoptionInfo): void {
+
     if (adoptionInfo.pet.isAdopted) {
-      this.AdoptionInfoService.delete(adoptionInfo._id).subscribe();
+      this.petService.update(adoptionInfo.pet._id, {isAdopted : false} );
+      this.adoptionInfoService.delete(adoptionInfo._id).subscribe();
       this.refreshList();
+      window.location.reload();
     } else {
       console.log(
         "error while trying to delete adoptionInfo, pet is not adopted."
@@ -102,7 +106,7 @@ export class AdoptionsInfoComponent implements OnInit {
       this.pageSize
     );
 
-    this.AdoptionInfoService.getAll(params).subscribe(
+    this.adoptionInfoService.getAll(params).subscribe(
       (data) => {
         this.adoptionsInfo = data;
         console.log(data);

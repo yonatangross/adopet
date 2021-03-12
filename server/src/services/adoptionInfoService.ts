@@ -24,7 +24,7 @@ export default class AdoptionInfoService {
     } else sorter = <ISorter<IAdoptionInfo>>{ property: 'pet', isDescending: true };
     const activeSorter: ISorter<IAdoptionInfo> = sorter;
 
-    let adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find();
+    let adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate('pet').populate('adoptionRequest');
 
     // console.log(adoptionsInfo[0]);
 
@@ -65,7 +65,12 @@ export default class AdoptionInfoService {
   }
 
   public async deleteById(adoptionInfoId: string) {
+    console.log('deleteById');
+    console.log(adoptionInfoId);
+    
     const deletedAdoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndRemove(adoptionInfoId);
+    console.log(deletedAdoptionInfo);
+    
     return {
       message: `Adoption info of ${adoptionInfoId} deleted`,
       adoptionInfo: deletedAdoptionInfo,

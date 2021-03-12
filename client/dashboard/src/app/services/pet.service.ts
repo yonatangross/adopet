@@ -35,7 +35,10 @@ export class PetService {
   }
 
   update(id: any, data: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, data);
+    const res = this.http.put(`${this.baseUrl}/${id}`, data);
+    console.log(res);
+    
+    return res;
   }
 
   delete(id: any): Observable<any> {
