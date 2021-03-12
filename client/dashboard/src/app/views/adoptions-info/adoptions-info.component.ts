@@ -50,12 +50,10 @@ export class AdoptionsInfoComponent implements OnInit {
       this.page,
       this.pageSize
     );
-    console.log(params);
+    // console.log(params);
 
     this.adoptionInfoService.getAll(params).subscribe(
       (response) => {
-        console.log(response.adoptionsInfo);
-
         this.adoptionsInfo = response.adoptionsInfo;
       },
       (error) => {
@@ -98,8 +96,6 @@ export class AdoptionsInfoComponent implements OnInit {
         (error) => {
           console.log(error);
         };
-
-      //window.location.reload();
     } else {
       console.log(
         "error while trying to delete adoptionInfo, pet is not adopted."
@@ -119,7 +115,7 @@ export class AdoptionsInfoComponent implements OnInit {
     this.adoptionInfoService.getAll(params).subscribe(
       (data) => {
         this.adoptionsInfo = data;
-        console.log(data);
+        // console.log(data);
       },
       (error) => {
         console.log(error);
