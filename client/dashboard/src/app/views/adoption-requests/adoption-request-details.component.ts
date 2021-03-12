@@ -16,7 +16,7 @@ export class AdoptionRequestDetailsComponent implements OnInit {
     pet: null,
     fullName: null,
     email: null,
-    phoneNumber: null,
+    phoneNumber: "+972-506543211",
     address: null,
     message: null,
   };
@@ -36,8 +36,10 @@ export class AdoptionRequestDetailsComponent implements OnInit {
   getAdoptionRequest(): void {
     const id: string = this.route.snapshot.paramMap.get("id");
     this.adoptionRequestService.get(id).subscribe((response) => {
-      this.form = this.adoptionRequest = response;
-      console.log(this.adoptionRequest);
+      this.form = this.adoptionRequest = response.adoptionRequest;
+      console.log("form:");
+
+      console.log(this.form);
     });
   }
 

@@ -20,8 +20,11 @@ export class AdoptionRequestService {
     return this.http.get<AdoptionRequest[]>(this.baseUrl, { params });
   }
 
-  get(id: string): Observable<AdoptionRequest> {
-    return this.http.get<AdoptionRequest>(`${this.baseUrl}/${id}`);
+  get(id: string): Observable<any> {
+    const res = this.http.get<AdoptionRequest>(`${this.baseUrl}/${id}`);
+    console.log(res);
+
+    return res;
   }
 
   create(data: any): Observable<any> {
