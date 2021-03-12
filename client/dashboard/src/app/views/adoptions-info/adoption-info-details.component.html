@@ -16,7 +16,7 @@
           novalidate
         >
           <div class="card-header">
-            <strong>Adoption Request Details</strong>
+            <strong>Adoption Info Details</strong>
           </div>
           <div class="card-body">
             <div class="form-group row">
@@ -47,7 +47,7 @@
                   id="date-input"
                   type="date"
                   name="date-input"
-                  value="{{ form.adoptionDate }}"
+                  value="{{ this.adoptionInfo.adoptionDate }}"
                   ([ngModel])="(form.adoptionDate)"
                 />
               </div>
