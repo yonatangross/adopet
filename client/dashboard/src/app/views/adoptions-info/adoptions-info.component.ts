@@ -10,7 +10,7 @@ import { PetService } from "./../../services/pet.service";
 })
 export class AdoptionsInfoComponent implements OnInit {
   adoptionsInfo: AdoptionInfo[] = [];
-  currentAdoptionInfo?: AdoptionInfo; 
+  currentAdoptionInfo?: AdoptionInfo;
   currentIndex = -1;
   searchInput = "";
   page = 1;
@@ -18,7 +18,10 @@ export class AdoptionsInfoComponent implements OnInit {
   pageSize = 3;
   pageSizes = [5, 10, 15];
 
-  constructor(private adoptionInfoService: AdoptionInfoService, private petService : PetService) {}
+  constructor(
+    private adoptionInfoService: AdoptionInfoService,
+    private petService: PetService
+  ) {}
 
   ngOnInit(): void {
     this.retrieveAdoptionsInfo();
@@ -76,6 +79,7 @@ export class AdoptionsInfoComponent implements OnInit {
     this.retrieveAdoptionsInfo();
     this.currentAdoptionInfo = undefined;
     this.currentIndex = -1;
+    window.location.reload();
   }
 
   setActiveAdoptionInfo(AdoptionInfo: AdoptionInfo, index: number): void {
@@ -84,11 +88,17 @@ export class AdoptionsInfoComponent implements OnInit {
   }
 
   delete(adoptionInfo: AdoptionInfo): void {
-
     if (adoptionInfo.pet.isAdopted) {
-      this.petService.update(adoptionInfo.pet._id, {isAdopted : false} );
-      this.adoptionInfoService.delete(adoptionInfo._id).subscribe();
-      this.refreshList();
+      this.petService
+        .update(adoptionInfo.pet._id, { isAdopted: false })
+        .subscribe(() => {
+          this.adoptionInfoService.delete(adoptionInfo._id).subscribe();
+          this.refreshList();
+        }),
+        (error) => {
+          console.log(error);
+        };
+
       //window.location.reload();
     } else {
       console.log(

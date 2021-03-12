@@ -23,23 +23,16 @@ export class PetService {
 
   get(id: string): Observable<any> {
     const res = this.http.get<Pet>(`${this.baseUrl}/${id}`);
-    console.log(res);
 
     return res;
   }
 
   create(data: any): Observable<any> {
-    console.log('data from creat');
-    console.log(data);
     return this.http.post(this.baseUrl, data);
   }
 
   update(id: any, data: any): Observable<any> {
-    console.log(data);
-    console.log(id);
-    
     const res = this.http.put(`${this.baseUrl}/${id}`, data);
-    console.log(res);
     
     return res;
   }

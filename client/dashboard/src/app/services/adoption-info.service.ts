@@ -17,8 +17,6 @@ export class AdoptionInfoService {
   constructor(private http: HttpClient) {}
 
   getAll(params: any): Observable<any> {
-    console.log(params);
-
     return this.http.get<AdoptionInfo[]>(this.baseUrl, { params });
   }
 
