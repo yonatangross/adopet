@@ -23,6 +23,7 @@ class AdoptionRequestController implements IController {
     this.router
       .all(`/*`, authMiddleware)
       .get(`/:id`, this.getById)
+      .get(`groups`, this.getAllGroups)
       .get(`/`, this.getAll)
       .put(`/:id`, this.updateById)
       .delete(`/:id`, this.deleteById)
@@ -43,6 +44,17 @@ class AdoptionRequestController implements IController {
     await this.AdoptionRequestServiceInstance.getAll()
       .then((adoptionRequests: IAdoptionRequest[]) => {
         res.status(200).json({ adoptionRequests });
+      })
+      .catch((err: Error) => {
+        throw err;
+      });
+  };
+
+  private getAllGroups = async (req: Request, res: Response): Promise<void> => {
+    console.log('entered getAllGroups');
+    await this.AdoptionRequestServiceInstance.getAllGroups()
+      .then((data) => {
+        res.status(200).json({ data });
       })
       .catch((err: Error) => {
         throw err;

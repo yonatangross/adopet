@@ -15,6 +15,17 @@ export default class AdoptionRequestService {
     return adoptionRequests;
   }
 
+  public async getAllGroups() {
+    console.log(`in AdoptionRequestService, getAllGroups`);
+
+    const adoptionRequestsGroupByPetQuery: any = [{ $group: { _id: '$pet', data: { $push: '$$ROOT' } } }];
+    const adoptionRequestsGroupByPet = await AdoptionRequest.aggregate(adoptionRequestsGroupByPetQuery);
+
+    console.log(adoptionRequestsGroupByPet);
+
+    return adoptionRequestsGroupByPet;
+  }
+
   public async create(req: any, pet: IPet) {
     const body = req as Pick<IAdoptionRequest, 'fullName' | 'email' | 'phoneNumber' | 'address' | 'message'>;
 

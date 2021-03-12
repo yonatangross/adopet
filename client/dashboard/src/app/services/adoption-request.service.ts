@@ -20,6 +20,12 @@ export class AdoptionRequestService {
     return this.http.get<AdoptionRequest[]>(this.baseUrl, { params });
   }
 
+  getAllGroups(): Observable<any> {
+    console.log(`in getAllGroups func`);
+    const res = this.http.get<any>(`${this.baseUrl}/groups`);
+    console.log(res);
+    return res;
+  }
   get(id: string): Observable<any> {
     const res = this.http.get<AdoptionRequest>(`${this.baseUrl}/${id}`);
     return res;
