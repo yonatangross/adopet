@@ -61,7 +61,7 @@ class AuthenticationController implements IController {
   };
 
   private createToken(user: IUser): ITokenData {
-    const expiresIn = 60 * 60; // an hour
+    const expiresIn = 60 * 60 * 24; // a day
     const dataStoredInToken: IDataStoredInToken = {
       _id: user._id,
     };
