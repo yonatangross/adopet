@@ -28,11 +28,11 @@ class AdoptionInfoController implements IController {
   private initializeRoutes() {
     this.router
       .all(`/*`, authMiddleware)
-      .get(`/:id`, this.getById)
+      .post('', this.create)
       .get(`/`, this.getAll)
+      .get(`/:id`, this.getById)
       .put(`/:id`, this.updateById)
-      .delete(`/:id`, this.deleteById)
-      .post('', this.create);
+      .delete(`/:id`, this.deleteById);
   }
 
   private getById = async (req: Request, res: Response): Promise<void> => {
@@ -56,29 +56,31 @@ class AdoptionInfoController implements IController {
   };
 
   private create = async (req: Request, res: Response): Promise<void> => {
-    const petPromise = await this.PetServiceInstance.getById(req.body.petId);
-    const adoptionRequestPromise = await this.AdoptionRequestServiceInstance.getById(req.body.adoptionRequestId);
+    console.log(`in create:`);
+    console.log(req.body);
 
-    Promise.all([petPromise, adoptionRequestPromise])
-      .then(async (results: any[]) => {
-        const pet: IPet = results[0].pet;
-        const adoptionRequest: IAdoptionRequest = results[1].adoptionRequest;
-        await this.AdoptionInfoServiceInstance.create(req.body, pet, adoptionRequest)
-          .then((value: { adoptionInfo: IAdoptionInfo }) => {
-            res.status(201).json({
-              message: 'Created adoption info',
-              adoptionInfo: value.adoptionInfo,
+    await this.PetServiceInstance.getById(req.body.petId).then(async (pet) => {
+      await this.AdoptionRequestServiceInstance.getById(req.body.adoptionRequestId).then(async (adoptionRequest) => {
+        if (pet !== null && adoptionRequest !== null) {
+          await this.AdoptionInfoServiceInstance.create(req.body, pet, adoptionRequest)
+            .then(async (value: { adoptionInfo: IAdoptionInfo }) => {
+              await this.PetServiceInstance.update(pet.id, { isAdopted: true })
+                .then(() => {
+                  res.status(201).json({
+                    message: 'Created adoption info',
+                    adoptionInfo: value.adoptionInfo,
+                  });
+                })
+                .catch((err: Error) => {
+                  throw err;
+                });
+            })
+            .catch((err: Error) => {
+              throw err;
             });
-          })
-          .catch((err: Error) => {
-            throw err;
-          });
-      })
-      .catch((errors: any[]) => {
-        errors.forEach((error) => {
-          console.log(`error while creating adoptionInfo ${error}`);
-        });
+        }
       });
+    });
   };
 
   private updateById = async (req: Request, res: Response): Promise<void> => {

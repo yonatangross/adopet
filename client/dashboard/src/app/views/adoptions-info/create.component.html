@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-list"></i>Adoption requests for
+          <i class="fa fa-list"></i>Adoption requests for Pet Id
           {{ adoptionRequestsGroup._id }}
         </div>
         <div class="card-body">
@@ -16,16 +16,31 @@
                 <th>Phone number</th>
                 <th>Address</th>
                 <th>Message</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let adoptionRequest of adoptionRequestsGroup.data">
-                <td>{{ adoptionRequest.pet }}</td>
+                <td>{{ adoptionRequest._id }}</td>
                 <td>{{ adoptionRequest.fullName }}</td>
                 <td>{{ adoptionRequest.email }}</td>
                 <td>{{ adoptionRequest.phoneNumber }}</td>
                 <td>{{ adoptionRequest.address }}</td>
                 <td>{{ adoptionRequest.message }}</td>
+                <td>
+                  <button
+                    (click)="
+                      createAdoptionInfo(
+                        adoptionRequestsGroup._id,
+                        adoptionRequest
+                      )
+                    "
+                    type="button"
+                    class="btn btn-sm btn-pill btn-block btn-success"
+                  >
+                    Choose Adopter!
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
