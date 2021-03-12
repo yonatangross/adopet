@@ -22,8 +22,6 @@ export class AdoptionRequestService {
 
   get(id: string): Observable<any> {
     const res = this.http.get<AdoptionRequest>(`${this.baseUrl}/${id}`);
-    console.log(res);
-
     return res;
   }
 
@@ -32,6 +30,9 @@ export class AdoptionRequestService {
   }
 
   update(id: any, data: any): Observable<any> {
+    console.log(`in update:`);
+    console.log(data);
+
     return this.http.put(`${this.baseUrl}/${id}`, data);
   }
 

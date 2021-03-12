@@ -33,7 +33,11 @@ export default class AdoptionRequestService {
   }
 
   public async updateById(adoptionRequestId: string, req: any) {
-    const adoptionRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndUpdate({ _id: adoptionRequestId }, req.body);
+    const body = req as Pick<IAdoptionRequest, 'fullName' | 'email' | 'phoneNumber' | 'address' | 'message'>;
+
+    const adoptionRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndUpdate({ _id: adoptionRequestId }, body, { new: true });
+    console.log(adoptionRequest);
+
     return {
       message: 'Adoption request updated',
       adoptionRequest: adoptionRequest,

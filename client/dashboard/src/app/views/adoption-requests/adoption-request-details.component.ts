@@ -37,9 +37,6 @@ export class AdoptionRequestDetailsComponent implements OnInit {
     const id: string = this.route.snapshot.paramMap.get("id");
     this.adoptionRequestService.get(id).subscribe((response) => {
       this.form = this.adoptionRequest = response.adoptionRequest;
-      console.log("form:");
-
-      console.log(this.form);
     });
   }
 
@@ -54,6 +51,8 @@ export class AdoptionRequestDetailsComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(`onSubmit:`);
+
     const {
       _id,
       pet,
@@ -74,7 +73,6 @@ export class AdoptionRequestDetailsComponent implements OnInit {
       address,
       message,
     };
-    console.log(adoptionRequest);
 
     this.adoptionRequestService.update(_id, adoptionRequest).subscribe(
       (data) => {
