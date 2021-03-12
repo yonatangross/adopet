@@ -29,6 +29,7 @@ export class PetService {
   }
 
   create(data: any): Observable<any> {
+    console.log("ggggg" + " " + data);
     return this.http.post(this.baseUrl, data);
   }
 
