@@ -13,6 +13,7 @@ import { Location } from "@angular/common";
 })
 export class CreateComponent implements OnInit {
   adoptionInfo: AdoptionInfo;
+
   adoptionRequestsGroups: { _id: string; data: AdoptionRequest[] }[];
   form: any = {
     pet: null,
@@ -32,8 +33,7 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
     this.adoptionRequestService.getAllGroups().subscribe(
       (response) => {
-        this.adoptionRequestsGroups = response;
-        console.log(response);
+        this.adoptionRequestsGroups = response.adoptionRequestsGroups;
       },
       (error) => {
         console.log(`error occurred during getAllGroups func ${error}`);

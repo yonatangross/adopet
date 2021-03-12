@@ -16,13 +16,8 @@ export default class AdoptionRequestService {
   }
 
   public async getAllGroups() {
-    console.log(`in AdoptionRequestService, getAllGroups`);
-
     const adoptionRequestsGroupByPetQuery: any = [{ $group: { _id: '$pet', data: { $push: '$$ROOT' } } }];
-    const adoptionRequestsGroupByPet = await AdoptionRequest.aggregate(adoptionRequestsGroupByPetQuery);
-
-    console.log(adoptionRequestsGroupByPet);
-
+    const adoptionRequestsGroupByPet: { _id: string; data: IAdoptionRequest[] }[] = await AdoptionRequest.aggregate(adoptionRequestsGroupByPetQuery);
     return adoptionRequestsGroupByPet;
   }
 
