@@ -17,13 +17,11 @@ The application motivation is to create an web application that serves both the 
 * Maps using Google Maps API's(Maps JavaScript API & Geocoding API).
 
 ## Installation
-0. Make sure you have secrets.json on your computer in %APPDATA%
-1. Remove migrations folder
-2. Drop-Database
-3. write following commands on PMC:
-3.1 Add-Migration InitialCreate
-3.2 Update-Database
-4. run program.
+0. Enter client/front -> yarn install
+1. Enter client/dashboard -> npm install
+2. Enter server -> npm install
+3. Run -> npm run dev
+
 
 ## API Reference
 - [Google Maps API](https://developers.google.com/maps/documentation)
@@ -31,5 +29,5 @@ The application motivation is to create an web application that serves both the 
 ## Credits
  Course Instructor **Menahem Leibovitz**
 ## License
-MIT © [Yonatan Gross](https://github.com/yonatangross), [Ohad Cohen](https://github.com/OhadCohen97), [Aviv Miranda](https://github.com/Aviv943), [Matan Hassin](https://github.com/AnubisMatan)
+MIT © [Yonatan Gross](https://github.com/yonatangross), [Diana Isakov](https://github.com/DianaLanciano), [Aviv Miranda](https://github.com/Aviv943), [Matan Hassin](https://github.com/AnubisMatan)
 
