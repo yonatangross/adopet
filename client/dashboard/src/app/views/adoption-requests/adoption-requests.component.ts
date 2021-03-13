@@ -101,6 +101,10 @@ export class AdoptionRequestsComponent implements OnInit {
           }
         });
     }
+    else{
+      this.adoptionRequestService.delete(adoptionRequest._id).subscribe();
+      this.refreshList();
+    }
   }
 
   searchTitle(): void {
