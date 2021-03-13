@@ -149,6 +149,21 @@
                 ></textarea>
               </div>
             </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="date-input"
+                >Adoption request date</label
+              >
+              <div class="col-md-9">
+                <input
+                  class="form-control"
+                  id="date-input"
+                  type="date"
+                  name="date-input"
+                  value="{{ Date }}"
+                  ([ngModel])="(form.adoptionDate)"
+                />
+              </div>
+            </div>
             <!-- <div class="alert alert-warning" *ngIf="f.submitted && f.errors">
               Update pet failed!<br />{{ errorMessage }}
             </div> -->

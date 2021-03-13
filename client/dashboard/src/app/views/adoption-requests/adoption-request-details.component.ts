@@ -22,7 +22,7 @@ export class AdoptionRequestDetailsComponent implements OnInit {
   };
   isSuccessful = false;
   errorMessage = "";
-
+  Date = new Date();
   constructor(
     private route: ActivatedRoute,
     private adoptionRequestService: AdoptionRequestService,
@@ -59,6 +59,7 @@ export class AdoptionRequestDetailsComponent implements OnInit {
       fullName,
       email,
       phoneNumber,
+      createdAt,
       address,
       message,
     } = this.form;
@@ -72,6 +73,7 @@ export class AdoptionRequestDetailsComponent implements OnInit {
       phoneNumber,
       address,
       message,
+      createdAt,
     };
 
     this.adoptionRequestService.update(_id, adoptionRequest).subscribe(

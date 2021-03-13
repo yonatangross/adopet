@@ -39,7 +39,6 @@ export default class dataSeeder {
     if ((await AdoptionInfo.collection.countDocuments()) <= this.SEED_INIT_NUMBER / 5) {
       await this.SeedAdoptionsInfoAsync();
     }
-
   }
 
   private async getPetBreeds() {
@@ -138,6 +137,7 @@ export default class dataSeeder {
         age: this.getRandomPetAge(this.MAX_PET_AGE),
         isAdopted: false,
         primaryPicture: catBreed.imageUrl,
+        createdAt: this.randomDate(new Date(2020, 0, 1), new Date(2021, 0, 1), 0, 24),
       });
     }
 
@@ -191,6 +191,7 @@ export default class dataSeeder {
       phoneNumber: phoneNumber,
       address: address,
       message: `I wish to adopt ${pet.name} the ${pet.animalType}! waiting for your review :)`,
+      createdAt: this.randomDate(new Date(2020, 0, 1), new Date(2021, 0, 1), 0, 24),
     });
     return adoptionRequest;
   }
@@ -220,28 +221,32 @@ export default class dataSeeder {
       }
     });
   }
-
+  private randomDate(start: Date, end: Date, startHour: number, endHour: number) {
+    var date = new Date(+start + Math.random() * (end.getTime() - start.getTime()));
+    var hour = (startHour + Math.random() * (endHour - startHour)) | 0;
+    date.setHours(hour);
+    return date;
+  }
   private async createAdoptionInfo(petId: string, adoptionRequest: IAdoptionRequest): Promise<IAdoptionInfo> {
     const adoptionInfo: IAdoptionInfo = new AdoptionInfo({
       pet: petId,
       adoptionRequest: adoptionRequest,
-      adoptionDate: new Date(),
+      adoptionDate: this.randomDate(new Date(2021, 0, 1), new Date(), 0, 24),
     });
 
     return adoptionInfo;
   }
 
   private getRandomInt(max: number): number {
-
     return Math.floor(Math.random() * max);
   }
 
   private getRandomPetAge(max: number): number {
     let precision: number = 10;
     let randomAge: number;
-    let checkRandom:number;
-    checkRandom=((Math.random() * (max * precision) + 1 * precision)/(1* precision));
-    randomAge = (checkRandom-1>=1) ?  Math.floor(checkRandom) : Math.round((checkRandom-1)*10)/10;
+    let checkRandom: number;
+    checkRandom = (Math.random() * (max * precision) + 1 * precision) / (1 * precision);
+    randomAge = checkRandom - 1 >= 1 ? Math.floor(checkRandom) : Math.round((checkRandom - 1) * 10) / 10;
     return randomAge;
   }
 

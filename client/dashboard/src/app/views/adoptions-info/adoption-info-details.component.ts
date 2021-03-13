@@ -19,7 +19,7 @@ export class AdoptionInfoDetailsComponent implements OnInit {
   };
   isSuccessful = false;
   errorMessage = "";
-
+  Date = new Date();
   constructor(
     private route: ActivatedRoute,
     private adoptionInfoService: AdoptionInfoService,
@@ -42,7 +42,7 @@ export class AdoptionInfoDetailsComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
-  }   
+  }
 
   save(): void {
     this.adoptionInfoService

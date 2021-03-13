@@ -7,4 +7,5 @@ export class AdoptionRequest {
   phoneNumber: string;
   address: string;
   message?: string;
+  createdAt: Date;
 }
