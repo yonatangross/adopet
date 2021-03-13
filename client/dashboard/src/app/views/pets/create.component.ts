@@ -10,8 +10,9 @@ import { Location } from "@angular/common";
   styles: [],
 })
 export class CreateComponent implements OnInit {
+  petCreationFailed = false;
+
   pet: Pet;
-  imageUrl: any;
   form: any = {
     name: null,
     gender: null,
@@ -22,7 +23,6 @@ export class CreateComponent implements OnInit {
   };
   isSuccessful = false;
   errorMessage = "";
-  imageMessage = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -44,20 +44,18 @@ export class CreateComponent implements OnInit {
 
   onSubmit(): void {
     const { name, gender, breed, animalType, age, primaryPicture } = this.form;
-
     let pet = new Pet();
     pet = {
-
-      _id : pet._id,
-      name : this.form.name,
-      gender : this.form.gender,
-      breed : this.form.breed,
-      animalType : this.form.animalType,
-      age : this.form.age,
-      isAdopted : false,
-      primaryPicture : "https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg",
+      _id: pet._id,
+      name: name,
+      gender: gender,
+      breed: breed,
+      animalType: animalType,
+      age: age,
+      isAdopted: false,
+      primaryPicture: primaryPicture,
     };
-    
+
     //console.log(pet);
 
     this.petService.create(pet).subscribe(
@@ -69,7 +67,6 @@ export class CreateComponent implements OnInit {
         this.errorMessage = err.error.message;
       }
     );
-
   }
   selectFile(event: any) {
     //Angular 11, for stricter type

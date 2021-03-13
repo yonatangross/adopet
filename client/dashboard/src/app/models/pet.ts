@@ -6,5 +6,5 @@ export class Pet {
   animalType: string;
   age: number;
   isAdopted: boolean;
-  primaryPicture?: any;
+  primaryPicture?: string;
 }

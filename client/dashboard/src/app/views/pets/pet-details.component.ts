@@ -11,7 +11,6 @@ import { Location } from "@angular/common";
 })
 export class PetDetailsComponent implements OnInit {
   pet: Pet;
-  imageUrl: any;
   form: any = {
     _id: null,
     name: null,
@@ -24,7 +23,6 @@ export class PetDetailsComponent implements OnInit {
   };
   isSuccessful = false;
   errorMessage = "";
-  imageMessage = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -40,8 +38,6 @@ export class PetDetailsComponent implements OnInit {
     const id: string = this.route.snapshot.paramMap.get("id");
     this.petService.get(id).subscribe((response) => {
       this.form = this.pet = response.pet;
-      this.imageUrl = this.pet.primaryPicture;
-      //console.log(this.pet);
     });
   }
 
@@ -78,7 +74,6 @@ export class PetDetailsComponent implements OnInit {
       isAdopted,
       primaryPicture,
     };
-    //console.log(pet);
 
     this.petService.update(_id, pet).subscribe(
       (data) => {
@@ -90,28 +85,7 @@ export class PetDetailsComponent implements OnInit {
       }
     );
   }
-  selectFile(event: any) {
-    //Angular 11, for stricter type
-    if (!event.target.files[0] || event.target.files[0].length == 0) {
-      this.imageMessage = "You must select an image";
-      return;
-    }
 
-    var mimeType = event.target.files[0].type;
-
-    if (mimeType.match(/image\/*/) == null) {
-      this.imageMessage = "Only images are supported";
-      return;
-    }
-
-    var reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-
-    reader.onload = (_event) => {
-      this.imageMessage = "";
-      this.imageUrl = reader.result;
-    };
-  }
   reloadPage(): void {
     window.location.reload();
   }

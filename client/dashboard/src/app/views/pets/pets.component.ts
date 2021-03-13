@@ -89,7 +89,6 @@ export class PetsComponent implements OnInit {
       this.PetService.delete(pet._id).subscribe();
       this.refreshList();
     } else {
-      //todo: add alert from notifcations
       alert(`pet is adopted! can't delete ${pet._id}`);
     }
   }

@@ -55,7 +55,7 @@
           </div>
           <div class="card-footer">
             <button class="btn btn-sm btn-success">
-              <i class="fa fa-dot-circle-o"></i> Submit
+              <i class="fa fa-dot-circle-o"></i> Update and save
             </button>
           </div>
         </form>
@@ -66,45 +66,45 @@
   <div class="row">
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header"><strong>Adoption request details</strong></div>
+        <div class="card-header"><strong>Adoption Request details</strong></div>
         <div class="card-body">
           <div class="form-group row">
-            <label class="col-md-1 col-form-label">Adoption request id</label>
-            <label class="col-md-2 col-form-label">{{
+            <label class="col-md-3 col-form-label">Adoption request id</label>
+            <label class="col-md-9 col-form-label">{{
               this.adoptionInfo.adoptionRequest._id
             }}</label>
           </div>
           <div class="form-group row">
-            <label class="col-md-1 col-form-label">Name</label>
-            <label class="col-md-2 col-form-label">{{
+            <label class="col-md-3 col-form-label">Name</label>
+            <label class="col-md-9 col-form-label">{{
               this.adoptionInfo.adoptionRequest.fullName
             }}</label>
           </div>
           <div class="form-group row">
-            <label for="email" class="col-md-1 col-form-label">Email</label>
-            <div class="col-md-6">
+            <label for="email" class="col-md-3 col-form-label">Email</label>
+            <div class="col-md-9">
               <p>{{ this.adoptionInfo.adoptionRequest.email }}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label for="phoneNumber" class="col-md-1 col-form-label"
+            <label for="phoneNumber" class="col-md-3 col-form-label"
               >Phone number</label
             >
-            <div class="col-md-6">
+            <div class="col-md-9">
               <p>
                 {{ this.adoptionInfo.adoptionRequest.phoneNumber }}
               </p>
             </div>
           </div>
           <div class="form-group row">
-            <label for="address" class="col-md-1 col-form-label">Address</label>
-            <div class="col-md-6">
+            <label for="address" class="col-md-3 col-form-label">Address</label>
+            <div class="col-md-9">
               <p>{{ this.adoptionInfo.adoptionRequest.address }}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label for="age" class="col-md-1 col-form-label">Message</label>
-            <div class="col-md-5">
+            <label for="age" class="col-md-3 col-form-label">Message</label>
+            <div class="col-md-9">
               <p>{{ this.adoptionInfo.adoptionRequest.message }}</p>
             </div>
           </div>
@@ -114,37 +114,37 @@
       <!--/.col-->
     </div>
     <!--/.col-->
-    <div class="col-md-6">
+    <div class="col-md-3">
       <div class="card">
         <div class="card-header"><strong>Pet Details</strong></div>
         <div class="card-body">
           <div class="form-group row">
-            <label class="col-md-1 col-form-label">Adopted</label>
-            <label class="col-md-2 col-form-label">{{
+            <label class="col-md-3 col-form-label">Adopted</label>
+            <label class="col-md-9 col-form-label">{{
               this.adoptionInfo.pet.isAdopted
                 ? "Adopted!"
                 : "Waiting for adoption"
             }}</label>
           </div>
           <div class="form-group row">
-            <label class="col-md-1 col-form-label">Pet id</label>
-            <label class="col-md-2 col-form-label">{{
+            <label class="col-md-3 col-form-label">Pet id</label>
+            <label class="col-md-9 col-form-label">{{
               this.adoptionInfo.pet._id
             }}</label>
           </div>
           <div class="form-group row">
-            <label for="gender" class="col-md-1 col-form-label" for="text-input"
+            <label for="gender" class="col-md-3 col-form-label" for="text-input"
               >Pet gender</label
             >
-            <div class="col-md-6">
+            <div class="col-md-9">
               <p>{{ this.adoptionInfo.pet.gender }}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label for="breed" class="col-md-1 col-form-label" for="text-input"
+            <label for="breed" class="col-md-3 col-form-label" for="text-input"
               >Pet breed</label
             >
-            <div class="col-md-6">
+            <div class="col-md-9">
               <p>
                 {{ this.adoptionInfo.pet.breed }}
               </p>
@@ -153,23 +153,32 @@
           <div class="form-group row">
             <label
               for="animalType"
-              class="col-md-1 col-form-label"
+              class="col-md-3 col-form-label"
               for="text-input"
               >Animal type</label
             >
-            <div class="col-md-6">
+            <div class="col-md-9">
               <p>{{ this.adoptionInfo.pet.animalType }}</p>
             </div>
           </div>
           <div class="form-group row">
-            <label for="age" class="col-md-1 col-form-label" for="text-input"
+            <label for="age" class="col-md-3 col-form-label" for="text-input"
               >Age</label
             >
-            <div class="col-md-1">
+            <div class="col-md-9">
               <p>{{ this.adoptionInfo.pet.age }}</p>
             </div>
           </div>
-
+        </div>
+        <div class="card-footer"></div>
+      </div>
+      <!--/.col-->
+    </div>
+    <!--/.col-->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header"><strong>Pet Image</strong></div>
+        <div class="card-body">
           <div>
             <img
               [src]="this.adoptionInfo.pet.primaryPicture"

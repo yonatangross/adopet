@@ -149,31 +149,34 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-1 col-form-label" for="file-input"
-                >Primary picture</label
+              <label
+                for="primaryPicture"
+                class="col-md-1 col-form-label"
+                for="text-input"
+                >Primary Picture</label
               >
-              <div class="col-md-3">
-                <div
-                  [innerHtml]="imageMessage"
-                  *ngIf="imageMessage"
-                  style="color: red"
-                ></div>
-                <div>
-                  <img
-                    [src]="imageUrl"
-                    *ngIf="imageUrl"
-                    style="width: 250px; height: 250px"
-                  />
-                </div>
-                <p>
-                  <input
-                    type="file"
-                    [hidden]="this.pet.isAdopted === true"
-                    [disabled]="this.pet.isAdopted === true"
-                    (change)="selectFile($event)"
-                  />
-                </p>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="primaryPicture"
+                  placeholder="Enter pet image url"
+                  [(ngModel)]="form.primaryPicture"
+                  required
+                  #primaryPicture="ngModel"
+                />
               </div>
+              <div
+                class="alert-danger"
+                *ngIf="primaryPicture.errors && f.submitted"
+              >
+                <div *ngIf="primaryPicture.errors.required">
+                  Pet image is required
+                </div>
+              </div>
+            </div>
+            <div>
+              <img [src]="form.primaryPicture" style="width: 250px; height: 250px" />
             </div>
             <div class="alert alert-warning" *ngIf="f.submitted">
               Update pet failed!<br />{{ errorMessage }}
@@ -184,7 +187,7 @@
               class="btn btn-sm btn-success"
               *ngIf="this.pet.isAdopted === false"
             >
-              <i class="fa fa-dot-circle-o"></i> Submit
+              <i class="fa fa-dot-circle-o"></i> Update and Save
             </button>
             <button
               class="btn btn-warning"
