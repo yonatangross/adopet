@@ -28,12 +28,13 @@ export default class AdoptionInfoService {
 
     let adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate('pet').populate('adoptionRequest');
 
-    let filteredAdoptionsInfo = _.map(adoptionsInfo, function (adoptionInfo: IAdoptionInfo) {
-      if (_.includes(adoptionInfo.pet?.name, searchInput) && _.includes(adoptionInfo.adoptionRequest?.fullName, searchInput)) {
+     _.filter(adoptionsInfo, function (adoptionInfo: IAdoptionInfo) {
+      const pet = adoptionInfo.pet;
+      if (_.includes(pet?.name, searchInput)) {
         return adoptionInfo;
       }
     });
-    console.log(filteredAdoptionsInfo);
+    // console.log(adoptionsInfo);
 
     // console.log(adoptionsInfo[0]);
 
