@@ -11,7 +11,7 @@ export class PetsComponent implements OnInit {
   pets: Pet[] = [];
   currentPet?: Pet;
   currentIndex = -1;
-  title = " ";
+  searchInput = "";
   page = 1;
   count = 0;
   pageSize = 3;
@@ -30,12 +30,12 @@ export class PetsComponent implements OnInit {
     this.retrievePets();
   }
 
-  getRequestParams(searchTitle: string, page: number, pageSize: number): any {
+  getRequestParams(searchInput: string, page: number, pageSize: number): any {
     // tslint:disable-next-line:prefer-const
     let params: any = {};
 
-    if (searchTitle) {
-      params[`title`] = searchTitle;
+    if (searchInput) {
+      params[`searchInput`] = searchInput;
     }
 
     if (page) {
@@ -50,7 +50,7 @@ export class PetsComponent implements OnInit {
   }
 
   retrievePets(): void {
-    const params = this.getRequestParams(this.title, this.page, this.pageSize);
+    const params = this.getRequestParams(this.searchInput, this.page, this.pageSize);
 
     this.PetService.getAll(params).subscribe(
       (response) => {
@@ -92,5 +92,13 @@ export class PetsComponent implements OnInit {
       //todo: add alert from notifcations
       alert(`pet is adopted! can't delete ${pet._id}`);
     }
+  }
+
+  
+  searchTitle(): void {
+    this.currentPet = undefined;
+    this.currentIndex = -1;
+
+   this.refreshList();
   }
 }

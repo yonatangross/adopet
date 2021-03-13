@@ -2,6 +2,21 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
+        <div class="card-body">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search adoptions by pet name or by adopter name"
+            [(ngModel)]="searchInput"
+            (input)="searchTitle()"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
         <div class="card-header">
           <i class="fa fa-list"></i>Adoption requests list
         </div>
@@ -28,8 +43,11 @@
                 <td>{{ adoptionRequest.fullName }}</td>
                 <td>{{ adoptionRequest.email }}</td>
                 <td>{{ adoptionRequest.phoneNumber }}</td>
-                <td>{{ adoptionRequest.address }}</td>
-                <td>{{ adoptionRequest.message }}</td>
+                <td >{{ adoptionRequest.address }}</td>
+                <!-- style="min-width:100px;max-width: 100px" -->
+                <td >
+                  {{ adoptionRequest.message }}
+                </td>
                 <td>
                   <a
                     type="button"

@@ -5,6 +5,8 @@ import * as _ from 'lodash';
 import { IAdoptionRequest } from '../interfaces/IAdoptionRequest';
 import AdoptionRequest from '../models/adoptionRequest';
 import Pet from '../models/pet';
+import ISorter from './Sorter/ISorter';
+import { genericSort } from './Sorter/genericSort';
 
 @Service()
 export default class AdoptionRequestService {
@@ -13,9 +15,33 @@ export default class AdoptionRequestService {
     return adoptionRequest;
   }
 
-  public async getAll() {
-    const adoptionRequests: IAdoptionRequest[] = await AdoptionRequest.find().populate('pet');
-    return adoptionRequests;
+  public async getAll(query: any) {
+    const page = <number>(query.page || 1);
+    let searchInput = <string>(query.searchInput || '');
+    let sorter;
+
+    console.log(query);
+
+    if (!!query.sorter) {
+      sorter = <ISorter<IAdoptionRequest>>JSON.parse(query.sorter);
+    } else sorter = <ISorter<IAdoptionRequest>>{ property: 'pet', isDescending: true };
+    const activeSorter: ISorter<IAdoptionRequest> = sorter;
+
+    let adoptionRequests: IAdoptionRequest[] = await AdoptionRequest.find().populate('pet');
+
+    let filteredAdoptionRequests = adoptionRequests.filter((adoptionRequest) => {
+      let petName = adoptionRequest.pet.name;
+      let adopterName = adoptionRequest.fullName;
+      petName = petName.toLowerCase();
+      adopterName = adopterName.toLowerCase();
+      if (_.includes(petName, searchInput.toLowerCase()) || _.includes(adopterName, searchInput.toLowerCase())) return true;
+    });
+
+    if (activeSorter != null) {
+      filteredAdoptionRequests = filteredAdoptionRequests.sort((infoA, infoB) => genericSort(infoA, infoB, activeSorter));
+    }
+
+    return filteredAdoptionRequests;
   }
 
   public async getAllGroups() {
@@ -52,7 +78,7 @@ export default class AdoptionRequestService {
     const body = req as Pick<IAdoptionRequest, 'fullName' | 'email' | 'phoneNumber' | 'address' | 'message'>;
 
     const adoptionRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndUpdate({ _id: adoptionRequestId }, body, { new: true });
-   // console.log(adoptionRequest);
+    // console.log(adoptionRequest);
 
     return {
       message: 'Adoption request updated',

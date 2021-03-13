@@ -41,7 +41,7 @@ class AdoptionRequestController implements IController {
   };
 
   private getAll = async (req: Request, res: Response): Promise<void> => {
-    await this.AdoptionRequestServiceInstance.getAll()
+    await this.AdoptionRequestServiceInstance.getAll(req.query)
       .then((adoptionRequests: IAdoptionRequest[]) => {
         res.status(200).json({ adoptionRequests });
       })

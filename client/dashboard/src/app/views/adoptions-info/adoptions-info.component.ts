@@ -51,6 +51,7 @@ export class AdoptionsInfoComponent implements OnInit {
       this.page,
       this.pageSize
     );
+console.log(params);
 
     this.adoptionInfoService.getAll(params).subscribe(
       (response) => {

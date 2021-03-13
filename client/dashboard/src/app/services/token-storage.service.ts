@@ -7,17 +7,11 @@ const USER_KEY = "auth-user";
   providedIn: "root",
 })
 export class TokenStorageService {
-  constructor() { }
+  isOnline: boolean;
+  constructor() {}
 
   signOut(): void {
     window.sessionStorage.clear();
-  }
-
-  isOnline(): boolean {
-    if (!!this.getUser())
-      return true;
-    else
-      return false;
   }
 
   public saveToken(token: string): void {

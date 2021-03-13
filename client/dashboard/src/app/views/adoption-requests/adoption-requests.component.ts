@@ -12,7 +12,7 @@ export class AdoptionRequestsComponent implements OnInit {
   adoptionRequests: AdoptionRequest[] = [];
   currentAdoptionRequest?: AdoptionRequest;
   currentIndex = -1;
-  title = "";
+  searchInput = "";
   page = 1;
   count = 0;
   pageSize = 3;
@@ -33,7 +33,7 @@ export class AdoptionRequestsComponent implements OnInit {
     let params: any = {};
 
     if (searchTitle) {
-      params[`title`] = searchTitle;
+      params[`searchInput`] = searchTitle;
     }
 
     if (page) {
@@ -48,7 +48,7 @@ export class AdoptionRequestsComponent implements OnInit {
   }
 
   retrieveAdoptionRequests(): void {
-    const params = this.getRequestParams(this.title, this.page, this.pageSize);
+    const params = this.getRequestParams(this.searchInput, this.page, this.pageSize);
 
     this.adoptionRequestService.getAll(params).subscribe(
       (response) => {
@@ -101,5 +101,12 @@ export class AdoptionRequestsComponent implements OnInit {
           }
         });
     }
+  }
+
+  searchTitle(): void {
+    this.currentAdoptionRequest = undefined;
+    this.currentIndex = -1;
+
+   this.refreshList();
   }
 }

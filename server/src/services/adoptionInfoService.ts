@@ -19,7 +19,7 @@ export default class AdoptionInfoService {
     let searchInput = <string>(query.searchInput || '');
     let sorter;
 
-    //console.log(query);
+    console.log(query);
 
     if (!!query.sorter) {
       sorter = <ISorter<IAdoptionInfo>>JSON.parse(query.sorter);
@@ -28,15 +28,17 @@ export default class AdoptionInfoService {
 
     let adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate('pet').populate('adoptionRequest');
 
-     _.filter(adoptionsInfo, function (adoptionInfo: IAdoptionInfo) {
-      const pet = adoptionInfo.pet;
-      if (_.includes(pet?.name, searchInput)) {
-        return adoptionInfo;
-      }
+    let filteredAdoptionsInfo = adoptionsInfo.filter((adoption) => {
+      let petName = adoption.pet.name;
+      let adopterName = adoption.adoptionRequest.fullName;
+      petName = petName.toLowerCase();
+      adopterName = adopterName.toLowerCase();
+      if (_.includes(petName, searchInput.toLowerCase()) || _.includes(adopterName, searchInput.toLowerCase())) return true;
     });
+
     // console.log(adoptionsInfo);
 
-    // console.log(adoptionsInfo[0]);
+    console.log(adoptionsInfo[0]);
 
     // let searchQuery: any = {};
 
@@ -46,10 +48,10 @@ export default class AdoptionInfoService {
     // console.log(searchQueryResult);
 
     if (activeSorter != null) {
-      adoptionsInfo = adoptionsInfo.sort((infoA, infoB) => genericSort(infoA, infoB, activeSorter));
+      filteredAdoptionsInfo = filteredAdoptionsInfo.sort((infoA, infoB) => genericSort(infoA, infoB, activeSorter));
     }
 
-    return adoptionsInfo;
+    return filteredAdoptionsInfo;
   }
 
   public async create(req: any, pet: IPet, adoptionRequest: IAdoptionRequest) {
