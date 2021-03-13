@@ -1,3 +1,6 @@
+import { TokenStorageService } from './../../services/token-storage.service';
+import { SocketioService } from "./../../services/socketio.service";
+import { pets } from "./../../../../../front/src/data";
 import { AdoptionInfo } from "./../../models/adoptionInfo";
 import { AdoptionRequest } from "./../../models/adoptionRequest";
 import { Pet } from "./../../models/pet";
@@ -24,10 +27,12 @@ export class DashboardComponent implements OnInit {
   constructor(
     private petService: PetService,
     private adoptionRequestService: AdoptionRequestService,
-    private adoptionInfoService: AdoptionInfoService // private SocketioService: SocketioService
+    private adoptionInfoService: AdoptionInfoService, // private SocketioService: SocketioService
+    private tokenStorageService: TokenStorageService
   ) {}
-
+  isOnline:boolean;
   ngOnInit(): void {
+    this.isOnline=this.tokenStorageService.isOnline();
     const params = { title: "", page: 1, pageSize: 3 };
     this.petService.getAll(params).subscribe(
       (response) => {
@@ -77,6 +82,9 @@ export class DashboardComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+  public logout():void{
+    this.tokenStorageService.signOut();
   }
 
   private getPetsNumberByAnimalType = (pets: Pet[]): number[] => {
