@@ -48,6 +48,7 @@ class AdoptionRequestController implements IController {
       .catch((err: Error) => {
         throw err;
       });
+      
   };
 
   private getAllGroups = async (req: Request, res: Response): Promise<void> => {
