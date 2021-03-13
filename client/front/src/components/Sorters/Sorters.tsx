@@ -30,6 +30,7 @@ export default function Sorters<T>(props: ISortersProps<T>) {
         className="custom-select"
         onChange={(event) => onChangeSorter(event.target.value.split(',')[0] as any, event.target.value.split(',')[1] === 'true')}
         defaultValue={['name', 'true']}
+      
       >
         {Object.keys(object).map((key) => {
           if (!key || key === '_id' || key === '__v') {
