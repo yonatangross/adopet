@@ -1,3 +1,4 @@
+import { SocketioService } from "./../../services/socketio.service";
 import { pets } from "./../../../../../front/src/data";
 import { AdoptionInfo } from "./../../models/adoptionInfo";
 import { AdoptionRequest } from "./../../models/adoptionRequest";
@@ -8,6 +9,7 @@ import { PetService } from "./../../services/pet.service";
 import { Component, OnInit } from "@angular/core";
 import { getStyle } from "@coreui/coreui/dist/js/coreui-utilities";
 import { CustomTooltips } from "@coreui/coreui-plugin-chartjs-custom-tooltips";
+import * as _ from "lodash";
 
 @Component({
   templateUrl: "dashboard.component.html",
@@ -16,29 +18,55 @@ export class DashboardComponent implements OnInit {
   pets: Pet[] = [];
   adoptionRequests: AdoptionRequest[] = [];
   adoptionInfos: AdoptionInfo[] = [];
-
+  petGroups: number[] = [];
   constructor(
     private petService: PetService,
     private adoptionRequestService: AdoptionRequestService,
-    private adoptionInfoService: AdoptionInfoService
+    private adoptionInfoService: AdoptionInfoService // private SocketioService: SocketioService
   ) {}
 
+  ngOnInit(): void {
+    const params = { title: "", page: 1, pageSize: 3 };
+    this.petService.getAll(params).subscribe(
+      (response) => {
+        this.pets = response.pets;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    this.adoptionRequestService.getAll(params).subscribe(
+      (response) => (this.adoptionRequests = response.adoptionRequests),
+      (error) => {
+        console.log(error);
+      }
+    );
+    this.adoptionInfoService.getAll(params).subscribe(
+      (response) => (this.adoptionInfos = response.adoptionsInfo),
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  private getPetsNumberByAnimalType = (): number[] => {
+    const numberOfAnimalsByType: number[] = [0, 0];
+    pets.forEach((pet) => {
+      if (pet.animalType.toLowerCase() === "dog") numberOfAnimalsByType[0] += 1;
+      else numberOfAnimalsByType[1] += 1;
+    });
+    console.log(numberOfAnimalsByType);
+
+    return numberOfAnimalsByType;
+  };
   // lineChart1
   public lineChart1Data: Array<any> = [
     {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: "Series A",
+      data: this.getPetsNumberByAnimalType(),
+      label: "Animal Types",
     },
   ];
-  public lineChart1Labels: Array<any> = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
+  public lineChart1Labels: Array<any> = ["Dogs", "Cats"];
   public lineChart1Options: any = {
     tooltips: {
       enabled: false,
@@ -277,26 +305,4 @@ export class DashboardComponent implements OnInit {
   ];
   public barChart1Legend = false;
   public barChart1Type = "bar";
-
-  ngOnInit(): void {
-    const params = { title: "", page: 1, pageSize: 3 };
-    this.petService.getAll(params).subscribe(
-      (response) => (this.pets = response.pets),
-      (error) => {
-        console.log(error);
-      }
-    );
-    this.adoptionRequestService.getAll(params).subscribe(
-      (response) => (this.adoptionRequests = response.adoptionRequests),
-      (error) => {
-        console.log(error);
-      }
-    );
-    this.adoptionInfoService.getAll(params).subscribe(
-      (response) => (this.adoptionInfos = response.adoptionsInfo),
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
 }
