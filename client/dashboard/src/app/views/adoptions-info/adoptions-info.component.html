@@ -31,7 +31,10 @@
             <thead>
               <tr>
                 <th>petId</th>
+                <th>Pet name</th>
+                <th>Pet age</th>
                 <th>adoptionRequestId</th>
+                <th>Adopter name</th>
                 <th>adoptionDate</th>
                 <th>Actions</th>
               </tr>
@@ -39,8 +42,11 @@
             <tbody>
               <tr *ngFor="let adoptionInfo of adoptionsInfo">
                 <td>{{ adoptionInfo.pet._id }}</td>
+                <td>{{ adoptionInfo.pet.name }}</td>
+                <td>{{ adoptionInfo.pet.age }}</td>
                 <td>{{ adoptionInfo.adoptionRequest._id }}</td>
                 <!-- todo: convert date from iso to normal time -->
+                <td>{{ adoptionInfo.adoptionRequest.fullName }}</td>
                 <td>{{ adoptionInfo.adoptionDate }}</td>
                 <td>
                   <a
