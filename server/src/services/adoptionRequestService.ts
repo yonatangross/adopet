@@ -14,7 +14,7 @@ export default class AdoptionRequestService {
   }
 
   public async getAll() {
-    const adoptionRequests: IAdoptionRequest[] = await AdoptionRequest.find();
+    const adoptionRequests: IAdoptionRequest[] = await AdoptionRequest.find().populate('pet');
     return adoptionRequests;
   }
 

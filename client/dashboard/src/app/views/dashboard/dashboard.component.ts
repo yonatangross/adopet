@@ -17,6 +17,7 @@ import * as _ from "lodash";
 })
 export class DashboardComponent implements OnInit {
   pets: Pet[] = [];
+  petsLoaded: Promise<boolean>;
   adoptionRequests: AdoptionRequest[] = [];
   adoptionInfos: AdoptionInfo[] = [];
   petGroups: number[] = [];
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit {
     this.petService.getAll(params).subscribe(
       (response) => {
         this.pets = response.pets;
+        Promise.resolve(true);
       },
       (error) => {
         console.log(error);
@@ -55,7 +57,7 @@ export class DashboardComponent implements OnInit {
     this.tokenStorageService.signOut();
   }
 
-  private getPetsNumberByAnimalType = (): number[] => {
+  private getPetsNumberByAnimalType = (pets: Pet[]): number[] => {
     const numberOfAnimalsByType: number[] = [0, 0];
     pets.forEach((pet) => {
       if (pet.animalType.toLowerCase() === "dog") numberOfAnimalsByType[0] += 1;
@@ -65,14 +67,25 @@ export class DashboardComponent implements OnInit {
 
     return numberOfAnimalsByType;
   };
+
+  radioModel: string = "Month";
+
   // lineChart1
   public lineChart1Data: Array<any> = [
     {
-      data: this.getPetsNumberByAnimalType(),
-      label: "Animal Types",
+      data: this.getPetsNumberByAnimalType(this.pets),
+      label: "Series A",
     },
   ];
-  public lineChart1Labels: Array<any> = ["Dogs", "Cats"];
+  public lineChart1Labels: Array<any> = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+  ];
   public lineChart1Options: any = {
     tooltips: {
       enabled: false,
@@ -117,7 +130,6 @@ export class DashboardComponent implements OnInit {
       display: false,
     },
   };
-  radioModel: string = "Month";
   public lineChart1Colours: Array<any> = [
     {
       backgroundColor: getStyle("--primary"),
@@ -125,7 +137,7 @@ export class DashboardComponent implements OnInit {
     },
   ];
   public lineChart1Legend = false;
-  public lineChart1Type = "line";
+  public lineChart1Type: Chart.ChartType = "line";
 
   // lineChart2
   public lineChart2Data: Array<any> = [
@@ -196,7 +208,7 @@ export class DashboardComponent implements OnInit {
     },
   ];
   public lineChart2Legend = false;
-  public lineChart2Type = "line";
+  public lineChart2Type: Chart.ChartType = "line";
 
   // lineChart3
   public lineChart3Data: Array<any> = [
@@ -253,7 +265,7 @@ export class DashboardComponent implements OnInit {
     },
   ];
   public lineChart3Legend = false;
-  public lineChart3Type = "line";
+  public lineChart3Type: Chart.ChartType = "line";
 
   // barChart1
   public barChart1Data: Array<any> = [
@@ -310,5 +322,5 @@ export class DashboardComponent implements OnInit {
     },
   ];
   public barChart1Legend = false;
-  public barChart1Type = "bar";
+  public barChart1Type: Chart.ChartType = "bar";
 }
