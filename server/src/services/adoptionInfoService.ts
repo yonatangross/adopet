@@ -45,10 +45,10 @@ export default class AdoptionInfoService {
     // console.log(searchQueryResult);
 
     if (activeSorter != null) {
-      filteredAdoptionsInfo = filteredAdoptionsInfo.sort((infoA, infoB) => genericSort(infoA, infoB, activeSorter));
+      adoptionsInfo = adoptionsInfo.sort((infoA, infoB) => genericSort(infoA, infoB, activeSorter));
     }
 
-    return filteredAdoptionsInfo;
+    return adoptionsInfo;
   }
 
   public async create(req: any, pet: IPet, adoptionRequest: IAdoptionRequest) {
@@ -75,7 +75,7 @@ export default class AdoptionInfoService {
 
   public async deleteById(adoptionInfoId: string) {
     //console.log('deleteById');
-   // console.log(adoptionInfoId);
+    // console.log(adoptionInfoId);
 
     const deletedAdoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndRemove(adoptionInfoId);
     //console.log(deletedAdoptionInfo);

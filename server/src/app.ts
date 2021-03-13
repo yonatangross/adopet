@@ -16,7 +16,6 @@ import AdoptionInfoController from './controllers/adoptionsInfo';
 const http = require('http');
 const socketIo = require('socket.io');
 
-
 require('dotenv').config();
 class App {
   public app: express.Application;
@@ -57,22 +56,12 @@ class App {
         credentials: true,
       })
     );
-<<<<<<< HEAD
-    console.log('finished initializeMiddlewares function.');
-=======
     //console.log('finished initializeMiddlewares function.');
-    
->>>>>>> 8ebdb5ced4b740b1c399bd91e3a8eef985152873
   }
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
-<<<<<<< HEAD
-    console.log('finished initializeErrorHandling function.');
-=======
-    //console.log('finished initializeErrorHandling function.');
-
->>>>>>> 8ebdb5ced4b740b1c399bd91e3a8eef985152873
+    // console.log('finished initializeErrorHandling function.');
   }
 
   private initializeControllers(controllers: IController[]) {
@@ -98,12 +87,10 @@ class App {
     //     credentials: false,
     //   },
     // });
-
     // this.io.on('connection', (socket: any) => {
     //   if (socket.handshake.headers.origin === 'http://localhost:4200') {
     //     this.usersCount++;
     //     socket.broadcast.emit('count', this.usersCount);
-
     //     socket.on('disconnect', () => {
     //       this.usersCount--;
     //       socket.broadcast.emit('count', this.usersCount);
