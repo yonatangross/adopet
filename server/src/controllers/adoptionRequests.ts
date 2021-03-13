@@ -20,14 +20,14 @@ class AdoptionRequestController implements IController {
   }
 
   private initializeRoutes() {
+    this.router.post('', this.create);
     this.router
       .all(`/*`, authMiddleware)
       .get(`/groups`, this.getAllGroups)
       .get(`/:id`, this.getById)
       .get(`/`, this.getAll)
       .put(`/:id`, this.updateById)
-      .delete(`/:id`, this.deleteById)
-      .post('', this.create);
+      .delete(`/:id`, this.deleteById);
   }
 
   private getById = async (req: Request, res: Response): Promise<void> => {
@@ -69,6 +69,7 @@ class AdoptionRequestController implements IController {
   };
 
   private create = async (req: Request, res: Response): Promise<void> => {
+    
     await this.PetServiceInstance.getById(req.body.petId)
       .then(async (pet: IPet | null) => {
         if (pet != null) {

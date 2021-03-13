@@ -20,7 +20,7 @@ export default class AdoptionRequestService {
     let searchInput = <string>(query.searchInput || '');
     let sorter;
 
-    console.log(query);
+    // console.log(query);
 
     if (!!query.sorter) {
       sorter = <ISorter<IAdoptionRequest>>JSON.parse(query.sorter);
