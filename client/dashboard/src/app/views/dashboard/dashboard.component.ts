@@ -94,7 +94,7 @@ export class DashboardComponent implements OnInit {
       if (pet.animalType.toLowerCase() === "dog") numberOfAnimalsByType[0] += 1;
       else numberOfAnimalsByType[1] += 1;
     });
-    console.log(numberOfAnimalsByType);
+    // console.log(numberOfAnimalsByType);
 
     return numberOfAnimalsByType;
   };
@@ -107,7 +107,7 @@ export class DashboardComponent implements OnInit {
       else if (pet.age <= 12) numberOfAnimalsByAge[2] += 1;
       else numberOfAnimalsByAge[3] += 1;
     });
-    console.log(numberOfAnimalsByAge);
+    // console.log(numberOfAnimalsByAge);
 
     return numberOfAnimalsByAge;
   };

@@ -73,26 +73,26 @@ class App {
     initSocketIO() {
         // set up socket.io and bind it to our
         // http server.
-        // this.io = socketIo(this.server, {
-        //   cors: {
-        //     origins: ['http://localhost:4200', 'http://localhost:3000'],
-        //     methods: ['GET', 'POST'],
-        //     credentials: false,
-        //   },
-        // });
-        // this.io.on('connection', (socket: any) => {
-        //   if (socket.handshake.headers.origin === 'http://localhost:4200') {
-        //     this.usersCount++;
-        //     socket.broadcast.emit('count', this.usersCount);
-        //     socket.on('disconnect', () => {
-        //       this.usersCount--;
-        //       socket.broadcast.emit('count', this.usersCount);
-        //     });
-        //   }
-        //   socket.on('message', function (data: any) {
-        //     console.log(data);
-        //   });
-        // });
+        this.io = socketIo(this.server, {
+            cors: {
+                origins: ['http://localhost:4200', 'http://localhost:3000'],
+                methods: ['GET', 'POST'],
+                credentials: false,
+            },
+        });
+        this.io.on('connection', (socket) => {
+            if (socket.handshake.headers.origin === 'http://localhost:4200') {
+                this.usersCount++;
+                socket.broadcast.emit('count', this.usersCount);
+                socket.on('disconnect', () => {
+                    this.usersCount--;
+                    socket.broadcast.emit('count', this.usersCount);
+                });
+            }
+            socket.on('message', function (data) {
+                console.log(data);
+            });
+        });
     }
 }
 validateEnv_1.default();
