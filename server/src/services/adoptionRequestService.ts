@@ -52,7 +52,7 @@ export default class AdoptionRequestService {
     const body = req as Pick<IAdoptionRequest, 'fullName' | 'email' | 'phoneNumber' | 'address' | 'message'>;
 
     const adoptionRequest: IAdoptionRequest | null = await AdoptionRequest.findByIdAndUpdate({ _id: adoptionRequestId }, body, { new: true });
-    console.log(adoptionRequest);
+   // console.log(adoptionRequest);
 
     return {
       message: 'Adoption request updated',

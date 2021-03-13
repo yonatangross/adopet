@@ -111,7 +111,7 @@ export default class PetService {
   }
 
   public async create(req: any) {
-    console.log(req);
+    //console.log(req);
     
     const body = req as Pick<IPet, 'name' | 'gender' | 'breed' | 'animalType' | 'age' | 'isAdopted' | 'primaryPicture'>;
 
@@ -131,9 +131,9 @@ export default class PetService {
 
   public async update(petId: string, req: any) {
     const body = req as Pick<IPet, 'name' | 'gender' | 'breed' | 'animalType' | 'age' | 'isAdopted' | 'primaryPicture'>;
-    console.log('update func');
+   // console.log('update func');
     
-    console.log(body);
+    //console.log(body);
     
 
     const updatedPet: IPet | null = await Pet.findByIdAndUpdate({ _id: petId }, body, { new: true });

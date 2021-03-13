@@ -24,13 +24,13 @@ export class DropdownsComponent implements OnDestroy {
   }
 
   onHidden(): void {
-    console.log('Dropdown is hidden');
+   // console.log('Dropdown is hidden');
   }
   onShown(): void {
-    console.log('Dropdown is shown');
+   // console.log('Dropdown is shown');
   }
   isOpenChange(): void {
-    console.log('Dropdown state is changed');
+   // console.log('Dropdown state is changed');
   }
 
   toggleDropdown($event: MouseEvent): void {

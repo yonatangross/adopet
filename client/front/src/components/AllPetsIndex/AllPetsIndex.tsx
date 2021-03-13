@@ -37,7 +37,7 @@ export const AllPetsIndex: React.FC<Props> = () => {
 
     getPets(searchInput, activeSorter, activeFilters)
       .then(({ data: { pets, breeds } }: any) => {
-        console.log(`number of Pets: ${Object.keys(pets).length} number of breeds:${Object.keys(breeds).length}`);
+        //console.log(`number of Pets: ${Object.keys(pets).length} number of breeds:${Object.keys(breeds).length}`);
         setPets(pets);
         setAnimalBreeds(breeds);
         //todo: fix initial render of pet breeds.

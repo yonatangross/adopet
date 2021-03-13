@@ -7,7 +7,7 @@ export interface ISortersProps<T> {
 
 const sortChangeName = (propertySort: string): string => {
   let nameSort: string = '';
-  console.log(propertySort);
+  //console.log(propertySort);
   if (propertySort === 'isAdopted') {
     return 'Adopted';
   } 
@@ -30,6 +30,7 @@ export default function Sorters<T>(props: ISortersProps<T>) {
         className="custom-select"
         onChange={(event) => onChangeSorter(event.target.value.split(',')[0] as any, event.target.value.split(',')[1] === 'true')}
         defaultValue={['name', 'true']}
+      
       >
         {Object.keys(object).map((key) => {
           if (!key || key === '_id' || key === '__v') {

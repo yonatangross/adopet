@@ -22,12 +22,12 @@ const PetGrid: React.FC<PetGridProps> = ({ pets, count, numOfCols }) => {
     <div className="pet_grid" style={{ gridTemplateColumns: GenerateNumberOfColsStyle(numOfCols) }}>
       {pets.slice(0, count).map((pet: IPet) => {
 
-        return <>
+        return <div key={pet._id}>
             { pet.isAdopted ? <PetCard key={pet._id} pet={pet} /> 
             : <Link key={pet._id} to={ pet.isAdopted ? '' : `/pets/${pet._id}`}>
               <PetCard key={pet._id} pet={pet} />
              </Link>}
-        </>
+        </div>
 
       })}
     </div>

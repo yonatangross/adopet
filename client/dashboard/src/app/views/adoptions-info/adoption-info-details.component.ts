@@ -35,14 +35,14 @@ export class AdoptionInfoDetailsComponent implements OnInit {
     this.adoptionInfoService.get(id).subscribe((response) => {
       this.form = this.adoptionInfo = response.adoptionInfo;
       this.form.adoptionDate = this.adoptionInfo.adoptionDate;
-      console.log(this.adoptionInfo.adoptionDate);
-      console.log(this.adoptionInfo);
+      // console.log(this.adoptionInfo.adoptionDate);
+      // console.log(this.adoptionInfo);
     });
   }
 
   goBack(): void {
     this.location.back();
-  }
+  }   
 
   save(): void {
     this.adoptionInfoService
@@ -60,7 +60,7 @@ export class AdoptionInfoDetailsComponent implements OnInit {
       adoptionRequest,
       adoptionDate,
     };
-    console.log(adoptionInfo);
+    //console.log(adoptionInfo);
 
     this.adoptionInfoService.update(_id, adoptionInfo).subscribe(
       (data) => {

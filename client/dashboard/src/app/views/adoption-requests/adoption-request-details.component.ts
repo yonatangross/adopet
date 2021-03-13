@@ -51,7 +51,7 @@ export class AdoptionRequestDetailsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(`onSubmit:`);
+    // console.log(`onSubmit:`);
 
     const {
       _id,

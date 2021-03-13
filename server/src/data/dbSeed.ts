@@ -21,7 +21,7 @@ export default class dataSeeder {
   private DOG_BREEDS: string[] = [];
   private CAT_BREEDS: ICatBreed[] = [];
   constructor() {
-    console.log('entered dbSeed');
+    //console.log('entered dbSeed');
     this.initialize();
   }
 
@@ -40,7 +40,6 @@ export default class dataSeeder {
       await this.SeedAdoptionsInfoAsync();
     }
 
-    console.log('ended dbSeed init.');
   }
 
   private async getPetBreeds() {
@@ -72,7 +71,7 @@ export default class dataSeeder {
   }
 
   private async SeedPetsAsync() {
-    console.log('entered seedPetsAsync function');
+    //console.log('entered seedPetsAsync function');
 
     for (let petIndex = 0; petIndex < this.SEED_INIT_NUMBER; petIndex++) {
       const randomPetTypeValue = this.getRandomInt(2);
@@ -91,7 +90,7 @@ export default class dataSeeder {
         console.log(`error saving pet to db ${animalType}[${petIndex + 1}],${err}`);
       }
     }
-    console.log('finished creating pets.');
+    //console.log('finished creating pets.');
   }
   private async createPet(animalType: string): Promise<IPet> {
     let pet: IPet;
@@ -160,7 +159,7 @@ export default class dataSeeder {
         }
       }
     }
-    console.log('finished creating adoption requests.');
+    //console.log('finished creating adoption requests.');
   }
 
   private async createAdoptionRequest(pet: IPet): Promise<IAdoptionRequest> {
@@ -240,8 +239,9 @@ export default class dataSeeder {
   private getRandomPetAge(max: number): number {
     let precision: number = 10;
     let randomAge: number;
-    randomAge = Math.floor(Math.random() * (max * precision) + 1 * precision) / (1 * precision);
-
+    let checkRandom:number;
+    checkRandom=((Math.random() * (max * precision) + 1 * precision)/(1* precision));
+    randomAge = (checkRandom-1>=1) ?  Math.floor(checkRandom) : Math.round((checkRandom-1)*10)/10;
     return randomAge;
   }
 

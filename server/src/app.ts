@@ -15,6 +15,8 @@ import AdoptionRequestController from './controllers/adoptionRequests';
 import AdoptionInfoController from './controllers/adoptionsInfo';
 const http = require('http');
 const socketIo = require('socket.io');
+
+
 require('dotenv').config();
 class App {
   public app: express.Application;
@@ -55,12 +57,22 @@ class App {
         credentials: true,
       })
     );
+<<<<<<< HEAD
     console.log('finished initializeMiddlewares function.');
+=======
+    //console.log('finished initializeMiddlewares function.');
+    
+>>>>>>> 8ebdb5ced4b740b1c399bd91e3a8eef985152873
   }
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
+<<<<<<< HEAD
     console.log('finished initializeErrorHandling function.');
+=======
+    //console.log('finished initializeErrorHandling function.');
+
+>>>>>>> 8ebdb5ced4b740b1c399bd91e3a8eef985152873
   }
 
   private initializeControllers(controllers: IController[]) {
