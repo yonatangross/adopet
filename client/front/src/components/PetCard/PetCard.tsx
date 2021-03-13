@@ -11,12 +11,16 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
     return null;
   }
 
-
+  let wavesValue:boolean=true;
+ if(pet.isAdopted)
+ {
+    wavesValue=false;
+ }
   let petUpdatedTime = moment(pet.updatedAt).format('MMM Do YY HH:mm');
   return (
     <MDBCol className="Col-Card">
       <MDBCard className="Card">  
-        <MDBCardImage className="img-fluid" src={pet.primaryPicture} waves />
+        <MDBCardImage className="img-fluid" src={pet.primaryPicture} waves={wavesValue}/>
         {pet.isAdopted ? <MDBCardText id="adoptedSticker">Adopted!</MDBCardText> : ""}
         <MDBCardBody>
           <MDBCardTitle className="font-weight-bold">{pet.name}</MDBCardTitle>
