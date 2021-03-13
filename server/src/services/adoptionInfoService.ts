@@ -29,7 +29,7 @@ export default class AdoptionInfoService {
     let adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate('pet').populate('adoptionRequest');
 
     let filteredAdoptionsInfo = _.map(adoptionsInfo, function (adoptionInfo: IAdoptionInfo) {
-      if (_.includes(adoptionInfo.pet.name, searchInput) && _.includes(adoptionInfo.adoptionRequest.fullName, searchInput)) {
+      if (_.includes(adoptionInfo.pet?.name, searchInput) && _.includes(adoptionInfo.adoptionRequest?.fullName, searchInput)) {
         return adoptionInfo;
       }
     });
