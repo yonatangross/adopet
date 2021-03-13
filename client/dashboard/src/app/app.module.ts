@@ -47,6 +47,9 @@ import { AppRoutingModule } from "./app.routing";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { ChartsModule } from "ng2-charts";
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
   imports: [
@@ -66,6 +69,7 @@ import { ChartsModule } from "ng2-charts";
     FormsModule,
     IconModule,
     IconSetModule.forRoot(),
+    // SocketIoModule.forRoot(config)
   ],
   declarations: [
     AppComponent,

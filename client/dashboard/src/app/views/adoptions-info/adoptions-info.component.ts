@@ -50,7 +50,6 @@ export class AdoptionsInfoComponent implements OnInit {
       this.page,
       this.pageSize
     );
-    // console.log(params);
 
     this.adoptionInfoService.getAll(params).subscribe(
       (response) => {
@@ -77,7 +76,6 @@ export class AdoptionsInfoComponent implements OnInit {
     this.retrieveAdoptionsInfo();
     this.currentAdoptionInfo = undefined;
     this.currentIndex = -1;
-    window.location.reload();
   }
 
   setActiveAdoptionInfo(AdoptionInfo: AdoptionInfo, index: number): void {
@@ -106,20 +104,7 @@ export class AdoptionsInfoComponent implements OnInit {
   searchTitle(): void {
     this.currentAdoptionInfo = undefined;
     this.currentIndex = -1;
-    const params = this.getRequestParams(
-      this.searchInput,
-      this.page,
-      this.pageSize
-    );
 
-    this.adoptionInfoService.getAll(params).subscribe(
-      (data) => {
-        this.adoptionsInfo = data;
-        // console.log(data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+   this.refreshList();
   }
 }

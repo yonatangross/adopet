@@ -5,6 +5,8 @@ import { IPet } from '../interfaces/IPet';
 import { IAdoptionInfo } from '../interfaces/IAdoptionInfo';
 import ISorter from './Sorter/ISorter';
 import { genericSort } from './Sorter/genericSort';
+import * as _ from 'lodash';
+
 @Service()
 export default class AdoptionInfoService {
   public async getById(id: string) {
@@ -14,7 +16,7 @@ export default class AdoptionInfoService {
 
   public async getAll(query: any) {
     const page = <number>(query.page || 1);
-    const searchInput = <string>(query.searchInput || '');
+    let searchInput = <string>(query.searchInput || '');
     let sorter;
 
     console.log(query);
@@ -26,6 +28,13 @@ export default class AdoptionInfoService {
 
     let adoptionsInfo: IAdoptionInfo[] = await AdoptionInfo.find().populate('pet').populate('adoptionRequest');
 
+    let filteredAdoptionsInfo = _.map(adoptionsInfo, function (adoptionInfo: IAdoptionInfo) {
+      if (_.includes(adoptionInfo.pet.name, searchInput) && _.includes(adoptionInfo.adoptionRequest.fullName, searchInput)) {
+        return adoptionInfo;
+      }
+    });
+    console.log(filteredAdoptionsInfo);
+
     // console.log(adoptionsInfo[0]);
 
     // let searchQuery: any = {};
@@ -36,10 +45,10 @@ export default class AdoptionInfoService {
     // console.log(searchQueryResult);
 
     if (activeSorter != null) {
-      adoptionsInfo = adoptionsInfo.sort((infoA, infoB) => genericSort(infoA, infoB, activeSorter));
+      filteredAdoptionsInfo = filteredAdoptionsInfo.sort((infoA, infoB) => genericSort(infoA, infoB, activeSorter));
     }
 
-    return adoptionsInfo;
+    return filteredAdoptionsInfo;
   }
 
   public async create(req: any, pet: IPet, adoptionRequest: IAdoptionRequest) {
