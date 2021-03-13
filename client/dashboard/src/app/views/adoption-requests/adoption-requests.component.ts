@@ -2,6 +2,7 @@ import { AdoptionInfoService } from "./../../services/adoption-info.service";
 import { AdoptionRequest } from "./../../models";
 import { AdoptionRequestService } from "./../../services/adoption-request.service";
 import { Component, OnInit } from "@angular/core";
+import { PetService } from "@app/services/pet.service";
 @Component({
   selector: "app-adoption-requests",
   templateUrl: "./adoption-requests.component.html",
@@ -19,7 +20,8 @@ export class AdoptionRequestsComponent implements OnInit {
 
   constructor(
     private adoptionRequestService: AdoptionRequestService,
-    private adoptionInfoService: AdoptionInfoService
+    private adoptionInfoService: AdoptionInfoService,
+    private petService: PetService
   ) {}
 
   ngOnInit(): void {
