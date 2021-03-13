@@ -52,13 +52,13 @@ class App {
         credentials: true,
       })
     );
-    console.log('finished initializeMiddlewares function.');
+    //console.log('finished initializeMiddlewares function.');
     
   }
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
-    console.log('finished initializeErrorHandling function.');
+    //console.log('finished initializeErrorHandling function.');
 
   }
 

@@ -17,27 +17,27 @@ const Contact: React.FC = (): ReactElement => {
   const handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
     setName(e.currentTarget.value)
-    console.log(name);
+    //console.log(name);
   }
   const handleEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
     setEmail(e.currentTarget.value)
-    console.log(email);
+    //console.log(email);
   }
   const handleSubjectChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
     setSubject(e.currentTarget.value)
-    console.log(subject);
+    //console.log(subject);
   }
   const handleMessageChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault()
     setMessage(e.currentTarget.value)
-    console.log(message);
+    //console.log(message);
   }
 
   const handleSubmit = ()=> {
     if(name==""||email==""||subject==""||message==""){
-      alert("TFIiiiiiiiiiiiiii");
+      alert("Please fill in any missing fields");
     }
     else{
     setFormSent(true);

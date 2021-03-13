@@ -54,9 +54,9 @@ class PetController implements IController {
   };
 
   private updateById = async (req: Request, res: Response): Promise<void> => {
-    console.log('updateById');
+    //console.log('updateById');
     
-    console.log(req.body);
+    //console.log(req.body);
     
     await this.PetServiceInstance.update(req.params.id, req.body)
       .then((value: { message: string; pet: IPet | null }) => {

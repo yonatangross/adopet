@@ -21,7 +21,7 @@ interface Props extends RouteComponentProps<{ petId: string }>, IPetProps { }
 const Pet: React.FC<Props> = ({ match }) => {
   const [pet, setPet] = useState<IPet>();
 
-  console.log(match.params.petId);
+  //console.log(match.params.petId);
 
   useEffect(() => {
     fetchPet(match.params.petId);

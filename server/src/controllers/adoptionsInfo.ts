@@ -56,8 +56,8 @@ class AdoptionInfoController implements IController {
   };
 
   private create = async (req: Request, res: Response): Promise<void> => {
-    console.log(`in create:`);
-    console.log(req.body);
+    //console.log(`in create:`);
+    //console.log(req.body);
 
     await this.PetServiceInstance.getById(req.body.petId).then(async (pet) => {
       await this.AdoptionRequestServiceInstance.getById(req.body.adoptionRequestId).then(async (adoptionRequest) => {

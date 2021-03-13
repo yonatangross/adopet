@@ -7,7 +7,7 @@ export interface ISortersProps<T> {
 
 const sortChangeName = (propertySort: string): string => {
   let nameSort: string = '';
-  console.log(propertySort);
+  //console.log(propertySort);
   if (propertySort === 'isAdopted') {
     return 'Adopted';
   } 

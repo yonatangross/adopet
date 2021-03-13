@@ -67,7 +67,7 @@ export class CreateComponent implements OnInit {
 
     this.adoptionInfoService.create(adoptionInfo).subscribe(
       (response) => {
-        console.log("created adoption successfull!");
+        //("created adoption successfull!");
         this.refreshList();
       },
       (error) => {

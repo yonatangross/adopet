@@ -51,7 +51,7 @@ class AdoptionRequestController implements IController {
   };
 
   private getAllGroups = async (req: Request, res: Response): Promise<void> => {
-    console.log('entered getAllGroups');
+    //console.log('entered getAllGroups');
     await this.AdoptionRequestServiceInstance.getAllGroups()
       .then(
         (

@@ -58,7 +58,7 @@ export class CreateComponent implements OnInit {
       primaryPicture : "https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg",
     };
     
-    console.log(pet);
+    //console.log(pet);
 
     this.petService.create(pet).subscribe(
       (data) => {

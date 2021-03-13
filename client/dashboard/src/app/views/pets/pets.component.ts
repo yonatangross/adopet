@@ -57,7 +57,7 @@ export class PetsComponent implements OnInit {
         this.pets = response.pets;
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }

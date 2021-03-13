@@ -17,7 +17,7 @@ export default class AdoptionInfoService {
     const searchInput = <string>(query.searchInput || '');
     let sorter;
 
-    console.log(query);
+    //console.log(query);
 
     if (!!query.sorter) {
       sorter = <ISorter<IAdoptionInfo>>JSON.parse(query.sorter);
@@ -65,11 +65,11 @@ export default class AdoptionInfoService {
   }
 
   public async deleteById(adoptionInfoId: string) {
-    console.log('deleteById');
-    console.log(adoptionInfoId);
+    //console.log('deleteById');
+   // console.log(adoptionInfoId);
 
     const deletedAdoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findByIdAndRemove(adoptionInfoId);
-    console.log(deletedAdoptionInfo);
+    //console.log(deletedAdoptionInfo);
 
     return {
       message: `Adoption info of ${adoptionInfoId} deleted`,

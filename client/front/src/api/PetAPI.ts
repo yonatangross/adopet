@@ -32,7 +32,7 @@ export const getPet = async (petId: string): Promise<AxiosResponse<PetApiDataTyp
 
 export const addPet = async (formData: IPet): Promise<AxiosResponse<PetApiDataType>> => {
   try {
-    console.log(formData);
+    //console.log(formData);
 
     const pet: Omit<IPet, '_id'> = {
       name: formData.name,
@@ -42,7 +42,7 @@ export const addPet = async (formData: IPet): Promise<AxiosResponse<PetApiDataTy
       age: formData.age,
       isAdopted: false,
     };
-    console.log(`pet: ${Object.keys(pet)}\n ${Object.values(pet)}`);
+   // console.log(`pet: ${Object.keys(pet)}\n ${Object.values(pet)}`);
 
     const savePet: AxiosResponse<PetApiDataType> = await axios.post(`${baseUrl}/pets/${pet}`, pet);
     return savePet;

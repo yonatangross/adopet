@@ -22,7 +22,7 @@ const mongooseLoader = async (): Promise<void> => {
 };
 
 const initDb = async (): Promise<void> => {
-  console.log('entered initDb');
+  //console.log('entered initDb');
 
   new dbSeed();
 

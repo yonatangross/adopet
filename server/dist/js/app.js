@@ -17,6 +17,7 @@ const authentication_1 = __importDefault(require("./controllers/authentication")
 const pets_1 = __importDefault(require("./controllers/pets"));
 const adoptionRequests_1 = __importDefault(require("./controllers/adoptionRequests"));
 const adoptionsInfo_1 = __importDefault(require("./controllers/adoptionsInfo"));
+const WebSocket = require('ws');
 require('dotenv').config();
 class App {
     constructor(controllers) {
@@ -47,11 +48,11 @@ class App {
             },
             credentials: true,
         }));
-        console.log('finished initializeMiddlewares function.');
+        //console.log('finished initializeMiddlewares function.');
     }
     initializeErrorHandling() {
         this.app.use(error_1.default);
-        console.log('finished initializeErrorHandling function.');
+        //console.log('finished initializeErrorHandling function.');
     }
     initializeControllers(controllers) {
         controllers.forEach((controller) => {

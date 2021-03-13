@@ -41,7 +41,7 @@ export class PetDetailsComponent implements OnInit {
     this.petService.get(id).subscribe((response) => {
       this.form = this.pet = response.pet;
       this.imageUrl = this.pet.primaryPicture;
-      console.log(this.pet);
+      //console.log(this.pet);
     });
   }
 
@@ -78,7 +78,7 @@ export class PetDetailsComponent implements OnInit {
       isAdopted,
       primaryPicture,
     };
-    console.log(pet);
+    //console.log(pet);
 
     this.petService.update(_id, pet).subscribe(
       (data) => {

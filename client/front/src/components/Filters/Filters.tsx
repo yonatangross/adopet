@@ -22,8 +22,8 @@ const filterChangeName = (propertyFilter: string): string => {
 export function Filters<T>(props: IFiltersProps<T>) {
   const { filters, onChangeFilter } = props;
   useEffect(() => {
-    console.log('in use effect on filters generic');
-    console.log(filters[3].values.length);
+    //console.log('in use effect on filters generic');
+    //console.log(filters[3].values.length);
   }, [filters, onChangeFilter]);
 
   return (

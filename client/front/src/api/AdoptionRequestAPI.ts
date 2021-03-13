@@ -7,7 +7,7 @@ const baseUrl: string | undefined = 'http://localhost:4000';
 export const getAdoptionRequests = async (): Promise<AxiosResponse<AdoptionRequestApiDataType>> => {
     try {
         const adoptionRequests: AxiosResponse<AdoptionRequestApiDataType> = await axios.get(`${baseUrl}/adoptionRequests`);
-        console.log(`adoption requests: ${JSON.stringify(adoptionRequests)}`);
+       // console.log(`adoption requests: ${JSON.stringify(adoptionRequests)}`);
 
         return adoptionRequests;
     } catch (error) {
@@ -45,7 +45,7 @@ export const addAdoptionRequest = async (
             address: formData.address,
             message: formData.message,
         };
-        console.log(`adoptionRequest: ${Object.keys(adoptionRequest)}\n ${Object.values(adoptionRequest)}`);
+        //console.log(`adoptionRequest: ${Object.keys(adoptionRequest)}\n ${Object.values(adoptionRequest)}`);
 
         const saveAdoptionRequest: AxiosResponse<AdoptionRequestApiDataType> = await axios.post(
             `${baseUrl}/adoptionRequests`,
