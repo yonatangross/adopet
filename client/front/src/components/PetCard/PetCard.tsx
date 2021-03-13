@@ -21,7 +21,7 @@ const PetCard: React.FC<IPetProps> = ({ pet }) => {
         <MDBCardBody>
           <MDBCardTitle className="font-weight-bold">{pet.name}</MDBCardTitle>
           <MDBCardText className="font-weight-bolder">Gender: {pet.gender}</MDBCardText>
-            <MDBCardText className="font-weight-bolder">Age: {pet.age<1 ? pet.age : Math.floor(pet.age)}</MDBCardText>
+            <MDBCardText className="font-weight-bolder">Age: {pet.age<2 ? pet.age : Math.floor(pet.age)}</MDBCardText>
             <MDBCardText className="font-weight-bolder">Type: {pet.animalType}</MDBCardText>
             <MDBCardText className="font-weight-bolder">Breed: {pet.breed}</MDBCardText>
             <MDBCardText className="font-weight-bolder">Updated in: {petUpdatedTime}</MDBCardText>

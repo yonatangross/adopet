@@ -36,7 +36,7 @@ const Contact: React.FC = (): ReactElement => {
   }
 
   const handleSubmit = ()=> {
-    if(name==""||email==""||subject==""||message==""){
+    if(name===""||email===""||subject===""||message===""){
       alert("Please fill in any missing fields");
     }
     else{
@@ -138,21 +138,21 @@ const Contact: React.FC = (): ReactElement => {
             <MDBCardBody>
               <MDBRow className="text-center">
                 <MDBCol md="4">
-                  <MDBBtn tag="a" floating color="blue" className="accent-1">
+                  <MDBBtn tag="a" color="blue" className="accent-1">
                     <MDBIcon icon="map-marker-alt" />
                   </MDBBtn>
                   <p className="mb-md-0">Israel</p>
                   <p>Elie Wiesel St 2, Rishon LeTsiyon</p>
                 </MDBCol>
                 <MDBCol md="4">
-                  <MDBBtn tag="a" floating color="blue" className="accent-1">
+                  <MDBBtn tag="a"  color="blue" className="accent-1">
                     <MDBIcon icon="phone" />
                   </MDBBtn>
                   <p className="mb-md-0">Mon - Fri, 8:00-22:00</p>
                   <p>054-8147755</p>
                 </MDBCol>
                 <MDBCol md="4">
-                  <MDBBtn tag="a" floating color="blue" className="accent-1">
+                  <MDBBtn tag="a"  color="blue" className="accent-1">
                     <MDBIcon icon="envelope" />
                   </MDBBtn>
                   <p className="mb-md-0">adopetwebsite@gmail.com</p>
