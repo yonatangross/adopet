@@ -2,7 +2,7 @@ import { AdoptionInfoService } from "./../../services/adoption-info.service";
 import { AdoptionRequest } from "./../../models";
 import { AdoptionRequestService } from "./../../services/adoption-request.service";
 import { Component, OnInit } from "@angular/core";
-import { PetService } from "@app/services/pet.service";
+import { PetService } from "./../../services/pet.service";
 @Component({
   selector: "app-adoption-requests",
   templateUrl: "./adoption-requests.component.html",

@@ -11,7 +11,8 @@
               <tr>
                 <th>Pet Id</th>
                 <th>Pet name</th>
-                <th>Full name</th>
+                <th>Pet age</th>
+                <th>Adopter candidate</th>
                 <th>Email</th>
                 <th>Phone number</th>
                 <th>Address</th>
@@ -21,8 +22,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let adoptionRequest of adoptionRequests">
-                <td>{{ adoptionRequest.pet }}</td>
-               
+                <td>{{ adoptionRequest.pet._id }}</td>
+                <td>{{ adoptionRequest.pet.name }}</td>
+                <td>{{ adoptionRequest.pet.age }}</td>
                 <td>{{ adoptionRequest.fullName }}</td>
                 <td>{{ adoptionRequest.email }}</td>
                 <td>{{ adoptionRequest.phoneNumber }}</td>
