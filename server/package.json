@@ -23,6 +23,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^5.11.16",
     "reflect-metadata": "^0.1.13",
+    "socket.io": "^4.0.0",
     "ts-node": "^9.1.1",
     "typedi": "^0.10.0",
     "typescript": "^4.1.3"

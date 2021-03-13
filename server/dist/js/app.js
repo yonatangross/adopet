@@ -17,17 +17,21 @@ const authentication_1 = __importDefault(require("./controllers/authentication")
 const pets_1 = __importDefault(require("./controllers/pets"));
 const adoptionRequests_1 = __importDefault(require("./controllers/adoptionRequests"));
 const adoptionsInfo_1 = __importDefault(require("./controllers/adoptionsInfo"));
-const WebSocket = require('ws');
+const http = require('http');
+const socketIo = require('socket.io');
 require('dotenv').config();
 class App {
     constructor(controllers) {
+        this.usersCount = 0;
         this.PORT = process.env.PORT || 4000;
         this.app = express_1.default();
+        this.server = http.createServer(this.app);
         this.connectToTheDatabase();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
         this.initializeErrorHandling();
         this.initializeDatabase();
+        this.initSocketIO();
     }
     listen() {
         this.app.listen(this.PORT, () => {
@@ -52,7 +56,7 @@ class App {
     }
     initializeErrorHandling() {
         this.app.use(error_1.default);
-        //console.log('finished initializeErrorHandling function.');
+        // console.log('finished initializeErrorHandling function.');
     }
     initializeControllers(controllers) {
         controllers.forEach((controller) => {
@@ -65,6 +69,30 @@ class App {
     initializeDatabase() {
         //todo: check in here instead of getting to func
         mongoose_1.initDb();
+    }
+    initSocketIO() {
+        // set up socket.io and bind it to our
+        // http server.
+        // this.io = socketIo(this.server, {
+        //   cors: {
+        //     origins: ['http://localhost:4200', 'http://localhost:3000'],
+        //     methods: ['GET', 'POST'],
+        //     credentials: false,
+        //   },
+        // });
+        // this.io.on('connection', (socket: any) => {
+        //   if (socket.handshake.headers.origin === 'http://localhost:4200') {
+        //     this.usersCount++;
+        //     socket.broadcast.emit('count', this.usersCount);
+        //     socket.on('disconnect', () => {
+        //       this.usersCount--;
+        //       socket.broadcast.emit('count', this.usersCount);
+        //     });
+        //   }
+        //   socket.on('message', function (data: any) {
+        //     console.log(data);
+        //   });
+        // });
     }
 }
 validateEnv_1.default();
