@@ -13,7 +13,6 @@ import AuthenticationController from './controllers/authentication';
 import PetController from './controllers/pets';
 import AdoptionRequestController from './controllers/adoptionRequests';
 import AdoptionInfoController from './controllers/adoptionsInfo';
-const WebSocket = require('ws');
 
 
 require('dotenv').config();

@@ -239,8 +239,9 @@ export default class dataSeeder {
   private getRandomPetAge(max: number): number {
     let precision: number = 10;
     let randomAge: number;
-    randomAge = Math.floor(Math.random() * (max * precision) + 1 * precision) / (1 * precision);
-
+    let checkRandom:number;
+    checkRandom=((Math.random() * (max * precision) + 1 * precision)/(1* precision));
+    randomAge = (checkRandom-1>=1) ?  Math.floor(checkRandom) : Math.round((checkRandom-1)*10)/10;
     return randomAge;
   }
 
