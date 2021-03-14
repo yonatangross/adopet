@@ -32,20 +32,21 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.isOnline = this.tokenStorageService.isOnline;
 
-
     const params = { title: "", page: 1, pageSize: 3 };
     this.petService.getAll(params).subscribe(
       (response) => {
         this.pets = response.pets;
+
+        this.lineChart1Data = [
+          {
+            data: this.getPetsNumberByAge(this.pets),
+          },
+        ];
+
         this.barChart1Data = [
           {
             data: this.getPetsNumberByAnimalType(this.pets),
             barPercentage: 0.6,
-          },
-        ];
-        this.lineChart1Data = [
-          {
-            data: this.getPetsNumberByAge(this.pets),
           },
         ];
         this.petsLoaded = Promise.resolve(true);
@@ -89,10 +90,10 @@ export class DashboardComponent implements OnInit {
   }
 
   private getPetsNumberByAnimalType = (pets: Pet[]): number[] => {
-    const numberOfAnimalsByType: number[] = [0, 0];
+    const numberOfAnimalsByType: any[] = [0, 0];
     pets.forEach((pet) => {
       if (pet.animalType.toLowerCase() === "dog") numberOfAnimalsByType[0] += 1;
-      else numberOfAnimalsByType[1] += 1;
+      else  numberOfAnimalsByType[1] += 1;
     });
     // console.log(numberOfAnimalsByType);
 
@@ -270,7 +271,7 @@ export class DashboardComponent implements OnInit {
         borderWidth: 1,
       },
       point: {
-        radius: 4,
+        radius: 3,
         hitRadius: 10,
         hoverRadius: 4,
       },

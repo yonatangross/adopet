@@ -27,26 +27,18 @@
                 >Pet gender</label
               >
               <div class="col-md-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="gender"
-                  [(ngModel)]="form.gender"
+                <select
+                  #gender="ngModel"
                   [disabled]="this.pet.isAdopted === true"
                   required
-                  minlength="2"
-                  maxlength="20"
-                  #gender="ngModel"
-                />
-              </div>
-              <div class="alert-danger" *ngIf="gender.errors && f.submitted">
-                <div *ngIf="gender.errors.required">Pet gender is required</div>
-                <div *ngIf="gender.errors.minlength">
-                  Pet gender must be at least 2 characters
-                </div>
-                <div *ngIf="gender.errors.maxlength">
-                  Pet gender must be at most 20 characters
-                </div>
+                  [(ngModel)]="form.gender"
+                  name="gender"
+                  class="form-control"
+                  [value]="this.pet.gender"
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
               </div>
             </div>
             <div class="form-group row">
@@ -88,17 +80,18 @@
                 >Animal type</label
               >
               <div class="col-md-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="animalType"
-                  placeholder="Cat or Dog"
-                  [(ngModel)]="form.animalType"
-                  defaultValue="{{ pet.animalType }}"
-                  required
-                  [disabled]="this.pet.isAdopted === true"
+                <select
                   #animalType="ngModel"
-                />
+                  [disabled]="this.pet.isAdopted === true"
+                  required
+                  [(ngModel)]="form.animalType"
+                  name="animalType"
+                  class="form-control"
+                  [value]="this.pet.animalType"
+                >
+                  <option value="dog">Dog</option>
+                  <option value="cat">Cat</option>
+                </select>
               </div>
               <div
                 class="alert-danger"
@@ -163,6 +156,7 @@
                   placeholder="Enter pet image url"
                   [(ngModel)]="form.primaryPicture"
                   required
+                  [disabled]="this.pet.isAdopted === true"
                   #primaryPicture="ngModel"
                 />
               </div>
@@ -176,10 +170,10 @@
               </div>
             </div>
             <div>
-              <img [src]="form.primaryPicture" style="width: 250px; height: 250px" />
-            </div>
-            <div class="alert alert-warning" *ngIf="f.submitted">
-              Update pet failed!<br />{{ errorMessage }}
+              <img
+                [src]="form.primaryPicture"
+                style="width: 250px; height: 250px"
+              />
             </div>
           </div>
           <div class="card-footer">
@@ -196,13 +190,6 @@
             >
               Pet already adopted!
             </button>
-            <!-- <button
-            type="reset"
-            class="btn btn-sm btn-danger"
-            *ngIf="this.pet.isAdopted === false"
-          >
-            <i class="fa fa-ban"></i> Reset
-          </button> -->
           </div>
         </form>
       </div>

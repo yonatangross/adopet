@@ -48,7 +48,11 @@ export class AdoptionRequestsComponent implements OnInit {
   }
 
   retrieveAdoptionRequests(): void {
-    const params = this.getRequestParams(this.searchInput, this.page, this.pageSize);
+    const params = this.getRequestParams(
+      this.searchInput,
+      this.page,
+      this.pageSize
+    );
 
     this.adoptionRequestService.getAll(params).subscribe(
       (response) => {
@@ -88,22 +92,42 @@ export class AdoptionRequestsComponent implements OnInit {
   delete(adoptionRequest: AdoptionRequest): void {
     if (adoptionRequest.pet.isAdopted) {
       this.adoptionInfoService
-        .get(adoptionRequest.pet._id)
-        .subscribe((response) => {
-          const adoptionInfo = response;
-          if (adoptionInfo.adoptionRequest._id !== adoptionRequest._id) {
-            this.adoptionRequestService.delete(adoptionRequest._id).subscribe();
-            this.refreshList();
+        .getByPetId(adoptionRequest.pet._id)
+        .subscribe((adoptionInfoResponse) => {
+          //adoption is connected to this adoptionRequest
+          const adoptionInfo = adoptionInfoResponse.adoptionInfo;
+          if (!!adoptionInfo) {
+            // console.log(`adoptionInfo:`);
+            // console.log(adoptionInfo);
+            // console.log(`adoptionRequest:`);
+            // console.log(adoptionRequest);
+
+            if (adoptionInfo.adoptionRequest._id !== adoptionRequest._id) {
+              // not the same adopter
+              this.adoptionRequestService
+                .delete(adoptionRequest._id)
+                .subscribe(() => {
+                  this.refreshList();
+                  // console.log(`removed adoptionRequest ${adoptionRequest._id}`);
+                });
+            } else {
+              // same adopt
+              alert(
+                "error while trying to delete this adoption request because its already adopted by this adopter."
+              );
+            }
           } else {
-            console.log(
-              "error while trying to delete adoptionRequest, pet is adopted."
-            );
+            // console.log("adoptionInfoResponse error");
           }
         });
-    }
-    else{
-      this.adoptionRequestService.delete(adoptionRequest._id).subscribe();
-      this.refreshList();
+    } else {
+      //delete adoption request only.
+      this.adoptionRequestService.delete(adoptionRequest._id).subscribe(() => {
+        this.refreshList();
+        // console.log(
+        //   `removed adoptionRequest ${adoptionRequest._id} of pet that is waiting for adoption.`
+        // );
+      });
     }
   }
 
@@ -111,6 +135,6 @@ export class AdoptionRequestsComponent implements OnInit {
     this.currentAdoptionRequest = undefined;
     this.currentIndex = -1;
 
-   this.refreshList();
+    this.refreshList();
   }
 }

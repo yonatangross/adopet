@@ -2,11 +2,11 @@ import axios, { AxiosResponse } from 'axios';
 
 require('dotenv').config();
 
-const baseUrl: string | undefined = 'http://localhost:4000';
+const baseUrl: string | undefined = 'http://localhost:4000/adoption-requests';
 
 export const getAdoptionRequests = async (): Promise<AxiosResponse<AdoptionRequestApiDataType>> => {
   try {
-    const adoptionRequests: AxiosResponse<AdoptionRequestApiDataType> = await axios.get(`${baseUrl}/adoptionRequests`);
+    const adoptionRequests: AxiosResponse<AdoptionRequestApiDataType> = await axios.get(`${baseUrl}`);
     // console.log(`adoption requests: ${JSON.stringify(adoptionRequests)}`);
 
     return adoptionRequests;
@@ -17,7 +17,7 @@ export const getAdoptionRequests = async (): Promise<AxiosResponse<AdoptionReque
 
 export const getAdoptionRequest = async (adoptionRequestId: string): Promise<AxiosResponse<AdoptionRequestApiDataType>> => {
   try {
-    const requestedAdoptionRequest: AxiosResponse<AdoptionRequestApiDataType> = await axios.get(`${baseUrl}/adoptionRequests/${adoptionRequestId}`);
+    const requestedAdoptionRequest: AxiosResponse<AdoptionRequestApiDataType> = await axios.get(`${baseUrl}/${adoptionRequestId}`);
     return requestedAdoptionRequest;
   } catch (error) {
     throw new Error(error);
@@ -38,7 +38,7 @@ export const addAdoptionRequest = async (formData: IAdoptionRequest | any, petId
       message: formData.message,
     };
 
-    const saveAdoptionRequest: AxiosResponse<AdoptionRequestApiDataType> = await axios.post(`${baseUrl}/adoption-requests`, adoptionRequest);
+    const saveAdoptionRequest: AxiosResponse<AdoptionRequestApiDataType> = await axios.post(`${baseUrl}`, adoptionRequest);
     return saveAdoptionRequest;
   } catch (error) {
     throw new Error(`Failed to addAdoptionRequest, ${error}`);

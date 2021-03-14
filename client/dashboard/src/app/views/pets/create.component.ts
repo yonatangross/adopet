@@ -43,14 +43,14 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { name, gender, breed, animalType, age, primaryPicture } = this.form;
+    const { name, gender, breed, age, primaryPicture } = this.form;
     let pet = new Pet();
     pet = {
       _id: pet._id,
       name: name,
       gender: gender,
       breed: breed,
-      animalType: animalType,
+      animalType: this.form.animalType,
       age: age,
       isAdopted: false,
       primaryPicture: primaryPicture,
@@ -68,23 +68,13 @@ export class CreateComponent implements OnInit {
       }
     );
   }
-  selectFile(event: any) {
-    //Angular 11, for stricter type
-    // if (!event.target.files[0] || event.target.files[0].length == 0) {
-    //   this.imageMessage = "You must select an image";
-    //   return;
-    // }
-    // var mimeType = event.target.files[0].type;
-    // if (mimeType.match(/image\/*/) == null) {
-    //   this.imageMessage = "Only images are supported";
-    //   return;
-    // }
-    // var reader = new FileReader();
-    // reader.readAsDataURL(event.target.files[0]);
-    // reader.onload = (_event) => {
-    //   this.imageMessage = "";
-    //   this.imageUrl = reader.result;
-    // };
+  changeAnimalType(e) {
+    this.form.animalType = e.target.value;
+    console.log(this.form.animalType);
+  }
+  changeAnimalGender(e) {
+    this.form.gender = e.target.value;
+    console.log(this.form.gender);
   }
   reloadPage(): void {
     window.location.reload();

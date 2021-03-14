@@ -4,7 +4,7 @@ import ISorter from '../interfaces/ISorter';
 
 require('dotenv').config();
 
-const baseUrl: string | undefined = 'http://localhost:4000';
+const baseUrl: string | undefined = 'http://localhost:4000/pets';
 
 export const getPets = async (
   searchInput: string,
@@ -12,7 +12,7 @@ export const getPets = async (
   activeFilters: IFilter<IPet>[]
 ): Promise<AxiosResponse<PetApiDataType>> => {
   try {
-    const response: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/pets`, {
+    const response: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}`, {
       params: { searchInput: searchInput, sorter: activeSorter, filters: JSON.stringify(activeFilters) },
     });
     return response;
@@ -23,7 +23,7 @@ export const getPets = async (
 
 export const getPet = async (petId: string): Promise<AxiosResponse<PetApiDataType>> => {
   try {
-    const requestedPet: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/pets/${petId}`);
+    const requestedPet: AxiosResponse<PetApiDataType> = await axios.get(`${baseUrl}/${petId}`);
     return requestedPet;
   } catch (error) {
     throw new Error(error);
@@ -44,7 +44,7 @@ export const addPet = async (formData: IPet): Promise<AxiosResponse<PetApiDataTy
     };
    // console.log(`pet: ${Object.keys(pet)}\n ${Object.values(pet)}`);
 
-    const savePet: AxiosResponse<PetApiDataType> = await axios.post(`${baseUrl}/pets/${pet}`, pet);
+    const savePet: AxiosResponse<PetApiDataType> = await axios.post(`${baseUrl}/${pet}`, pet);
     return savePet;
   } catch (error) {
     throw new Error(error);
@@ -53,7 +53,7 @@ export const addPet = async (formData: IPet): Promise<AxiosResponse<PetApiDataTy
 
 export const updatePet = async (pet: IPet): Promise<AxiosResponse<PetApiDataType>> => {
   try {
-    const updatedPet: AxiosResponse<PetApiDataType> = await axios.put(`${baseUrl}/pets/${pet._id}`, pet);
+    const updatedPet: AxiosResponse<PetApiDataType> = await axios.put(`${baseUrl}/${pet._id}`, pet);
     return updatedPet;
   } catch (error) {
     throw new Error(error);
@@ -62,7 +62,7 @@ export const updatePet = async (pet: IPet): Promise<AxiosResponse<PetApiDataType
 
 export const deletePet = async (_id: string): Promise<AxiosResponse<PetApiDataType>> => {
   try {
-    const deletedPet: AxiosResponse<PetApiDataType> = await axios.delete(`${baseUrl}/pets/${_id}`);
+    const deletedPet: AxiosResponse<PetApiDataType> = await axios.delete(`${baseUrl}/${_id}`);
     return deletedPet;
   } catch (error) {
     throw new Error(error);

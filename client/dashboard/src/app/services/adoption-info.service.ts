@@ -24,6 +24,10 @@ export class AdoptionInfoService {
     return this.http.get<AdoptionInfo>(`${this.baseUrl}/${id}`);
   }
 
+  getByPetId(petId: string): Observable<any> {
+    return this.http.get<AdoptionInfo>(`${this.baseUrl}/${petId}`);
+  }
+
   create(data: any): Observable<any> {
     return this.http.post(this.baseUrl, data);
   }

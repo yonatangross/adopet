@@ -14,12 +14,17 @@ export default class AdoptionInfoService {
     return adoptionInfo;
   }
 
+  public async getByPetId(petId: string) {
+    const adoptionInfo: IAdoptionInfo | null = await AdoptionInfo.findOne({ pet: petId }).populate('pet').populate('adoptionRequest');
+    return adoptionInfo;
+  }
+
   public async getAll(query: any) {
     const page = <number>(query.page || 1);
     let searchInput = <string>(query.searchInput || '');
     let sorter;
 
-    console.log(query);
+    // console.log(query);
 
     if (!!query.sorter) {
       sorter = <ISorter<IAdoptionInfo>>JSON.parse(query.sorter);
@@ -33,12 +38,18 @@ export default class AdoptionInfoService {
       let adopterName = adoption.adoptionRequest.fullName;
       petName = petName.toLowerCase();
       adopterName = adopterName.toLowerCase();
-      if (_.includes(petName, searchInput.toLowerCase()) || _.includes(adopterName, searchInput.toLowerCase())) return true;
+      if (
+        _.includes(petName, searchInput.toLowerCase()) ||
+        _.includes(adopterName, searchInput.toLowerCase()) ||
+        adoption.adoptionRequest._id == searchInput ||
+        adoption.pet._id == searchInput
+      )
+        return true;
     });
 
     // console.log(adoptionsInfo);
 
-    console.log(adoptionsInfo[0]);
+    // console.log(adoptionsInfo[0]);
 
     // let searchQuery: any = {};
 

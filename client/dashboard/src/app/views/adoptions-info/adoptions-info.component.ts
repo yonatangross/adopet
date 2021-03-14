@@ -21,7 +21,7 @@ export class AdoptionsInfoComponent implements OnInit {
 
   constructor(
     private adoptionInfoService: AdoptionInfoService,
-    private petService: PetService,
+    private petService: PetService
   ) {}
 
   ngOnInit(): void {
@@ -89,8 +89,14 @@ export class AdoptionsInfoComponent implements OnInit {
       this.petService
         .update(adoptionInfo.pet._id, { isAdopted: false })
         .subscribe(() => {
-          this.adoptionInfoService.delete(adoptionInfo._id).subscribe();
-          this.refreshList();
+          this.adoptionInfoService.delete(adoptionInfo._id).subscribe(
+            () => {
+              this.refreshList();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         }),
         (error) => {
           console.log(error);
@@ -106,6 +112,6 @@ export class AdoptionsInfoComponent implements OnInit {
     this.currentAdoptionInfo = undefined;
     this.currentIndex = -1;
 
-   this.refreshList();
+    this.refreshList();
   }
 }

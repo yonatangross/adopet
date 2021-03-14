@@ -20,6 +20,8 @@ export default class AdoptionRequestService {
     let searchInput = <string>(query.searchInput || '');
     let sorter;
 
+    // console.log(searchInput);
+
     // console.log(query);
 
     if (!!query.sorter) {
@@ -30,11 +32,28 @@ export default class AdoptionRequestService {
     let adoptionRequests: IAdoptionRequest[] = await AdoptionRequest.find().populate('pet');
 
     let filteredAdoptionRequests = adoptionRequests.filter((adoptionRequest) => {
-      let petName = adoptionRequest.pet.name;
-      let adopterName = adoptionRequest.fullName;
-      petName = petName.toLowerCase();
-      adopterName = adopterName.toLowerCase();
-      if (_.includes(petName, searchInput.toLowerCase()) || _.includes(adopterName, searchInput.toLowerCase())) return true;
+      let pet = adoptionRequest?.pet;
+      let petName = pet?.name;
+      let adopterName = adoptionRequest?.fullName;
+      try {
+        if (!!petName && !!adopterName) {
+          // console.log(`inside petname adoptername valid`);
+
+          petName = petName.toLowerCase();
+          adopterName = adopterName.toLowerCase();
+          // console.log(`adoptionRequest id: ${adoptionRequest._id} and petId: ${adoptionRequest.pet._id} and searchInput:${searchInput}`);
+
+          if (
+            _.includes(petName, searchInput.toLowerCase()) ||
+            _.includes(adopterName, searchInput.toLowerCase()) ||
+            adoptionRequest._id == searchInput ||
+            adoptionRequest.pet._id == searchInput
+          )
+            return true;
+        }
+      } catch (error) {
+        throw new Error('error while searching' + error);
+      }
     });
 
     if (activeSorter != null) {

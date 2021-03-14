@@ -29,6 +29,7 @@ class AdoptionInfoController implements IController {
     this.router
       .all(`/*`, authMiddleware)
       .post('', this.create)
+      .get(`/:petId`,this.getByPetId)
       .get(`/`, this.getAll)
       .get(`/:id`, this.getById)
       .put(`/:id`, this.updateById)
@@ -37,6 +38,16 @@ class AdoptionInfoController implements IController {
 
   private getById = async (req: Request, res: Response): Promise<void> => {
     await this.AdoptionInfoServiceInstance.getById(req.params.id)
+      .then((adoptionInfo: IAdoptionInfo | null) => {
+        res.status(200).json({ adoptionInfo });
+      })
+      .catch((err: Error) => {
+        throw err;
+      });
+  };
+
+  private getByPetId = async (req: Request, res: Response): Promise<void> => {
+    await this.AdoptionInfoServiceInstance.getByPetId(req.params.petId)
       .then((adoptionInfo: IAdoptionInfo | null) => {
         res.status(200).json({ adoptionInfo });
       })
