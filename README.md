@@ -80,9 +80,9 @@ The application motivation is to create an web application that serves both the 
 
 ## API Reference
 - [Google Maps API](https://developers.google.com/maps/documentation)
-- [Facebook API](https://developers.facebook.com/)
-
-
+- [RandomUser API](https://randomuser.me)
+- [Dogs CEO API](https://dog.ceo)
+- [The Cat API](https://thecatapi.com/)
 ## Credits
 
 Course Instructor **Menahem Leibovitz**
