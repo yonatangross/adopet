@@ -62,10 +62,26 @@ The application motivation is to create an web application that serves both the 
 2. Enter client/dashboard -> npm install
 3. Enter server -> npm install
 4. Run -> npm run dev
+## Screenshots
+| | |
+|:-------------------------:|:-------------------------:|
+<a href="https://ibb.co/3hXwQ3n"><img style="max-width:200px; width:100%"  src="https://i.ibb.co/9YXJSD7/adopting-Request.png" alt="adopting-Request" ></a>|<a href="https://ibb.co/QDzywDy"> <img style="max-width:200px; width:100%"  src="https://i.ibb.co/jJBnXJn/AllPets.png" alt="AllPets" ></a>|
+|<a href="https://ibb.co/sCLHVsb"><img style="max-width:200px; width:100%"  src="https://i.ibb.co/8bFc7PN/create-Adoption.png" alt="create-Adoption" ></a>|<a href="https://ibb.co/r51DsBw"> <img style="max-width:200px; width:100%"  src="https://i.ibb.co/9yCQtxr/dashboard-Main.png" alt="dashboard-Main" ></a>|
+|<a href="https://ibb.co/h7DBHT3"><img style="max-width:200px; width:100%" src="https://i.ibb.co/smyKQX8/petsserach.png" alt="petsserach" ></a>|<a href="https://ibb.co/GFJv2Lj"> <img style="max-width:200px; width:100%"   src="https://i.ibb.co/x3sSj0Q/searchadoption-Requests.png" alt="searchadoption-Requests" ></a>|
+
+## Installation
+0. Make sure you have secrets.json on your computer in %APPDATA%
+1. Remove migrations folder
+2. Drop-Database
+3. write following commands on PMC:
+3.1 Add-Migration InitialCreate
+3.2 Update-Database
+4. run program.
 
 ## API Reference
-
 - [Google Maps API](https://developers.google.com/maps/documentation)
+- [Facebook API](https://developers.facebook.com/)
+
 
 ## Credits
 

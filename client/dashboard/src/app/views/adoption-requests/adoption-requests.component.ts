@@ -108,6 +108,7 @@ export class AdoptionRequestsComponent implements OnInit {
                 .delete(adoptionRequest._id)
                 .subscribe(() => {
                   this.refreshList();
+                  
                   // console.log(`removed adoptionRequest ${adoptionRequest._id}`);
                 });
             } else {
